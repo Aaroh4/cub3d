@@ -1,20 +1,39 @@
 #include "../includes/cub3d.h"
 
-int read_map(int fd)
+void	save_map(t_map *map)
 {
-    char *line;
-    line = get_next_line(fd);
-    while (line)
-    {
-		line = get_next_line(fd);
-    }
+	map->mapsave = malloc((map->linecount + 1) * sizeof(char *));
+    *map->mapsave = get_next_line(map->fd);
+	while (*map->mapsave != NULL)
+	{
+		map->mapsave++;
+		*map->mapsave = get_next_line(map->fd);
+	}
+}
+
+void read_map(t_map *map)
+{
+	char	*line;
+	int		count;
+
+    line = get_next_line(map->fd);
+	while (line != NULL)
+	{
+		free(line);
+		line = get_next_line(map->fd);
+		count++;
+	}
+	map->linecount = count;
+	save_map(map);
 }
 
 int main(int argc, char **argv)
 {
-    int fd;
+	int	fd;
+	t_map map;
 
-    fd = open(argv[1]);
-    if (read_map(fd))
-        // error check here
+	ft_memset(&map, 0, sizeof(map));
+	map.fd = open(argv[1], O_RDONLY);
+	read_map(&map);
+	return (0);
 }
