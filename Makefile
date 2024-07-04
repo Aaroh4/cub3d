@@ -5,7 +5,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror 
 HEAD = includes/so_long.h
 LIBMLX = ./MLX42
-SRCS = srcs/main.c
+SRCS = srcs/main.c srcs/textures.c
 		
 OBJS = $(SRCS:.c=.o)
 
