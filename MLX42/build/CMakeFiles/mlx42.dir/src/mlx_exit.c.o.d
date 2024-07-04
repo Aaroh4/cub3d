@@ -1,7 +1,8 @@
 CMakeFiles/mlx42.dir/src/mlx_exit.c.o: \
- /home/aaro/Desktop/cub3d/MLX42/src/mlx_exit.c /usr/include/stdc-predef.h \
- /home/aaro/Desktop/cub3d/MLX42/include/MLX42/MLX42_Int.h \
- /home/aaro/Desktop/cub3d/MLX42/include/MLX42/MLX42.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/src/mlx_exit.c \
+ /usr/include/stdc-predef.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/MLX42/MLX42_Int.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/MLX42/MLX42.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -19,11 +20,11 @@ CMakeFiles/mlx42.dir/src/mlx_exit.c.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
- /home/aaro/Desktop/cub3d/MLX42/include/lodepng/lodepng.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/lodepng/lodepng.h \
  /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
- /home/aaro/Desktop/cub3d/MLX42/include/glad/glad.h \
- /home/aaro/Desktop/cub3d/MLX42/include/KHR/khrplatform.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/glad/glad.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/KHR/khrplatform.h \
  /usr/include/GLFW/glfw3.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \

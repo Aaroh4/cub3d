@@ -11,8 +11,10 @@ typedef struct s_map
 {
 	int	fd;
 	int	linecount;
+	int	plocation[2];
 
 	char	**mapsave;
+	char	**mapcopy;
 	mlx_t	*mlx;
 }	t_map;
 

@@ -1,7 +1,7 @@
-/home/aaro/Desktop/cub3d/MLX42/build/CMakeFiles/mlx42.dir
-/home/aaro/Desktop/cub3d/MLX42/build/CMakeFiles/edit_cache.dir
-/home/aaro/Desktop/cub3d/MLX42/build/CMakeFiles/rebuild_cache.dir
-/home/aaro/Desktop/cub3d/MLX42/build/CMakeFiles/list_install_components.dir
-/home/aaro/Desktop/cub3d/MLX42/build/CMakeFiles/install.dir
-/home/aaro/Desktop/cub3d/MLX42/build/CMakeFiles/install/local.dir
-/home/aaro/Desktop/cub3d/MLX42/build/CMakeFiles/install/strip.dir
+/home/ahamalai/Desktop/cub3d/MLX42/build/CMakeFiles/mlx42.dir
+/home/ahamalai/Desktop/cub3d/MLX42/build/CMakeFiles/edit_cache.dir
+/home/ahamalai/Desktop/cub3d/MLX42/build/CMakeFiles/rebuild_cache.dir
+/home/ahamalai/Desktop/cub3d/MLX42/build/CMakeFiles/list_install_components.dir
+/home/ahamalai/Desktop/cub3d/MLX42/build/CMakeFiles/install.dir
+/home/ahamalai/Desktop/cub3d/MLX42/build/CMakeFiles/install/local.dir
+/home/ahamalai/Desktop/cub3d/MLX42/build/CMakeFiles/install/strip.dir

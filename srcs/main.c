@@ -2,6 +2,66 @@
 
 #include <stdio.h>
 
+void	loop_trough(t_map *map, char *str, int count)
+{
+	static int	player;
+	int			i;
+
+	i = 0;
+	while(str[i] != '\0')
+	{
+		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
+		{
+			player++;
+			map->plocation[0] = i;
+			map->plocation[1] = count;
+		}
+		i++;
+	}
+	if (player != 1 && i - 1 == map->linecount)
+	{
+		printf("Wrong amount of player\n");
+		exit (1);
+	}
+}
+
+int check_num(char c)
+{
+	char *str;
+	str = "012";
+
+	while (*str)
+	{
+		if (c == *str)
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
+int	wallfloodfill(t_map *map, int posy, int posx)
+{
+	int i;
+
+	i = 0;
+	map->mapcopy[posy][posx] = '2';
+	if (map->mapcopy[posy - 1] == NULL
+		|| check_num(map->mapcopy[posy - 1][posx]) == 0 
+		|| check_num(map->mapcopy[posy + 1][posx]) == 0
+		|| check_num(map->mapcopy[posy][posx + 1]) == 0
+		|| check_num(map->mapcopy[posy][posx - 1]) == 0)
+		return (1);
+	if (map->mapcopy[posy + 1][posx] == '0' && i == 0)
+		i = wallfloodfill(map, posy + 1, posx);
+	if (map->mapcopy[posy][posx + 1] == '0' && i == 0)
+		i = wallfloodfill(map, posy, posx + 1);
+	if (map->mapcopy[posy - 1][posx] == '0' && i == 0)
+		i = wallfloodfill(map, posy - 1, posx);
+	if (map->mapcopy[posy][posx - 1] == '0' && i == 0)
+		i = wallfloodfill(map, posy, posx - 1);
+	return (i);
+}
+
 void	save_map(t_map *map, char *map_name)
 {
 	char	**arr;
@@ -13,8 +73,23 @@ void	save_map(t_map *map, char *map_name)
 	arr = malloc((map->linecount + 1) * sizeof(char *));
 	while (count != map->linecount)
 	{
-		arr[count] = get_next_line(map->fd);
-		printf(arr[count]);
+		arr[count] = get_next_line(fd);
+		if (count > 7)
+			loop_trough(map, arr[count], count);
+		count++;
+	}
+	arr[count] = 0;
+	map->mapcopy = arr;
+	map->mapsave = arr;
+	if (wallfloodfill(map, map->plocation[1], map->plocation[0]) == 1)
+	{
+		printf("Walls not closed!\n");
+		//exit(1);
+	}
+	count = 0;
+	while(map->mapcopy[count])
+	{
+		printf("%s", map->mapcopy[count]);
 		count++;
 	}
 	close(fd);
@@ -42,7 +117,8 @@ void read_map(t_map *map, char *map_name)
 
 int main(int argc, char **argv)
 {
-	int	fd;
+	if (!argc)
+		printf("Hello\n");
 	char	*map_name;
 	t_map map;
 

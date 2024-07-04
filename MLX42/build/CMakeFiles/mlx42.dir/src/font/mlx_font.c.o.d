@@ -1,7 +1,7 @@
 CMakeFiles/mlx42.dir/src/font/mlx_font.c.o: \
- /home/aaro/Desktop/cub3d/MLX42/src/font/mlx_font.c \
+ /home/ahamalai/Desktop/cub3d/MLX42/src/font/mlx_font.c \
  /usr/include/stdc-predef.h \
- /home/aaro/Desktop/cub3d/MLX42/src/font/font.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/src/font/font.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -17,15 +17,15 @@ CMakeFiles/mlx42.dir/src/font/mlx_font.c.o: \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
- /home/aaro/Desktop/cub3d/MLX42/include/MLX42/MLX42_Int.h \
- /home/aaro/Desktop/cub3d/MLX42/include/MLX42/MLX42.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/MLX42/MLX42_Int.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/MLX42/MLX42.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h \
- /home/aaro/Desktop/cub3d/MLX42/include/lodepng/lodepng.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/lodepng/lodepng.h \
  /usr/include/string.h \
  /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
- /home/aaro/Desktop/cub3d/MLX42/include/glad/glad.h \
- /home/aaro/Desktop/cub3d/MLX42/include/KHR/khrplatform.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/glad/glad.h \
+ /home/ahamalai/Desktop/cub3d/MLX42/include/KHR/khrplatform.h \
  /usr/include/GLFW/glfw3.h /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
