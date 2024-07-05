@@ -3,6 +3,7 @@
 
 #define WALL "textures/wall.png"
 #define GROUND "textures/ground.png"
+#define PI 3.1415926535
 
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -16,14 +17,22 @@ typedef struct s_map
 	int	linecount;
 	int	plocation[2];
 
+	int	py;
+	int	px;
+
+	double diry;
+	double dirx;
+
 	char	**mapsave;
 	char	**mapcopy;
 	mlx_t	*mlx;
 
+	mlx_image_t		*background;
 	mlx_image_t		*wall;
 	mlx_image_t		*floor;
 	mlx_image_t		*player;
 
+	mlx_texture_t	*background_txt;
 	mlx_texture_t	*wall_txt;
 	mlx_texture_t	*floor_txt;
 	mlx_texture_t	*player_txt;

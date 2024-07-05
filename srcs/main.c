@@ -115,19 +115,56 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	t_map	*map;
 
 	map = param;
+	int y;
+	int x;
+	y = 0;
+	x = 0;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		mlx_close_window(map->mlx);
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		map->player->instances[0].x -= 20;
-	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		map->player->instances[0].x += 20;
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		map->player->instances[0].y -= 20;
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		map->player->instances[0].y += 20;
-	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
 	{
-		mlx_put_pixel(map->player, 50, 50, 0xFFFFFF);
-		write(2, "hello\n", 6);
+		map->player->instances[0].x -= 20;
+		map->px -= 20;
 	}
+	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
+	{
+		map->player->instances[0].x += 20;
+		map->px += 20;
+	}
+	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
+	{
+		map->player->instances[0].y -= 20;
+		map->py -= 20;
+	}
+	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
+	{
+		map->player->instances[0].y += 20;
+		map->py += 20;
+	}
+	if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
+	{
+		ft_printf("x:%dy:%d", map->py, map->px);
+		x = map->px;
+		y = map->py;
+		while (y < 1000 && x < 2000 && y > -1 && x > -1)
+		{
+			mlx_put_pixel(map->background, x, y, 828282);
+			y--;
+			//x++;
+		}
+	}
+	//if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
+	//{
+	//	ft_printf("x:%dy:%d", map->py, map->px);
+	//	x = map->px;
+	//	y = map->py;
+	//	while (y < 1000 && x < 2000 && y > -1 && x > -1)
+	//	{
+	//		mlx_put_pixel(map->background, x, y, 828282);
+	//		y--;
+	//		//x++;
+	//	}
+	//}
 	//if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
 	//		map->player->instances[0].x += 20;
 	//if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
@@ -141,7 +178,12 @@ void	start_window(t_map *map)
 	map->mlx = mlx_init(2000, 1000, "Game", false);
 	ft_init_textu(map);
 	ft_init_img(map->mlx, map);
+	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	mlx_image_to_window(map->mlx, map->player, 1000, 500);
+	map->px = 1000 + 10;
+	map->py = 500;
+	map->dirx = -1;
+	map->diry = 0;
 	mlx_key_hook(map->mlx, ft_key_hook, map);
 	mlx_loop(map->mlx);
 	mlx_terminate(map->mlx);
