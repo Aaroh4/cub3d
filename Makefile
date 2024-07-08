@@ -14,7 +14,7 @@ all : $(NAME)
 $(NAME): $(OBJS)
 		@$(MAKE) -C $(LIBFTDIR)
 		@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
-		@$(CC) $(CFLAGS) $(OBJS) $(LIBMLX)/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" ./libft/libft.a -o $(NAME) 
+		@$(CC) $(CFLAGS) $(OBJS) $(LIBMLX)/build/libmlx42.a -lm -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" ./libft/libft.a -o $(NAME) 
 
 clean:
 		@rm -f $(OBJS)
