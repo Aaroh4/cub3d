@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:06:43 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/02/06 12:47:36 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:21:53 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ret);
 }
 
-int	ft_strlen(const char *str)
+int	ft_strrlen(const char *str)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:36:37 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/07/05 11:24:15 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:26:34 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	ft_init_textu(t_map *map)
 	map->background_txt = mlx_load_png("textures/background.png");
 	//if (map->background_txt == NULL)
 	//	ft_error_mlx(map);
-	map->player_txt = mlx_load_png("textures/wall.png");
+	map->player_txt = mlx_load_png("textures/ground.png");
+	//if (map->player_txt == NULL)
+	//	ft_error_mlx(map);
+	map->wall_txt = mlx_load_png("textures/wall.png");
 	//if (map->player_txt == NULL)
 	//	ft_error_mlx(map);
 }
@@ -32,4 +35,36 @@ void	ft_init_img(mlx_t *mlx, t_map *map)
 	//if (map->player == NULL)
 	//	ft_error_mlx(map);
 	mlx_delete_texture(map->player_txt);
+	map->wall = mlx_texture_to_image(mlx, map->wall_txt);
+	//if (map->background == NULL)
+	//	ft_error_mlx(map);
+	mlx_delete_texture(map->wall_txt);
+}
+
+#include <stdio.h>
+
+void	ft_create_wall(t_map *img)
+{
+	int	i;
+	int	j;
+
+	i = 8;
+	while (i < img->linecount)
+	{
+		j = 0;
+		printf("%s", img->mapsave[i]);
+		while (j <= img->lenght && img->mapsave[i][j] != '\0')
+		{
+			if (img->mapsave[i][j] == 'N')
+			{
+				mlx_image_to_window(img->mlx, img->player, 20 * j, 20 * (i - 8));
+				img->px = 20 * j;
+				img->py = 20 * (i - 8);
+			}
+			if (img->mapsave[i][j] == '1')
+				mlx_image_to_window(img->mlx, img->wall, 20 * j, 20 * (i - 8));
+			j++;
+		}
+		i++;
+	}
 }

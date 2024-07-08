@@ -2,10 +2,10 @@ NAME = cub3d
 LIBFTDIR = ./libft
 MAKE = make
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 HEAD = includes/so_long.h
 LIBMLX = ./MLX42
-SRCS = srcs/main.c srcs/textures.c
+SRCS = srcs/textures.c srcs/mapchecker.c srcs/main.c
 		
 OBJS = $(SRCS:.c=.o)
 

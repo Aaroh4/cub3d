@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:22:20 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/02/15 17:11:36 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/07/08 14:22:02 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		ft_str_chr(char *str);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *src);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_strlen(const char *str);
+int		ft_strrlen(const char *str);
 char	*ft_read(int fd, char *str, char *buf);
 char	*ft_sub(char *str);
 void	freestr(char **str);

@@ -10,18 +10,26 @@
 
 # include <unistd.h>
 # include <fcntl.h>
+# include <math.h>
+
 
 typedef struct s_map
 {
 	int	fd;
 	int	linecount;
-	int	plocation[2];
+	int	lenght;
+	int	plocation[2]; // 0 for x // 1 for y
 
 	int	py;
 	int	px;
 
 	double diry;
 	double dirx;
+
+	double x_rot;
+
+	double	cam_planex;
+	double	cam_planey;
 
 	char	**mapsave;
 	char	**mapcopy;
@@ -42,5 +50,14 @@ typedef struct s_map
 
 void	ft_init_textu(t_map *map);
 void	ft_init_img(mlx_t *mlx, t_map *map);
+void	ft_create_wall(t_map *img);
+
+
+void	 read_map(t_map *map, char *map_name);
+void	save_map(t_map *map, char *map_name);
+int		wallfloodfill(t_map *map, int posy, int posx);
+int		check_num(char c);
+void	loop_trough(t_map *map, char *str, int count);
+
 
 #endif
