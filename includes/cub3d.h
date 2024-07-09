@@ -23,6 +23,8 @@ typedef struct s_map
 	int	py;
 	int	px;
 
+	double pa;
+
 	double diry;
 	double dirx;
 

@@ -4,24 +4,18 @@
 
 int	ft_check_move(t_map *img, int move)
 {
-	if (move == 1 && img->mapsave[img->plocation[1]][img->plocation[0] - 1] != '1')
-	{
-		//img->plocation[0] -= 1;
-		img->px -= 1;
-	}
-	else if (move == 2 && img->mapsave[img->plocation[1]][img->plocation[0] + 1] != '1')
-	{
-		//img->plocation[0] += 1;
-		img->px += 1;
-	}
-	else if (move == 3 && img->mapsave[img->plocation[1] - 1][img->plocation[0]] != '1')
+	if (move == 3 && img->mapsave[img->plocation[1] - 1][img->plocation[0]] != '1')
 	{
 		//img->plocation[1] -= 1;
+		//img->player->instances[0].y += img->diry;
+		//img->player->instances[0].x += img->dirx;
 		img->py -= 1;
 	}
 	else if (move == 4 && img->mapsave[img->plocation[1] + 1][img->plocation[0]] != '1')
 	{
 		//img->plocation[1] += 1;
+		//img->player->instances[0].y -= img->diry;
+		//img->player->instances[0].x -= img->dirx;
 		img->py += 1;
 	}
 	else
@@ -45,36 +39,55 @@ void ft_loop_hook(void *param)
 	t_map	*map;
 
 	map = param;
-	double pa = 0.0;
-	if (mlx_is_key_down(map->mlx, MLX_KEY_A))
-		if (ft_check_move(map, 1) == 1)
-			map->player->instances[0].x -= 1;
-	if (mlx_is_key_down(map->mlx, MLX_KEY_D))
-		if (ft_check_move(map, 2) == 1)
-			map->player->instances[0].x += 1;
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 		if (ft_check_move(map, 3) == 1)
-			map->player->instances[0].y -= 1;
+		{
+			map->player->instances[0].y += map->diry;
+			map->player->instances[0].x += map->dirx;
+			//map->player->instances[0].y -= 1;
+		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 		if (ft_check_move(map, 4) == 1)
-			map->player->instances[0].y += 1;
+		{
+			map->player->instances[0].y -= map->diry;
+			map->player->instances[0].x -= map->dirx;
+			//map->player->instances[0].y += 1;
+		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
-		pa -= 0.1;
-		if (pa < 0)
+		map->pa -= 0.1;
+		if (map->pa < 0)
 		{
-			pa += 2 * PI;
-			map->dirx = cos(pa) * 5;
-			map->diry = sin(pa) * 5;
+			map->pa += 2 * PI;
 		}
-		int i = 0;
-		while (i < 200)
+		map->dirx = cos(map->pa) * 5;
+		map->diry = sin(map->pa) * 5;
+		//int i = 0;
+		//while (i < 200)
+		//{
+		//	mlx_put_pixel(map->background, map->dirx, map->diry, 535353);
+		//	i++;
+		//	map->dirx++;
+		//	map->diry++;
+		//}
+	}
+	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
+	{
+		map->pa += 0.1;
+		if (map->pa > 2 * PI)
 		{
-			mlx_put_pixel(map->background, map->dirx, map->diry, 535353);
-			i++;
-			map->dirx++;
-			map->diry++;
+			map->pa -= 2 * PI;
 		}
+		map->dirx = cos(map->pa) * 5;
+		map->diry = sin(map->pa) * 5;
+		//int i = 0;
+		//while (i < 200)
+		//{
+		//	mlx_put_pixel(map->background, map->dirx, map->diry, 535353);
+		//	i++;
+		//	map->dirx++;
+		//	map->diry++;
+		//}
 	}
 }
 
@@ -87,6 +100,7 @@ void	start_window(t_map *map)
 	ft_create_wall(map);
 	map->dirx = 0;
 	map->diry = 0;
+	map->pa = 0.0;
 	mlx_key_hook(map->mlx, ft_key_hook, map);
 	mlx_loop_hook(map->mlx, ft_loop_hook, map);
 	mlx_loop(map->mlx);
