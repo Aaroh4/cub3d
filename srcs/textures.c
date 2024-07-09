@@ -17,7 +17,7 @@ void	ft_init_textu(t_map *map)
 	map->background_txt = mlx_load_png("textures/background.png");
 	//if (map->background_txt == NULL)
 	//	ft_error_mlx(map);
-	map->player_txt = mlx_load_png("textures/ground.png");
+	map->player_txt = mlx_load_png("textures/player.png");
 	//if (map->player_txt == NULL)
 	//	ft_error_mlx(map);
 	map->wall_txt = mlx_load_png("textures/wall.png");

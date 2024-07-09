@@ -60,8 +60,8 @@ void ft_loop_hook(void *param)
 		{
 			map->pa += 2 * PI;
 		}
-		map->dirx = cos(map->pa) * 5;
-		map->diry = sin(map->pa) * 5;
+		map->dirx = cos(map->pa) * 3;
+		map->diry = sin(map->pa) * 3;
 		//int i = 0;
 		//while (i < 200)
 		//{
@@ -78,8 +78,8 @@ void ft_loop_hook(void *param)
 		{
 			map->pa -= 2 * PI;
 		}
-		map->dirx = cos(map->pa) * 5;
-		map->diry = sin(map->pa) * 5;
+		map->dirx = cos(map->pa) * 3;
+		map->diry = sin(map->pa) * 3;
 		//int i = 0;
 		//while (i < 200)
 		//{
@@ -99,8 +99,8 @@ void	start_window(t_map *map)
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	ft_create_wall(map);
 	map->dirx = 0;
-	map->diry = 0;
-	map->pa = 0.0;
+	map->diry = -2;
+	map->pa = 5.0;
 	mlx_key_hook(map->mlx, ft_key_hook, map);
 	mlx_loop_hook(map->mlx, ft_loop_hook, map);
 	mlx_loop(map->mlx);
