@@ -42,15 +42,15 @@ void ft_loop_hook(void *param)
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 		if (ft_check_move(map, 3) == 1)
 		{
-			map->player->instances[0].y += map->diry;
-			map->player->instances[0].x += map->dirx;
+			map->player->instances[0].y += map->diry + 0.5;
+			map->player->instances[0].x += map->dirx + 0.5;
 			//map->player->instances[0].y -= 1;
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 		if (ft_check_move(map, 4) == 1)
 		{
-			map->player->instances[0].y -= map->diry;
-			map->player->instances[0].x -= map->dirx;
+			map->player->instances[0].y -= map->diry - 0.5;
+			map->player->instances[0].x -= map->dirx - 0.5;
 			//map->player->instances[0].y += 1;
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
@@ -62,14 +62,17 @@ void ft_loop_hook(void *param)
 		}
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
-		//int i = 0;
-		//while (i < 200)
-		//{
-		//	mlx_put_pixel(map->background, map->dirx, map->diry, 535353);
-		//	i++;
-		//	map->dirx++;
-		//	map->diry++;
-		//}
+		printf("y:%f, x:%f\n", map->diry, map->dirx);
+		int i = 0;
+		int y = map->player->instances[0].y;
+		int x = map->player->instances[0].x;
+		while (i < 20)
+		{
+			mlx_put_pixel(map->background, x, y, 535353);
+			i++;
+			x++;
+			y++;
+		}
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
 	{
@@ -80,6 +83,7 @@ void ft_loop_hook(void *param)
 		}
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
+		printf("y:%f, x:%f\n", map->diry, map->dirx);
 		//int i = 0;
 		//while (i < 200)
 		//{
@@ -99,7 +103,8 @@ void	start_window(t_map *map)
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	ft_create_wall(map);
 	map->dirx = 0;
-	map->diry = -2;
+	map->dirx = cos(map->pa) * 3;
+	map->diry = sin(map->pa) * 3;
 	map->pa = 5.0;
 	mlx_key_hook(map->mlx, ft_key_hook, map);
 	mlx_loop_hook(map->mlx, ft_loop_hook, map);
