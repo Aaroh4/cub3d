@@ -97,7 +97,7 @@ void ft_loop_hook(void *param)
 		int i = 0;
 		double y = map->player->instances[0].y;
 		double x = map->player->instances[0].x;
-		while (!checkwallhit(map, y, x) && x > -1 && y > -1 && x < 660 && y < 280)
+		while (x > -1 && y > -1 && x < 660 && y < 280 && !checkwallhit(map, y, x))
 		{
 			mlx_put_pixel(map->background, x, y, 535353);
 			i++;
@@ -118,9 +118,9 @@ void ft_loop_hook(void *param)
 		map->diry = sin(map->pa) * 3;
 		printf("y:%f, x:%f\n", map->diry, map->dirx);
 		int i = 0;
-		int y = map->player->instances[0].y;
-		int x = map->player->instances[0].x;
-		while (i < 20)
+		double y = map->player->instances[0].y;
+		double x = map->player->instances[0].x;
+		while (x > -1 && y > -1 && x < 660 && y < 280 && !checkwallhit(map, y, x))
 		{
 			mlx_put_pixel(map->background, x, y, 535353);
 			i++;
