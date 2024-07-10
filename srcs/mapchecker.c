@@ -20,7 +20,7 @@ void	loop_trough(t_map *map, char *str, int count)
 	int			i;
 
 	i = 0;
-	while(str[i] != '\0')
+	while (str[i] != '\0')
 	{
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
 		{
@@ -28,6 +28,8 @@ void	loop_trough(t_map *map, char *str, int count)
 			map->plocation[0] = i;
 			map->plocation[1] = count;
 		}
+		if (str[i] == '1')
+			map->wallcount++;
 		i++;
 	}
 	if (i > map->lenght)
@@ -136,6 +138,7 @@ void read_map(t_map *map, char *map_name)
 	int		fd;
 
 	count = 0;
+	map->wallcount = 0;
 	fd = open(map_name, O_RDONLY);
     line = get_next_line(fd);
 	while (line != NULL)

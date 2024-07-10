@@ -34,6 +34,37 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		mlx_close_window(map->mlx);
 }
 
+int checkwallhit(t_map *map, double y, double x)
+{
+	int i;
+	int yn;
+	int xn;
+
+	i = 0;
+	yn = 0;
+	xn = 0;
+	while (x > 0)
+	{
+		xn++;
+		x -= 20;
+	}
+	while (y > 0)
+	{
+		yn++;
+		y -= 20;
+	}
+	//printf("abc x:%d y:%d &: %c\n", xn, xy, map->mapcopy[]);
+	while (i < map->wallcount)
+	{
+		if (map->mapcopy[yn + 7][xn - 1] == '1')
+			return (printf("asd\n"));
+		//if (map->wall->instances[i].x == xn)
+		//	return (printf("asd\n"));
+		i++;
+	}
+	return (0);
+}
+
 void ft_loop_hook(void *param)
 {
 	t_map	*map;
@@ -64,12 +95,14 @@ void ft_loop_hook(void *param)
 		map->diry = sin(map->pa) * 3;
 		printf("y:%f, x:%f\n", map->diry, map->dirx);
 		int i = 0;
-		int y = map->player->instances[0].y;
-		int x = map->player->instances[0].x;
-		while (i < 20)
+		double y = map->player->instances[0].y;
+		double x = map->player->instances[0].x;
+		while (!checkwallhit(map, y, x) && x > -1 && y > -1 && x < 660 && y < 280)
 		{
 			mlx_put_pixel(map->background, x, y, 535353);
 			i++;
+			x += map->dirx;
+			y += map->diry;
 			x++;
 			y++;
 		}
@@ -84,14 +117,18 @@ void ft_loop_hook(void *param)
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
 		printf("y:%f, x:%f\n", map->diry, map->dirx);
-		//int i = 0;
-		//while (i < 200)
-		//{
-		//	mlx_put_pixel(map->background, map->dirx, map->diry, 535353);
-		//	i++;
-		//	map->dirx++;
-		//	map->diry++;
-		//}
+		int i = 0;
+		int y = map->player->instances[0].y;
+		int x = map->player->instances[0].x;
+		while (i < 20)
+		{
+			mlx_put_pixel(map->background, x, y, 535353);
+			i++;
+			x += map->dirx;
+			y += map->diry;
+			x++;
+			y++;
+		}
 	}
 }
 

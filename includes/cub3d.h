@@ -17,6 +17,7 @@ typedef struct s_map
 {
 	int	fd;
 	int	linecount;
+	int wallcount;
 	int	lenght;
 	int	plocation[2]; // 0 for x // 1 for y
 
