@@ -29,7 +29,11 @@ typedef struct s_map
 	double diry;
 	double dirx;
 
-	double x_rot;
+	int	lasti;
+	double lasty;
+	double lastx;
+	double lastdiry;
+	double lastdirx;
 
 	double	cam_planex;
 	double	cam_planey;

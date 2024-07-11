@@ -53,13 +53,10 @@ int checkwallhit(t_map *map, double y, double x)
 		yn++;
 		y -= 20;
 	}
-	//printf("abc x:%d y:%d &: %c\n", xn, xy, map->mapcopy[]);
 	while (i < map->wallcount)
 	{
 		if (map->mapcopy[yn + 7][xn - 1] == '1')
-			return (printf("asd\n"));
-		//if (map->wall->instances[i].x == xn)
-		//	return (printf("asd\n"));
+			return (1);
 		i++;
 	}
 	return (0);
@@ -70,12 +67,59 @@ void ft_loop_hook(void *param)
 	t_map	*map;
 
 	map = param;
+	double test = 2.5;
+	int i2 = 0;
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 		if (ft_check_move(map, 3) == 1)
 		{
 			map->player->instances[0].y += map->diry + 0.5;
 			map->player->instances[0].x += map->dirx + 0.5;
 			//map->player->instances[0].y -= 1;
+			//int	i2 = 0;
+			//double test = 0.1;
+			while (map->lasti >= 0)
+			{
+				printf("last: y:%f x:%f\n", map->lasty, map->lastx);
+				i2 = 0;
+				while (i2 < 10)
+				{
+					mlx_put_pixel(map->background, map->lastx + test * i2, map->lasty + test * i2, 0xFFFFFFFF);
+					i2++;
+				}
+				map->lastx -= map->lastdirx;
+				map->lasty -= map->lastdiry;
+				map->lasti--;
+			}
+			int i = 0;
+			//int booltest[20];
+			double y = map->player->instances[0].y;
+			double x = map->player->instances[0].x;
+			while (x > -1 && y > -1 && x < 660 && y < 280)
+			{
+				printf("real: y:%f x:%f\n", y, x);
+				//while (i2 < 1)
+				//{
+				//mlx_put_pixel(map->background, x, y, 535353);
+				i2 = 0;
+				while (i2 < 10)
+				{
+					//if (booltest[i2] == 0 &&!checkwallhit(map, y + test * i2, x + test * i2) )
+					mlx_put_pixel(map->background, x + test * i2, y + test * i2, 535353);
+					//else
+					//	booltest[i2] = 1;
+					i2++;
+				}
+				//	i2++;
+				//}
+				map->lastx = x;
+				map->lasty = y;
+				map->lastdirx = map->dirx;
+				map->lastdiry = map->diry;
+				map->lasti = i;
+				i++;
+				x += map->dirx;
+				y += map->diry;
+			}
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 		if (ft_check_move(map, 4) == 1)
@@ -83,6 +127,47 @@ void ft_loop_hook(void *param)
 			map->player->instances[0].y -= map->diry - 0.5;
 			map->player->instances[0].x -= map->dirx - 0.5;
 			//map->player->instances[0].y += 1;
+			while (map->lasti >= 0)
+			{
+				printf("last: y:%f x:%f\n", map->lasty, map->lastx);
+				i2 = 0;
+				while (i2 < 20)
+				{
+					mlx_put_pixel(map->background, map->lastx + test * i2, map->lasty + test * i2, 0xFFFFFFFF);
+					i2++;
+				}
+				map->lastx -= map->lastdirx;
+				map->lasty -= map->lastdiry;
+				map->lasti--;
+			}
+			int i = 0;
+		//	double ytest;
+		//	double xtest;
+			double y = map->player->instances[0].y;
+			double x = map->player->instances[0].x;
+			while (x > -1 && y > -1 && x < 660 && y < 280 && !checkwallhit(map, y, x))
+			{
+				printf("real: y:%f x:%f\n", y, x);
+				//while (i2 < 1)
+				//{
+				//mlx_put_pixel(map->background, x, y, 535353);
+				i2 = 0;
+				while (!checkwallhit(map, y + test * i2, x + test * i2) && i2 < 20)
+				{
+					mlx_put_pixel(map->background, x + test * i2, y + test * i2, 535353);
+					i2++;
+				}
+				//	i2++;
+				//}
+				map->lastx = x;
+				map->lasty = y;
+				map->lastdirx = map->dirx;
+				map->lastdiry = map->diry;
+				map->lasti = i;
+				i++;
+				x += map->dirx;
+				y += map->diry;
+			}
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
@@ -94,18 +179,47 @@ void ft_loop_hook(void *param)
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
 		printf("y:%f, x:%f\n", map->diry, map->dirx);
-		int i = 0;
-		double y = map->player->instances[0].y;
-		double x = map->player->instances[0].x;
-		while (x > -1 && y > -1 && x < 660 && y < 280 && !checkwallhit(map, y, x))
-		{
-			mlx_put_pixel(map->background, x, y, 535353);
-			i++;
-			x += map->dirx;
-			y += map->diry;
-			x++;
-			y++;
-		}
+			while (map->lasti >= 0)
+			{
+				printf("last: y:%f x:%f\n", map->lasty, map->lastx);
+				i2 = 0;
+				while (i2 < 20)
+				{
+					mlx_put_pixel(map->background, map->lastx + test * i2, map->lasty + test * i2, 0xFFFFFFFF);
+					i2++;
+				}
+				map->lastx -= map->lastdirx;
+				map->lasty -= map->lastdiry;
+				map->lasti--;
+			}
+			int i = 0;
+		//	double ytest;
+		//	double xtest;
+			double y = map->player->instances[0].y;
+			double x = map->player->instances[0].x;
+			while (x > -1 && y > -1 && x < 660 && y < 280 && !checkwallhit(map, y, x))
+			{
+				printf("real: y:%f x:%f\n", y, x);
+				//while (i2 < 1)
+				//{
+				//mlx_put_pixel(map->background, x, y, 535353);
+				i2 = 0;
+				while (!checkwallhit(map, y + test * i2, x + test * i2) && i2 < 20)
+				{
+					mlx_put_pixel(map->background, x + test * i2, y + test * i2, 535353);
+					i2++;
+				}
+				//	i2++;
+				//}
+				map->lastx = x;
+				map->lasty = y;
+				map->lastdirx = map->dirx;
+				map->lastdiry = map->diry;
+				map->lasti = i;
+				i++;
+				x += map->dirx;
+				y += map->diry;
+			}
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
 	{
@@ -117,18 +231,49 @@ void ft_loop_hook(void *param)
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
 		printf("y:%f, x:%f\n", map->diry, map->dirx);
-		int i = 0;
-		double y = map->player->instances[0].y;
-		double x = map->player->instances[0].x;
-		while (x > -1 && y > -1 && x < 660 && y < 280 && !checkwallhit(map, y, x))
-		{
-			mlx_put_pixel(map->background, x, y, 535353);
-			i++;
-			x += map->dirx;
-			y += map->diry;
-			x++;
-			y++;
-		}
+			while (map->lasti >= 0)
+			{
+				printf("last: y:%f x:%f\n", map->lasty, map->lastx);
+				i2 = 0;
+				while (i2 < 10)
+				{
+					mlx_put_pixel(map->background, map->lastx + test * i2, map->lasty + test * i2, 0xFFFFFFFF);
+					i2++;
+				}
+				map->lastx -= map->lastdirx;
+				map->lasty -= map->lastdiry;
+				map->lasti--;
+			}
+			int i = 0;
+			//int booltest[20];
+			double y = map->player->instances[0].y;
+			double x = map->player->instances[0].x;
+			while (x > -1 && y > -1 && x < 660 && y < 280)
+			{
+				printf("real: y:%f x:%f\n", y, x);
+				//while (i2 < 1)
+				//{
+				//mlx_put_pixel(map->background, x, y, 535353);
+				i2 = 0;
+				while (i2 < 10)
+				{
+					//if (booltest[i2] == 0 &&!checkwallhit(map, y + test * i2, x + test * i2) )
+						mlx_put_pixel(map->background, x + test * i2, y + test * i2, 535353);
+					//else
+					//	booltest[i2] = 1;
+					i2++;
+				}
+				//	i2++;
+				//}
+				map->lastx = x;
+				map->lasty = y;
+				map->lastdirx = map->dirx;
+				map->lastdiry = map->diry;
+				map->lasti = i;
+				i++;
+				x += map->dirx;
+				y += map->diry;
+			}
 	}
 }
 
@@ -157,7 +302,7 @@ int main(int argc, char **argv)
 	t_map map;
 
 	map_name = argv[1];
-	//ft_memset(&map, 0, sizeof(map));
+	ft_memset(&map, 0, sizeof(map));
 	read_map(&map, map_name);
 	start_window(&map);
 	return (0);
