@@ -12,7 +12,6 @@
 # include <fcntl.h>
 # include <math.h>
 
-
 typedef struct s_map
 {
 	int	fd;
@@ -20,6 +19,7 @@ typedef struct s_map
 	int wallcount;
 	int	lenght;
 	int	plocation[2]; // 0 for x // 1 for y
+	int	wlocation[2]; // 0 for x // 1 for y
 
 	int	py;
 	int	px;
@@ -29,14 +29,12 @@ typedef struct s_map
 	double diry;
 	double dirx;
 
+
 	int	lasti;
 	double lasty;
 	double lastx;
 	double lastdiry;
 	double lastdirx;
-
-	double	cam_planex;
-	double	cam_planey;
 
 	char	**mapsave;
 	char	**mapcopy;
