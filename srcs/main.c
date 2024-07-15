@@ -90,8 +90,8 @@ void plot_line (int x0, int y0, int x1, int y1, t_map *map)
   {
    printf("x:%d y:%d\n", x0, y0);
    mlx_put_pixel(map->background, x0, y0, 535353);
-    if (x0 == x1 && y0 == y1) 
-		break;
+    //if (x0 == x1 && y0 == y1) 
+	//	break;
     e2 = 2 * err;
     if (e2 >= dy) 
 	{ 
