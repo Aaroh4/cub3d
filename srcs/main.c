@@ -117,7 +117,7 @@ void shoot_ray(t_map *map)
 	while (yx[0] > -1 && yx[1] > -1 && yx[0] < 660 && yx[1] < 280 && !checkwallhit(map, yx[1], yx[0]))
 	{
 		//mlx_put_pixel(map->background, yx[0], yx[1], 535353);
-		//yx[0] += map->dirx;
+		yx[0] += map->dirx - 0.25;
 		yx[1] += map->diry;
 		i++;
 	}
@@ -133,16 +133,16 @@ void ft_loop_hook(void *param)
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 		if (ft_check_move(map, 3) == 1)
 		{
-			map->firstray[0] += map->player->instances[0].x - map->player->instances[0].x + map->dirx + 0.5;
-			map->firstray[1] += map->player->instances[0].y - map->player->instances[0].y + map->diry + 0.5;
 			map->player->instances[0].y += map->diry + 0.5;
 			map->player->instances[0].x += map->dirx + 0.5;
+			shoot_ray(map);
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 		if (ft_check_move(map, 4) == 1)
 		{
 			map->player->instances[0].y -= map->diry - 0.5;
 			map->player->instances[0].x -= map->dirx - 0.5;
+			shoot_ray(map);
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
