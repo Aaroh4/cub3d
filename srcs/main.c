@@ -6,16 +6,10 @@ int	ft_check_move(t_map *img, int move)
 {
 	if (move == 3 && img->mapsave[img->plocation[1] - 1][img->plocation[0]] != '1')
 	{
-		//img->plocation[1] -= 1;
-		//img->player->instances[0].y += img->diry;
-		//img->player->instances[0].x += img->dirx;
 		img->py -= 1;
 	}
 	else if (move == 4 && img->mapsave[img->plocation[1] + 1][img->plocation[0]] != '1')
 	{
-		//img->plocation[1] += 1;
-		//img->player->instances[0].y -= img->diry;
-		//img->player->instances[0].x -= img->dirx;
 		img->py += 1;
 	}
 	else
@@ -32,12 +26,12 @@ int checkwallhit(t_map *map, double y, double x)
 	i = 0;
 	yn = 0;
 	xn = 0;
-	while (x > 0)
+	while (x >= 0)
 	{
 		xn++;
 		x -= 20;
 	}
-	while (y > 0)
+	while (y >= 0)
 	{
 		yn++;
 		y -= 20;
