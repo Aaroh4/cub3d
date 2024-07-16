@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:53:08 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/07/12 13:22:44 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:17:51 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,16 @@ void	map_save(t_map *map)
 	//
 	while (i < map->linecount)
 	{
-		map->mapsave[i] = malloc((ft_strlen(map->mapcopy[i]) + 1) * (sizeof(char *)));
+		map->mapsave[i] = malloc((map->lenght + 1) * (sizeof(char *)));
 		//
 		//
 		j = 0;
-		while (j <= ft_strlen(map->mapcopy[i]))
+		while (j <= map->lenght)
 		{
-			map->mapsave[i][j] = map->mapcopy[i][j];
+			if (j <= ft_strlen(map->mapcopy[i]))
+				map->mapsave[i][j] = map->mapcopy[i][j];
+			else
+				map->mapsave[i][j] = '0';
 			j++;
 		}
 		i++;

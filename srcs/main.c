@@ -44,32 +44,11 @@ int checkwallhit(t_map *map, double y, double x)
 	}
 	while (i < map->wallcount)
 	{
-		if (map->mapcopy[yn + 7][xn - 1] == '1')
+		if (map->mapsave[yn + 7][xn - 1] == '1')
 			return (1);
 		i++;
 	}
 	return (0);
-}
-
-void shoot_ray2(t_map *map)
-{
-	double yx[2];
-	int i = 0;
-	int i2 = 0;
-	yx[1] = map->player->instances[0].y + 10;
-	yx[0] = map->player->instances[0].x + 10;
-	while (yx[0] > -1 && yx[1] > -1 && yx[0] < 660 && yx[1] < 280 && !checkwallhit(map, yx[1], yx[0]))
-	{
-		i2 = 0;
-		while (i2 < 10)
-		{
-			mlx_put_pixel(map->background, yx[0] + i2, yx[1], 535353);
-			i2++;
-		}
-		yx[1] += map->diry;
-		yx[0] += map->dirx;
-		i++;
-	}
 }
 
 void plot_line (int x0, int y0, int x1, int y1, t_map *map)
@@ -88,9 +67,9 @@ void plot_line (int x0, int y0, int x1, int y1, t_map *map)
 
   while (!checkwallhit(map, y0, x0))
   {
-   printf("x:%d y:%d\n", x0, y0);
+  // printf("x:%d y:%d\n", x0, y0);
    mlx_put_pixel(map->background, x0, y0, 535353);
-    //if (x0 == x1 && y0 == y1) 
+  //  if (x0 == x1 && y0 == y1) 
 	//	break;
     e2 = 2 * err;
     if (e2 >= dy) 
@@ -104,8 +83,6 @@ void plot_line (int x0, int y0, int x1, int y1, t_map *map)
 		y0 += sy;
 	}
   }
- // map->firstray[0] = x0;
- // map->firstray[1] = y0;
 }
 
 void shoot_ray(t_map *map)
@@ -153,6 +130,7 @@ void ft_loop_hook(void *param)
 		}
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
+		shoot_ray(map);
 		printf("y:%f, x:%f\n", map->diry, map->dirx);
 
 	}
@@ -165,6 +143,7 @@ void ft_loop_hook(void *param)
 		}
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
+		shoot_ray(map);
 		printf("y:%f, x:%f\n", map->diry, map->dirx);
 	}
 }
@@ -181,10 +160,18 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 	{
 		int i = 0;
-		while (i++ < 25)
+		while (i++ < 90)
 		{
-			plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] - i, map->firstray[1], map);
-			plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] + i, map->firstray[1], map);
+			if (map->diry > 2 || map->diry < -2)
+			{
+				plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] - i, map->firstray[1], map);
+				plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] + i, map->firstray[1], map);
+			}
+			else
+			{
+				plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0], map->firstray[1] - i, map);
+				plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0], map->firstray[1] + i, map);
+			}
 			plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0], map->firstray[1], map);
 		}
 	}
