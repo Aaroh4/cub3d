@@ -176,8 +176,8 @@ void	start_window(t_map *map)
 	map->mlx = mlx_init(660, 280, "Game", false);
 	ft_init_textu(map);
 	ft_init_img(map->mlx, map);
-	mlx_image_to_window(map->mlx, map->background, 0, 0);
-	ft_create_wall(map);
+	//mlx_image_to_window(map->mlx, map->background, 0, 0);
+	//ft_create_wall(map);
 	if (map->playerstartpos == 'N')
 		map->pa = 4.8;
 	else if (map->playerstartpos == 'S')
@@ -188,9 +188,9 @@ void	start_window(t_map *map)
 		map->pa = 9.5;
 	map->dirx = cos(map->pa) * 3;
 	map->diry = sin(map->pa) * 3;
-	mlx_key_hook(map->mlx, ft_key_hook, map);
-	mlx_loop_hook(map->mlx, ft_loop_hook, map);
-	shoot_ray(map);
+//	mlx_key_hook(map->mlx, ft_key_hook, map);
+//	mlx_loop_hook(map->mlx, ft_loop_hook, map);
+//	shoot_ray(map);
 	//plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] + 20, map->firstray[1], map);
 	//plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] - 30, map->firstray[1], map);
 	//plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] + 30, map->firstray[1], map);

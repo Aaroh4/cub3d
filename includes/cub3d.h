@@ -28,6 +28,9 @@ typedef struct s_map
 	double diry;
 	double dirx;
 
+	double	cameraposy;
+	double	cameraposx;
+
 	double firstray[2]; // 0 for x // 1 for y
 
 	char	playerstartpos;
