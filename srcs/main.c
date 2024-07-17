@@ -83,8 +83,8 @@ void shoot_ray(t_map *map)
 {
 	double yx[2];
 	int i = 0;
-	yx[1] = map->player->instances[0].y + 10;
-	yx[0] = map->player->instances[0].x + 10;
+	yx[1] = map->cameraposy;
+	yx[0] = map->cameraposx;
 	while (yx[0] > -1 && yx[1] > -1 && yx[0] < 660 && yx[1] < 280 && !checkwallhit(map, yx[1], yx[0]))
 	{
 		//mlx_put_pixel(map->background, yx[0], yx[1], 535353);
@@ -104,15 +104,15 @@ void ft_loop_hook(void *param)
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 		if (ft_check_move(map, 3) == 1)
 		{
-			map->player->instances[0].y += map->diry + 0.5;
-			map->player->instances[0].x += map->dirx + 0.5;
+			map->cameraposy += map->diry + 0.5;
+			map->cameraposx += map->dirx + 0.5;
 			shoot_ray(map);
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 		if (ft_check_move(map, 4) == 1)
 		{
-			map->player->instances[0].y -= map->diry - 0.5;
-			map->player->instances[0].x -= map->dirx - 0.5;
+			map->cameraposy -= map->diry - 0.5;
+			map->cameraposx -= map->dirx - 0.5;
 			shoot_ray(map);
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
@@ -158,15 +158,15 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		{
 			if (map->diry > 2 || map->diry < -2)
 			{
-				plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] - i, map->firstray[1], map);
-				plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] + i, map->firstray[1], map);
+				plot_line(map->cameraposx, map->cameraposy, map->firstray[0] - i, map->firstray[1], map);
+				plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + i, map->firstray[1], map);
 			}
 			else
 			{
-				plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0], map->firstray[1] - i, map);
-				plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0], map->firstray[1] + i, map);
+				plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] - i, map);
+				plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] + i, map);
 			}
-			plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0], map->firstray[1], map);
+			plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1], map);
 		}
 	}
 }
@@ -189,11 +189,11 @@ void	start_window(t_map *map)
 	map->dirx = cos(map->pa) * 3;
 	map->diry = sin(map->pa) * 3;
 //	mlx_key_hook(map->mlx, ft_key_hook, map);
-//	mlx_loop_hook(map->mlx, ft_loop_hook, map);
+	mlx_loop_hook(map->mlx, ft_loop_hook, map);
 //	shoot_ray(map);
-	//plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] + 20, map->firstray[1], map);
-	//plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] - 30, map->firstray[1], map);
-	//plot_line(map->player->instances[0].x + 10, map->player->instances[0].y + 10, map->firstray[0] + 30, map->firstray[1], map);
+	//plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + 20, map->firstray[1], map);
+	//plot_line(map->cameraposx, map->cameraposy, map->firstray[0] - 30, map->firstray[1], map);
+	//plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + 30, map->firstray[1], map);
 	mlx_loop(map->mlx);
 	mlx_terminate(map->mlx);
 }
