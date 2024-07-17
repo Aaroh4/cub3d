@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:53:08 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/07/16 14:17:51 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:16:35 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	loop_trough(t_map *map, char *str, int count)
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
 		{
 			player++;
+			map->playerstartpos = str[i];
 			map->plocation[0] = i;
 			map->plocation[1] = count;
 		}

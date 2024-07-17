@@ -30,6 +30,7 @@ typedef struct s_map
 
 	double firstray[2]; // 0 for x // 1 for y
 
+	char	playerstartpos;
 	char	**mapsave;
 	char	**mapcopy;
 	mlx_t	*mlx;

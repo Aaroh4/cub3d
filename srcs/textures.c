@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:36:37 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/07/08 14:26:34 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:18:34 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ft_create_wall(t_map *img)
 		printf("%s", img->mapsave[i]);
 		while (j <= img->lenght && img->mapsave[i][j] != '\0')
 		{
-			if (img->mapsave[i][j] == 'N')
+			if (img->mapsave[i][j] == 'N' || img->mapsave[i][j] == 'S' 
+				|| img->mapsave[i][j] == 'W' || img->mapsave[i][j] == 'E')
 			{
 				mlx_image_to_window(img->mlx, img->player, 20 * j, 20 * (i - 8));
 				img->px = 20 * j;

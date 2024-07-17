@@ -178,7 +178,14 @@ void	start_window(t_map *map)
 	ft_init_img(map->mlx, map);
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	ft_create_wall(map);
-	map->pa = 4.8;
+	if (map->playerstartpos == 'N')
+		map->pa = 4.8;
+	else if (map->playerstartpos == 'S')
+		map->pa = -4.8;
+	else if (map->playerstartpos == 'E')
+		map->pa = 0;
+	else if (map->playerstartpos == 'W')
+		map->pa = 9.5;
 	map->dirx = cos(map->pa) * 3;
 	map->diry = sin(map->pa) * 3;
 	mlx_key_hook(map->mlx, ft_key_hook, map);
