@@ -52,31 +52,20 @@ void	makethewalls(t_map *map)
 	int	begin;
 	int end;
 	int y;
-	int	x = -1;
-	while (x++ < screenwidth)
-	{
-		begin = (screenlength / 2) - (wall_height / 2);
- 		end = (screenlength / 2) + (wall_height / 2);
+
+	begin = (screenlength / 2) - (wall_height / 2);
+ 	end = (screenlength / 2) + (wall_height / 2);
+	y = begin - 1;
+	int x = 0;
+//	while (x < 30)
+//	{
 		y = begin - 1;
 		while (++y < end)
-			mlx_put_pixel(map->background, x, y, 0XFFFFFFF);
-	}
-	int abcx = 0;
-	int abcy = 0;
-	while (abcy <= 600)
-	{	
-		abcx = 0;
-		while (abcx <= 1200)
-		{
-			mlx_put_pixel(map->background, abcx, abcy, 0);
-			abcx++;
-		}
-		abcy++;
-		if (abcy == begin - 1)
-			abcy = y;
-	}
-	map->lastx = x;
-	map->lasty = y;
+			mlx_put_pixel(map->background, map->rayamount + x, y, 0XFFFFFF);
+		x++;
+//	}
+	//map->lastx = x;
+	//map->lasty = y;
 }
 
 void plot_line (int x0, int y0, int x1, int y1, t_map *map)
@@ -136,24 +125,43 @@ void shoot_ray(t_map *map)
 void	makethelines(t_map *map)
 {
 	int i = 0;
+	map->rayamount = 0;
 	while (i++ < 90)
 	{
+		map->rayamount += i;
 		if (map->diry > 2 || map->diry < -2)
 		{
 			plot_line(map->cameraposx, map->cameraposy, map->firstray[0] - i, map->firstray[1], map);
+			makethewalls(map);
 			plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + i, map->firstray[1], map);
-		//	makethewalls(map);
+			makethewalls(map);
 		}
 		else
 		{
 			plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] - i, map);
-		//	makethewalls(map);
+			makethewalls(map);
 			plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] + i, map);
-		//	makethewalls(map);
+			makethewalls(map);
 		}
 		plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1], map);
-		//makethewalls(map);
+		makethewalls(map);
 	}
+}
+
+void reset(t_map *map)
+{
+		int abcx = 0;
+		int abcy = 0;
+		while (abcx <= 1200)
+		{
+			abcy = 0;
+			while (abcy <= 600)
+			{
+				mlx_put_pixel(map->background, abcx, abcy, 535353);
+				abcy++;
+			}
+			abcx++;
+		}
 }
 
 void ft_loop_hook(void *param)
@@ -170,6 +178,7 @@ void ft_loop_hook(void *param)
 			map->player->instances[0].x += map->dirx + 0.5;
 			map->cameraposy += map->diry + 0.5;
 			map->cameraposx += map->dirx + 0.5;
+			reset(map);
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 		if (ft_check_move(map, 4) == 1)
@@ -178,6 +187,7 @@ void ft_loop_hook(void *param)
 			map->player->instances[0].x -= map->dirx - 0.5;
 			map->cameraposy -= map->diry - 0.5;
 			map->cameraposx -= map->dirx - 0.5;
+			reset(map);
 		}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
@@ -188,6 +198,7 @@ void ft_loop_hook(void *param)
 		}
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
+		reset(map);
 		//printf("y:%f, x:%f\n", map->diry, map->dirx);
 
 	}
@@ -200,6 +211,7 @@ void ft_loop_hook(void *param)
 		}
 		map->dirx = cos(map->pa) * 3;
 		map->diry = sin(map->pa) * 3;
+		reset(map);
 		//printf("y:%f, x:%f\n", map->diry, map->dirx);
 	}
 }
@@ -215,8 +227,20 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		mlx_close_window(map->mlx);
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
 	{
-		makethewalls(map);
+				int abcx = 0;
+		int abcy = 0;
+		while (abcx <= 1200)
+		{
+			abcy = 0;
+			while (abcy <= 600)
+			{
+				mlx_put_pixel(map->background, abcx, abcy, 535353);
+				abcy++;
+			}
+			abcx++;
+		}
 	}
+	
 }
 
 void	start_window(t_map *map)

@@ -40,6 +40,8 @@ typedef struct s_map
 	int lastx;
 	int	lasty;
 
+	int rayamount;
+
 	double firstray[2]; // 0 for x // 1 for y
 
 	char	playerstartpos;
