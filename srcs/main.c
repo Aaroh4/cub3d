@@ -47,18 +47,6 @@ int checkwallhit(t_map *map, double y, double x)
 
 void	makethewalls(t_map *map)
 {
-	int abcx = 0;
-	int abcy = 0;
-	while (abcx <= 1200)
-	{
-		abcy = 0;
-		while (abcy <= 600)
-		{
-			mlx_put_pixel(map->background, abcx, abcy, 0);
-			abcy++;
-		}
-		abcx++;
-	}
 	int length = sqrt(pow(map->cameraposx - map->rayposx, 2) + pow(map->cameraposy - map->rayposy, 2));
 	int wall_height = (20 * screenlength) / length;
 	int	begin;
@@ -72,6 +60,20 @@ void	makethewalls(t_map *map)
 		y = begin - 1;
 		while (++y < end)
 			mlx_put_pixel(map->background, x, y, 0XFFFFFFF);
+	}
+	int abcx = 0;
+	int abcy = 0;
+	while (abcy <= 600)
+	{	
+		abcx = 0;
+		while (abcx <= 1200)
+		{
+			mlx_put_pixel(map->background, abcx, abcy, 0);
+			abcx++;
+		}
+		abcy++;
+		if (abcy == begin - 1)
+			abcy = y;
 	}
 	map->lastx = x;
 	map->lasty = y;
