@@ -57,13 +57,13 @@ void	makethewalls(t_map *map)
  	end = (screenlength / 2) + (wall_height / 2);
 	y = begin - 1;
 	int x = 0;
-//	while (x < 30)
-//	{
+	while (x < 5)
+	{
 		y = begin - 1;
 		while (++y < end)
 			mlx_put_pixel(map->background, map->rayamount + x, y, 0XFFFFFF);
 		x++;
-//	}
+	}
 	//map->lastx = x;
 	//map->lasty = y;
 }
@@ -124,28 +124,41 @@ void shoot_ray(t_map *map)
 
 void	makethelines(t_map *map)
 {
-	int i = 0;
+	int i = 1;
 	map->rayamount = 0;
-	while (i++ < 90)
+	while (i++ <= 90)
 	{
 		map->rayamount += i;
 		if (map->diry > 2 || map->diry < -2)
 		{
-			plot_line(map->cameraposx, map->cameraposy, map->firstray[0] - i, map->firstray[1], map);
-			makethewalls(map);
-			plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + i, map->firstray[1], map);
-			makethewalls(map);
+			if (map->rayamount < 45)
+			{
+				plot_line(map->cameraposx, map->cameraposy, map->firstray[0] - i, map->firstray[1], map);
+				makethewalls(map);
+			}
+			else if (map->rayamount > 45)
+			{
+				plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + i, map->firstray[1], map);
+				makethewalls(map);
+			}
 		}
 		else
 		{
-			plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] - i, map);
-			makethewalls(map);
-			plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] + i, map);
-			makethewalls(map);
+			if (map->rayamount < 45)
+			{
+				plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] - i, map);
+				makethewalls(map);
+			}
+			else if (map->rayamount > 45)
+			{
+				plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] + i, map);
+				makethewalls(map);
+			}
 		}
-		plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1], map);
-		makethewalls(map);
 	}
+	plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1], map);
+	map->rayamount = 45;
+	makethewalls(map);
 }
 
 void reset(t_map *map)
@@ -196,8 +209,8 @@ void ft_loop_hook(void *param)
 		{
 			map->pa += 2 * PI;
 		}
-		map->dirx = cos(map->pa) * 3;
-		map->diry = sin(map->pa) * 3;
+		map->dirx = cos(map->pa) * 2;
+		map->diry = sin(map->pa) * 2;
 		reset(map);
 		//printf("y:%f, x:%f\n", map->diry, map->dirx);
 
@@ -209,8 +222,8 @@ void ft_loop_hook(void *param)
 		{
 			map->pa -= 2 * PI;
 		}
-		map->dirx = cos(map->pa) * 3;
-		map->diry = sin(map->pa) * 3;
+		map->dirx = cos(map->pa) * 2;
+		map->diry = sin(map->pa) * 2;
 		reset(map);
 		//printf("y:%f, x:%f\n", map->diry, map->dirx);
 	}
