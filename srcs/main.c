@@ -88,7 +88,7 @@ void plot_line (int x0, int y0, int x1, int y1, t_map *map)
   while (!checkwallhit(map, y0, x0))
   {
   // printf("x:%d y:%d\n", x0, y0);
-  //mlx_put_pixel(map->background, x0, y0, 535353);
+  mlx_put_pixel(map->background, x0, y0, 0XFFFFFF);
   //  if (x0 == x1 && y0 == y1) 
 	//	break;
     e2 = 2 * err;
@@ -116,7 +116,7 @@ void shoot_ray(t_map *map)
 	//printf("y%f x%f | iy%d ix%d\n", yx[1], yx[0], map->player->instances[0].y, map->player->instances[0].x);
 	while (!checkwallhit(map, yx[1], yx[0]))
 	{
-		mlx_put_pixel(map->background, yx[0], yx[1], 0);
+		mlx_put_pixel(map->background, yx[0], yx[1], 0XFFFFFF);
 		yx[0] += map->dirx - 0.25;
 		yx[1] += map->diry;
 		i++;
