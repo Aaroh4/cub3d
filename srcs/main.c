@@ -48,22 +48,25 @@ int checkwallhit(t_map *map, double y, double x)
 void	makethewalls(t_map *map)
 {
 	int length = sqrt(pow(map->cameraposx - map->rayposx, 2) + pow(map->cameraposy - map->rayposy, 2));
-	int wall_height = (20 * screenlength) / length;
+	int wall_height;
+	if (length > 0)
+		wall_height = (20 * screenlength) / length;
+	else
+		wall_height = (20 * screenlength);
 	int	begin;
 	int end;
 	int y;
 
+
+	map->fd = 1;
+
 	begin = (screenlength / 2) - (wall_height / 2);
  	end = (screenlength / 2) + (wall_height / 2);
 	y = begin - 1;
-	int x = 0;
-	while (x < 5)
-	{
-		y = begin - 1;
-		while (++y < end)
-			mlx_put_pixel(map->background, map->rayamount + x, y, 0XFFFFFF);
-		x++;
-	}
+	while  (y < 0)
+		y++;
+	while (++y < end && y < screenlength)
+		mlx_put_pixel(map->background, map->rayamount, y, 0XFFFFFF);
 	//map->lastx = x;
 	//map->lasty = y;
 }
@@ -134,12 +137,12 @@ void	makethelines(t_map *map)
 			if (map->rayamount < 45)
 			{
 				plot_line(map->cameraposx, map->cameraposy, map->firstray[0] - i, map->firstray[1], map);
-				makethewalls(map);
+			//	makethewalls(map);
 			}
 			else if (map->rayamount > 45)
 			{
 				plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + i, map->firstray[1], map);
-				makethewalls(map);
+			//	makethewalls(map);
 			}
 		}
 		else
@@ -147,12 +150,12 @@ void	makethelines(t_map *map)
 			if (map->rayamount < 45)
 			{
 				plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] - i, map);
-				makethewalls(map);
+			//	makethewalls(map);
 			}
 			else if (map->rayamount > 45)
 			{
 				plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] + i, map);
-				makethewalls(map);
+			//	makethewalls(map);
 			}
 		}
 	}
