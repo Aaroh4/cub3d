@@ -60,13 +60,13 @@ void	makethewalls(t_map *map)
 
 	map->fd = 1;
 
-	begin = (screenlength / 2) - (wall_height / 2);
- 	end = (screenlength / 2) + (wall_height / 2);
+	begin = (screenlength / 2) - (wall_height / 3);
+ 	end = (screenlength / 2) + (wall_height / 3);
 	y = begin - 1;
 	while  (y < 0)
 		y++;
 	while (++y < end && y < screenlength)
-		mlx_put_pixel(map->background, map->rayamount, y, 0XFFFFFF);
+		mlx_put_pixel(map->background, map->rayamount * 14, y, 0XFFFFFF);
 	//map->lastx = x;
 	//map->lasty = y;
 }
@@ -111,12 +111,12 @@ void shoot_ray(t_map *map)
 {
 	double yx[2];
 	int i = 0;
-	yx[1] = map->cameraposy;
-	yx[0] = map->cameraposx;
+	yx[1] = map->cameraposy + 10;
+	yx[0] = map->cameraposx + 10;
 	//printf("y%f x%f | iy%d ix%d\n", yx[1], yx[0], map->player->instances[0].y, map->player->instances[0].x);
 	while (!checkwallhit(map, yx[1], yx[0]))
 	{
-		//mlx_put_pixel(map->background, yx[0], yx[1], 535353);
+		mlx_put_pixel(map->background, yx[0], yx[1], 0);
 		yx[0] += map->dirx - 0.25;
 		yx[1] += map->diry;
 		i++;
@@ -131,31 +131,31 @@ void	makethelines(t_map *map)
 	map->rayamount = 0;
 	while (i++ <= 90)
 	{
-		map->rayamount += i;
+		map->rayamount += 1;
 		if (map->diry > 2 || map->diry < -2)
 		{
 			if (map->rayamount < 45)
 			{
-				plot_line(map->cameraposx, map->cameraposy, map->firstray[0] - i, map->firstray[1], map);
-			//	makethewalls(map);
+				plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - i, map->firstray[1], map);
+				makethewalls(map);
 			}
 			else if (map->rayamount > 45)
 			{
-				plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + i, map->firstray[1], map);
-			//	makethewalls(map);
+				plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + i, map->firstray[1], map);
+				makethewalls(map);
 			}
 		}
 		else
 		{
 			if (map->rayamount < 45)
 			{
-				plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] - i, map);
-			//	makethewalls(map);
+				plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] - i, map);
+				makethewalls(map);
 			}
 			else if (map->rayamount > 45)
 			{
-				plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1] + i, map);
-			//	makethewalls(map);
+				plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] + i, map);
+				makethewalls(map);
 			}
 		}
 	}
@@ -205,6 +205,24 @@ void ft_loop_hook(void *param)
 			map->cameraposx -= map->dirx - 0.5;
 			reset(map);
 		}
+	//if (mlx_is_key_down(map->mlx, MLX_KEY_A))
+	//	if (ft_check_move(map, 4) == 1)
+	//	{
+	//		map->player->instances[0].y -= map->diry - 0.5;
+	//		map->player->instances[0].x -= map->dirx - 0.5;
+	//		//map->cameraposy -= map->diry - 0.5;
+	//		//map->cameraposx -= map->dirx - 0.5;
+	//		reset(map);
+	//	}
+	//if (mlx_is_key_down(map->mlx, MLX_KEY_D))
+	//	if (ft_check_move(map, 4) == 1)
+	//	{
+	//		map->player->instances[0].y -= map->diry - 0.5;
+	//		map->player->instances[0].x -= map->dirx - 0.5;
+	//		map->cameraposy -= map->diry - 0.5;
+	//		map->cameraposx -= map->dirx - 0.5;
+	//		reset(map);
+	//	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
 		map->pa -= 0.1;
@@ -241,22 +259,6 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	//double angle = pa / (1.0 + 0.28 * pa * pa);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(map->mlx);
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-	{
-				int abcx = 0;
-		int abcy = 0;
-		while (abcx <= 1200)
-		{
-			abcy = 0;
-			while (abcy <= 600)
-			{
-				mlx_put_pixel(map->background, abcx, abcy, 535353);
-				abcy++;
-			}
-			abcx++;
-		}
-	}
-	
 }
 
 void	start_window(t_map *map)

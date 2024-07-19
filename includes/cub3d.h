@@ -15,6 +15,14 @@
 # include <fcntl.h>
 # include <math.h>
 
+
+typedef struct s_ray
+{
+	int x;
+	int	y;
+	int lenght;
+} t_ray;
+
 typedef struct s_map
 {
 	int	fd;
