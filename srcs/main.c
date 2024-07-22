@@ -87,10 +87,10 @@ void plot_line (int x0, int y0, int x1, int y1, t_map *map)
 
   while (!checkwallhit(map, y0, x0))
   {
-  // printf("x:%d y:%d\n", x0, y0);
-  mlx_put_pixel(map->background, x0, y0, 0XFFFFFF);
-  //  if (x0 == x1 && y0 == y1) 
-	//	break;
+ 	 // printf("x:%d y:%d\n", x0, y0);
+	  mlx_put_pixel(map->background, x0, y0, 0XFFFFFF);
+	 //  if (x0 == x1 && y0 == y1) 
+		//	break;
     e2 = 2 * err;
     if (e2 >= dy) 
 	{ 
@@ -127,41 +127,67 @@ void shoot_ray(t_map *map)
 
 void	makethelines(t_map *map)
 {
-	int i = 1;
-	map->rayamount = 0;
-	while (i++ <= 90)
+	int i = 0;
+	int length = sqrt(pow(map->cameraposx - map->firstray[0], 2) + pow(map->cameraposy - map->firstray[1], 2));
+	while (i++ < 90)
 	{
-		map->rayamount += 1;
 		if (map->diry > 2 || map->diry < -2)
 		{
-			if (map->rayamount < 45)
-			{
-				plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - i, map->firstray[1], map);
-				makethewalls(map);
-			}
-			else if (map->rayamount > 45)
-			{
-				plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + i, map->firstray[1], map);
-				makethewalls(map);
-			}
+			plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - length, map->firstray[1], map);
+			//makethewalls(map);
+			plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + length, map->firstray[1], map);
+			//makethewalls(map);
 		}
-		else
-		{
-			if (map->rayamount < 45)
-			{
-				plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] - i, map);
-				makethewalls(map);
-			}
-			else if (map->rayamount > 45)
-			{
-				plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] + i, map);
-				makethewalls(map);
-			}
-		}
+		//else
+		//{
+		//	plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] - length, map);
+		////	makethewalls(map);
+		//	plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] + length, map);
+		////	makethewalls(map);
+		//}
+		//makethewalls(map);
 	}
-	plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1], map);
-	map->rayamount = 45;
-	makethewalls(map);
+
+
+
+	//int i = 1;
+	//map->rayamount = 0;
+	//while (i++ <= 45)
+	//{
+	//	map->rayamount += 1;
+	//	if (map->diry > 2 || map->diry < -2)
+	//	{
+	//		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - i, map->firstray[1], map);
+	//		makethewalls(map);
+	//	}
+	//	else
+	//	{
+	//		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] - i, map);
+	//		makethewalls(map);
+	//	}
+	//}
+	//i = 1;
+	//while (i++ <= 45)
+	//{
+	//	map->rayamount += 1;
+	//	if (map->diry > 2 || map->diry < -2)
+	//	{
+	//		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + i, map->firstray[1], map);
+	//		makethewalls(map);
+	//	}
+	//	else
+	//	{
+	//		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] + i, map);
+	//		makethewalls(map);
+	//	}
+	//}
+
+
+
+
+	//plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1], map);
+	//map->rayamount = 45;
+	//makethewalls(map);
 }
 
 void reset(t_map *map)

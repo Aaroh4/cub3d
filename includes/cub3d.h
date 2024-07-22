@@ -25,6 +25,7 @@ typedef struct s_ray
 
 typedef struct s_map
 {
+	t_ray rays[90];
 	int	fd;
 	int	linecount;
 	int wallcount;
