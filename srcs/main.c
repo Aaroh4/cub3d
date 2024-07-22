@@ -66,7 +66,33 @@ void	makethewalls(t_map *map)
 	while  (y < 0)
 		y++;
 	while (++y < end && y < screenlength)
-		mlx_put_pixel(map->background, map->rayamount * 14, y, 0XFFFFFF);
+		mlx_put_pixel(map->background, map->rayamount, y, 0XFFFFFF);
+	//map->lastx = x;
+	//map->lasty = y;
+}
+
+void	makethewalls2(t_map *map)
+{
+	int length = sqrt(pow(map->cameraposx - map->rayposx, 2) + pow(map->cameraposy - map->rayposy, 2));
+	int wall_height;
+	if (length > 0)
+		wall_height = (20 * screenlength) / length;
+	else
+		wall_height = (20 * screenlength);
+	int	begin;
+	int end;
+	int y;
+
+
+	map->fd = 1;
+
+	begin = (screenlength / 2) - (wall_height / 3);
+ 	end = (screenlength / 2) + (wall_height / 3);
+	y = begin - 1;
+	while  (y < 0)
+		y++;
+	while (++y < end && y < screenlength)
+		mlx_put_pixel(map->background, 180 + 500 - map->rayamount, y, 0XFFFFFF);
 	//map->lastx = x;
 	//map->lasty = y;
 }
@@ -128,24 +154,33 @@ void shoot_ray(t_map *map)
 void	makethelines(t_map *map)
 {
 	int i = 0;
-	int length = sqrt(pow(map->cameraposx - map->firstray[0], 2) + pow(map->cameraposy - map->firstray[1], 2));
+	int length = sqrt(pow(map->cameraposx + 10 - map->firstray[0], 2) + pow(map->cameraposy + 10 - map->firstray[1], 2));
+
+	//int	newlength;
+	length /= 2;
+	double asd = 50;
+	map->rayamount = 500;
 	while (i++ < 90)
 	{
-		if (map->diry > 2 || map->diry < -2)
-		{
-			plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - length, map->firstray[1], map);
-			//makethewalls(map);
-			plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + length, map->firstray[1], map);
-			//makethewalls(map);
-		}
-		//else
-		//{
-		//	plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] - length, map);
-		////	makethewalls(map);
-		//	plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] + length, map);
-		////	makethewalls(map);
-		//}
-		//makethewalls(map);
+		length -= length / asd;
+		asd -= 0.8;
+		map->rayamount += 1;
+		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - length, map->firstray[1], map);
+		makethewalls(map);
+	//	plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + length, map->firstray[1], map);
+	}
+	i = 0;
+	asd = 50;
+	length = sqrt(pow(map->cameraposx + 10 - map->firstray[0], 2) + pow(map->cameraposy + 10 - map->firstray[1], 2));
+	length /= 2;
+	map->rayamount = 0;
+	while (i++ < 90)
+	{
+		length -= length / asd;
+		asd -= 0.8;
+		map->rayamount += 1;
+		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + length, map->firstray[1], map);
+		makethewalls2(map);
 	}
 
 
