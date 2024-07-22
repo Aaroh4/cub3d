@@ -5,6 +5,9 @@
 #define GROUND "textures/ground.png"
 #define PI 3.1415926535
 
+#define screenwidth 1200
+#define screenlength 600
+
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 
@@ -12,8 +15,17 @@
 # include <fcntl.h>
 # include <math.h>
 
+
+typedef struct s_ray
+{
+	int x;
+	int	y;
+	int lenght;
+} t_ray;
+
 typedef struct s_map
 {
+	t_ray rays[90];
 	int	fd;
 	int	linecount;
 	int wallcount;
@@ -27,6 +39,17 @@ typedef struct s_map
 
 	double diry;
 	double dirx;
+
+	int	rayposy;
+	int	rayposx;
+
+	int	cameraposy;
+	int	cameraposx;
+
+	int lastx;
+	int	lasty;
+
+	int rayamount;
 
 	double firstray[2]; // 0 for x // 1 for y
 

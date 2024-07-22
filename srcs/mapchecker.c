@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:53:08 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/07/17 13:16:35 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:03:53 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	loop_trough(t_map *map, char *str, int count)
 			map->playerstartpos = str[i];
 			map->plocation[0] = i;
 			map->plocation[1] = count;
+			map->cameraposx = 20 * i;
+			map->cameraposy = 20 * (count - 8);
 		}
 		if (str[i] == '1')
 			map->wallcount++;
@@ -131,7 +133,6 @@ void	save_map(t_map *map, char *map_name)
 		printf("Walls not closed!\n");
 		exit(1);
 	}
-	count = 0;
 	close(fd);
 }
 
