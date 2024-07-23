@@ -40,6 +40,10 @@ typedef struct s_map
 	double diry;
 	double dirx;
 
+	double raydirx;
+	double raydiry;
+	double raypa;
+
 	int	rayposy;
 	int	rayposx;
 

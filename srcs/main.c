@@ -71,68 +71,6 @@ void	makethewalls(t_map *map)
 	//map->lasty = y;
 }
 
-void	makethewalls2(t_map *map)
-{
-	int length = sqrt(pow(map->cameraposx - map->rayposx, 2) + pow(map->cameraposy - map->rayposy, 2));
-	int wall_height;
-	if (length > 0)
-		wall_height = (20 * screenlength) / length;
-	else
-		wall_height = (20 * screenlength);
-	int	begin;
-	int end;
-	int y;
-
-
-	map->fd = 1;
-
-	begin = (screenlength / 2) - (wall_height / 3);
- 	end = (screenlength / 2) + (wall_height / 3);
-	y = begin - 1;
-	while  (y < 0)
-		y++;
-	while (++y < end && y < screenlength)
-		mlx_put_pixel(map->background, 180 + 500 - map->rayamount, y, 0XFFFFFF);
-	//map->lastx = x;
-	//map->lasty = y;
-}
-
-void plot_line (int x0, int y0, int x1, int y1, t_map *map)
-{
-  int dx;
-  dx = abs (x1 - x0);
-  int sx; 
-  sx = x0 < x1 ? 1 : -1;
-  int dy; 
-  dy = -abs (y1 - y0);
-  int sy;
-  sy = y0 < y1 ? 1 : -1;
-  int err;
-  err = dx + dy;
-  int e2;
-
-  while (!checkwallhit(map, y0, x0))
-  {
- 	 // printf("x:%d y:%d\n", x0, y0);
-	  mlx_put_pixel(map->background, x0, y0, 0XFFFFFF);
-	 //  if (x0 == x1 && y0 == y1) 
-		//	break;
-    e2 = 2 * err;
-    if (e2 >= dy) 
-	{ 
-		err += dy;
-		x0 += sx; 
-	}
-    if (e2 <= dx) 
-	{
-		err += dx;
-		y0 += sy;
-	}
-  }
-  map->rayposy = y0;
-  map->rayposx = x0;
-}
-
 void shoot_ray(t_map *map)
 {
 	double yx[2];
@@ -143,86 +81,64 @@ void shoot_ray(t_map *map)
 	while (!checkwallhit(map, yx[1], yx[0]))
 	{
 		mlx_put_pixel(map->background, yx[0], yx[1], 0XFFFFFF);
-		yx[0] += map->dirx - 0.25;
-		yx[1] += map->diry;
+		yx[0] += map->raydirx - 0.20;
+		yx[1] += map->raydiry;
 		i++;
 	}
-	map->firstray[0] = yx[0];
-	map->firstray[1] = yx[1];
+	map->rayposx = yx[0];
+	map->rayposy = yx[1];
 }
 
 void	makethelines(t_map *map)
 {
+	map->rayamount = 60;
+	map->raydiry = map->diry;
+	map->raydirx = map->dirx;
+	map->raypa = map->pa;
+
 	int i = 0;
-	int length = sqrt(pow(map->cameraposx + 10 - map->firstray[0], 2) + pow(map->cameraposy + 10 - map->firstray[1], 2));
-
-	//int	newlength;
-	length /= 2;
-	double asd = 50;
-	map->rayamount = 500;
-	while (i++ < 90)
+	while (i < 60)
 	{
-		length -= length / asd;
-		asd -= 0.8;
-		map->rayamount += 1;
-		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - length, map->firstray[1], map);
+		map->rayamount -= 1;
+		map->raypa += 0.01;
+		if (map->raypa > 2 * PI)
+		{
+			map->raypa -= 2 * PI;
+		}
+		map->raydirx = cos(map->raypa) * 2;
+		map->raydiry = sin(map->raypa) * 2;
+		shoot_ray(map);
 		makethewalls(map);
-	//	plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + length, map->firstray[1], map);
+		i++;
 	}
+	map->raydiry = map->diry;
+	map->raydirx = map->dirx;
+	map->raypa = map->pa;
+
 	i = 0;
-	asd = 50;
-	length = sqrt(pow(map->cameraposx + 10 - map->firstray[0], 2) + pow(map->cameraposy + 10 - map->firstray[1], 2));
-	length /= 2;
-	map->rayamount = 0;
-	while (i++ < 90)
+	map->rayamount = 60;
+	while (i < 60)
 	{
-		length -= length / asd;
-		asd -= 0.8;
 		map->rayamount += 1;
-		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + length, map->firstray[1], map);
-		makethewalls2(map);
+		map->raypa -= 0.01;
+		if (map->raypa < 0)
+		{
+			map->raypa += 2 * PI;
+		}
+		map->raydirx = cos(map->raypa) * 2;
+		map->raydiry = sin(map->raypa) * 2;
+		shoot_ray(map);
+		makethewalls(map);
+		i++;
 	}
-
-
-
-	//int i = 1;
-	//map->rayamount = 0;
-	//while (i++ <= 45)
-	//{
-	//	map->rayamount += 1;
-	//	if (map->diry > 2 || map->diry < -2)
-	//	{
-	//		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - i, map->firstray[1], map);
-	//		makethewalls(map);
-	//	}
-	//	else
-	//	{
-	//		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] - i, map);
-	//		makethewalls(map);
-	//	}
-	//}
-	//i = 1;
-	//while (i++ <= 45)
-	//{
-	//	map->rayamount += 1;
-	//	if (map->diry > 2 || map->diry < -2)
-	//	{
-	//		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + i, map->firstray[1], map);
-	//		makethewalls(map);
-	//	}
-	//	else
-	//	{
-	//		plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] + i, map);
-	//		makethewalls(map);
-	//	}
-	//}
-
-
-
-
-	//plot_line(map->cameraposx, map->cameraposy, map->firstray[0], map->firstray[1], map);
-	//map->rayamount = 45;
-	//makethewalls(map);
+	//int i = 0;
+	//int length = sqrt(pow(map->cameraposx + 10 - map->firstray[0], 2) + pow(map->cameraposy + 10 - map->firstray[1], 2));
+	//int add = map->dirx * map->diry;
+	//length *= add;
+	//plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] - length, map);
+	//plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] + length, map);
+	//plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - length, map->firstray[1], map);
+	//plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + length, map->firstray[1], map);
 }
 
 void reset(t_map *map)
@@ -246,7 +162,6 @@ void ft_loop_hook(void *param)
 	t_map	*map;
 
 	map = param;
-	shoot_ray(map);
 	makethelines(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 		if (ft_check_move(map, 3) == 1)
@@ -320,6 +235,8 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	//double angle = pa / (1.0 + 0.28 * pa * pa);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(map->mlx);
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+		printf("x%f y%f\n", map->dirx, map->diry);
 }
 
 void	start_window(t_map *map)
@@ -327,6 +244,7 @@ void	start_window(t_map *map)
 	map->mlx = mlx_init(screenwidth, screenlength, "Game", false);
 	ft_init_textu(map);
 	ft_init_img(map->mlx, map);
+	reset(map);
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	mlx_put_pixel(map->background, 440, 100, 535353);
 	ft_create_wall(map);
