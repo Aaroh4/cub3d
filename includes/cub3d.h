@@ -31,6 +31,8 @@ typedef struct s_map
 	int wallcount;
 	int	lenght;
 	int	plocation[2]; // 0 for x // 1 for y
+	int	info_set;
+	int	map_start;
 
 	int	py;
 	int	px;
@@ -56,6 +58,12 @@ typedef struct s_map
 	char	playerstartpos;
 	char	**mapsave;
 	char	**mapcopy;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	char	*surface;
+	char	*sky;
 	mlx_t	*mlx;
 
 	mlx_image_t		*background;

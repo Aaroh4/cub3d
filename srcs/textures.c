@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:36:37 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/07/18 13:02:56 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:37:48 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	ft_init_textu(t_map *map)
 	//if (map->player_txt == NULL)
 	//	ft_error_mlx(map);
 }
+
+// path to the texture, check if the file for that texture specified exists.
+// Need error and exit functions if we fail fetching the texture.
 
 void	ft_init_img(mlx_t *mlx, t_map *map)
 {
@@ -48,7 +51,7 @@ void	ft_create_wall(t_map *img)
 	int	i;
 	int	j;
 
-	i = 8;
+	i = img->map_start;
 	while (i < img->linecount)
 	{
 		j = 0;
@@ -68,4 +71,11 @@ void	ft_create_wall(t_map *img)
 		}
 		i++;
 	}
+	// printf("\n");
+	// int	k = 0;
+	// while (img->mapsave[k])
+	// {
+	// 	printf("%s", img->mapsave[k]);
+	// 	k++;
+	// }
 }
