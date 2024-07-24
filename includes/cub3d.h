@@ -15,6 +15,22 @@
 # include <fcntl.h>
 # include <math.h>
 
+typedef struct s_fcheck
+{
+	int		linecount;
+	int		count;
+	int		map_start;
+	int		info;
+	int		error;
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	char	*ground;
+	char	*sky;
+	char	**file;
+}	t_fcheck;
+
 
 typedef struct s_ray
 {
