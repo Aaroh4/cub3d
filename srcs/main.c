@@ -99,7 +99,7 @@ void	makethelines(t_map *map)
 	int i = 0;
 	while (i < 60)
 	{
-		map->rayamount -= 1;
+		map->rayamount += 1;
 		map->raypa += 0.01;
 		if (map->raypa > 2 * PI)
 		{
@@ -119,7 +119,7 @@ void	makethelines(t_map *map)
 	map->rayamount = 60;
 	while (i < 60)
 	{
-		map->rayamount += 1;
+		map->rayamount -= 1;
 		map->raypa -= 0.01;
 		if (map->raypa < 0)
 		{
@@ -131,14 +131,6 @@ void	makethelines(t_map *map)
 		makethewalls(map);
 		i++;
 	}
-	//int i = 0;
-	//int length = sqrt(pow(map->cameraposx + 10 - map->firstray[0], 2) + pow(map->cameraposy + 10 - map->firstray[1], 2));
-	//int add = map->dirx * map->diry;
-	//length *= add;
-	//plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] - length, map);
-	//plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0], map->firstray[1] + length, map);
-	//plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] - length, map->firstray[1], map);
-	//plot_line(map->cameraposx + 10, map->cameraposy + 10, map->firstray[0] + length, map->firstray[1], map);
 }
 
 void reset(t_map *map)
