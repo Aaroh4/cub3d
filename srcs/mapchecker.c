@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:53:08 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/07/24 11:05:52 by plang            ###   ########.fr       */
+/*   Updated: 2024/07/25 16:02:36 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	map_save(t_map *map)
 		j = 0;
 		while (j <= map->lenght)
 		{
-			if (j <= ft_strlen(map->mapcopy[i]))
+			if (j <= (int)ft_strlen(map->mapcopy[i]))
 				map->mapsave[i][j] = map->mapcopy[i][j];
 			// else
 			// 	map->mapsave[i][j] = '0';

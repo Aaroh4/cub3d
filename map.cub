@@ -12,11 +12,11 @@ EA ./path_to_the_east_texture
 
 F 220,100,0
 
-HE ./path_to_thing
 
 C 225,30,0
 
 
+HE ./path_to_thing
 
         1111111111111111111111111
         1000000000110000000000001

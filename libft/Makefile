@@ -3,46 +3,90 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plang <plang@student.hive.fi>              +#+  +:+       +#+         #
+#    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/19 12:03:42 by ahamalai          #+#    #+#              #
-#    Updated: 2024/07/22 17:03:06 by plang            ###   ########.fr        #
+#    Created: 2024/01/04 14:40:11 by plang             #+#    #+#              #
+#    Updated: 2024/04/17 14:28:54 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME	= libft.a
 
-SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
-	  ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c \
-	  ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c \
-	  ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c \
-	  ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c \
-	  ft_atoi.c ft_calloc.c ft_strdup.c ft_putchar_fd.c \
-	  ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_strcmp.c \
-	  ft_strjoin.c ft_substr.c ft_strtrim.c ft_itoa.c \
-	  ft_split.c ft_striteri.c ft_strmapi.c get_next_line.c \
-	  get_next_line_utils.c ft_printf.c ft_printhex.c \
+CC		= @cc
 
-OBJ = $(SRC:.c=.o)
+CFLAGS	= -Wall -Wextra -Werror
 
-HEADERS = ./includes
+SRCS	= src/ft_isalpha.c \
+		src/ft_isdigit.c \
+		src/ft_isalnum.c \
+		src/ft_isascii.c \
+		src/ft_isprint.c \
+		src/ft_strlen.c \
+		src/ft_memset.c \
+		src/ft_bzero.c \
+		src/ft_memcpy.c \
+		src/ft_memmove.c \
+		src/ft_strlcpy.c \
+		src/ft_strlcat.c \
+		src/ft_toupper.c \
+		src/ft_tolower.c \
+		src/ft_strchr.c \
+		src/ft_strrchr.c \
+		src/ft_strncmp.c \
+		src/ft_memchr.c \
+		src/ft_memcmp.c \
+		src/ft_strnstr.c \
+		src/ft_atoi.c \
+		src/ft_calloc.c \
+		src/ft_strdup.c \
+		src/ft_substr.c \
+		src/ft_strjoin.c \
+		src/ft_strtrim.c \
+		src/ft_split.c \
+		src/ft_itoa.c \
+		src/ft_strmapi.c \
+		src/ft_striteri.c \
+		src/ft_skip_char.c \
+		src/ft_putchar_fd.c \
+		src/ft_putstr_fd.c \
+		src/ft_putendl_fd.c \
+		src/ft_putnbr_fd.c \
+		src/ft_lstnew.c \
+		src/ft_lstadd_front.c \
+		src/ft_lstsize.c \
+		src/ft_lstlast.c \
+		src/ft_lstadd_back.c \
+		src/ft_lstdelone.c \
+		src/ft_lstclear.c \
+		src/ft_lstiter.c \
+		src/ft_format_specifier.c \
+		src/ft_printf.c \
+		src/ft_putchar.c \
+		src/ft_puthex_base.c \
+		src/ft_putint_base.c \
+		src/ft_putpointer.c \
+		src/ft_putstr.c \
+		src/ft_putunsig.c \
+		src/get_next_line.c \
+		src/get_next_line_utils.c \
+		src/get_next_line_fd.c
 
-%.o: %.c
-	cc -c $< -o $@ -I $(HEADERS)
-
-$(NAME): $(OBJ)
+OBJS	= $(SRCS:.c=.o)
 
 all: $(NAME)
 
+$(NAME): $(OBJS)
+	@ar -cqs $(NAME) $(OBJS)
+	@echo "Library compiled!"
+
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJS)
+	@echo "Removed -o files"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "Removed library!"
 
-re: fclean all
+re: fclean $(NAME)
 
-libft.a: $(OBJ)
-	ar -rc libft.a $(OBJ)
-
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re
