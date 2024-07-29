@@ -17,24 +17,12 @@ int	ft_check_move(t_map *img, int move)
 	return (1);
 }
 
-int checkwallhit(t_map *map, double y, double x)
+int checkwallhit(t_map *map, int y, int x)
 {
-	int yn;
-	int xn;
-
-	yn = 0;
-	xn = 0;
-	while (x > 0)
-	{
-		xn++;
-		x -= 20;
-	}
-	while (y > 0)
-	{
-		yn++;
-		y -= 20;
-	}
-	if (map->mapsave[yn + 7][xn - 1] == '1')
+	y = 10;
+	x  = 10;
+	//printf("count %d x%d y%d\n", map->linecount, x, y);
+	if (map->mapsave[y][x] == '1')
 		return (1);
 	return (0);
 }
@@ -78,7 +66,7 @@ void shoot_ray(t_map *map)
 	yx[1] = map->cameraposy;
 	yx[0] = map->cameraposx;
 	//printf("y%f x%f | iy%d ix%d\n", yx[1], yx[0], map->player->instances[0].y, map->player->instances[0].x);
-	while (!checkwallhit(map, yx[1], yx[0]))
+	while (!checkwallhit(map, yx[1], yx[0]) && yx[0] > 0 && yx[0] < 500 && yx[1] > 0 && yx[1] < 500)
 	{
 		mlx_put_pixel(map->background, yx[0], yx[1], 0XFFFFFF);
 		yx[0] += map->raydirx;
