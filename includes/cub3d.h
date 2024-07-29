@@ -3,7 +3,7 @@
 
 #define WALL "textures/wall.png"
 #define GROUND "textures/ground.png"
-#define PI 3.1415926535
+#define PI 3.14159265358979323846
 
 #define screenwidth 1200
 #define screenlength 600
@@ -47,8 +47,8 @@ typedef struct s_map
 	int	rayposy;
 	int	rayposx;
 
-	int	cameraposy;
-	int	cameraposx;
+	double	cameraposy;
+	double	cameraposx;
 
 	int lastx;
 	int	lasty;
