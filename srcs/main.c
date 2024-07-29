@@ -17,13 +17,11 @@ int	ft_check_move(t_map *img, int move)
 	return (1);
 }
 
-int checkwallhit(t_map *map, double y, double x)
+int checkwallhit(t_map *map, int y, int x)
 {
-	int i;
 	int yn;
 	int xn;
 
-	i = 0;
 	yn = 0;
 	xn = 0;
 	while (x >= 0)
@@ -36,18 +34,17 @@ int checkwallhit(t_map *map, double y, double x)
 		yn++;
 		y -= 20;
 	}
-	while (i < map->wallcount)
-	{
 		if (map->mapsave[yn + 7][xn - 1] == '1')
 			return (1);
-		i++;
-	}
 	return (0);
 }
 
 void	makethewalls(t_map *map)
 {
+	static int asd;
 	int length = sqrt(pow(map->cameraposx - map->rayposx, 2) + pow(map->cameraposy - map->rayposy, 2));
+	printf("asd%d %d\n", asd, length);
+	asd++;
 	int wall_height;
 	if (length > 0)
 		wall_height = (20 * screenlength) / length;
@@ -60,13 +57,19 @@ void	makethewalls(t_map *map)
 
 	map->fd = 1;
 
-	begin = (screenlength / 2) - (wall_height / 3);
- 	end = (screenlength / 2) + (wall_height / 3);
-	y = begin - 1;
-	while  (y < 0)
-		y++;
-	while (++y < end && y < screenlength)
-		mlx_put_pixel(map->background, map->rayamount, y, 0XFFFFFF);
+
+	int i = 0;
+	while (i < 20)
+	{
+		begin = (screenlength / 2) - (wall_height / 3);
+ 		end = (screenlength / 2) + (wall_height / 3);
+		y = begin - 1;
+		while  (y < 0)
+			y++;
+		while (++y < end && y < screenlength)
+			mlx_put_pixel(map->background, map->rayamount + i, y, 0XFFFFFF);
+		i++;
+	}
 	//map->lastx = x;
 	//map->lasty = y;
 }
@@ -75,8 +78,8 @@ void shoot_ray(t_map *map)
 {
 	double yx[2];
 	int i = 0;
-	yx[1] = map->cameraposy + 10;
-	yx[0] = map->cameraposx + 10;
+	yx[1] = map->cameraposy;
+	yx[0] = map->cameraposx;
 	//printf("y%f x%f | iy%d ix%d\n", yx[1], yx[0], map->player->instances[0].y, map->player->instances[0].x);
 	while (!checkwallhit(map, yx[1], yx[0]))
 	{
@@ -91,7 +94,7 @@ void shoot_ray(t_map *map)
 
 void	makethelines(t_map *map)
 {
-	map->rayamount = 60;
+	map->rayamount = screenwidth / 2;
 	map->raydiry = map->diry;
 	map->raydirx = map->dirx;
 	map->raypa = map->pa;
@@ -99,7 +102,7 @@ void	makethelines(t_map *map)
 	int i = 0;
 	while (i < 60)
 	{
-		map->rayamount += 1;
+		map->rayamount += screenwidth / 120;
 		map->raypa += 0.01;
 		if (map->raypa > 2 * PI)
 		{
@@ -116,10 +119,10 @@ void	makethelines(t_map *map)
 	map->raypa = map->pa;
 
 	i = 0;
-	map->rayamount = 60;
+	map->rayamount = screenwidth / 2;
 	while (i < 60)
 	{
-		map->rayamount -= 1;
+		map->rayamount -= screenwidth / 120;
 		map->raypa -= 0.01;
 		if (map->raypa < 0)
 		{
@@ -140,9 +143,14 @@ void reset(t_map *map)
 		while (abcx <= 1200)
 		{
 			abcy = 0;
+			while (abcy <= 300)
+			{
+				mlx_put_pixel(map->background, abcx, abcy, 11111111);
+				abcy++;
+			}
 			while (abcy <= 600)
 			{
-				mlx_put_pixel(map->background, abcx, abcy, 535353);
+				mlx_put_pixel(map->background, abcx, abcy, 5555555);
 				abcy++;
 			}
 			abcx++;
