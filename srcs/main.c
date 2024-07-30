@@ -59,8 +59,8 @@ void	makethewalls(t_map *map)
 {
 	double length = sqrt(pow(map->cameraposx - map->rayposx, 2) + pow(map->cameraposy - map->rayposy, 2));
 	double correct = map->pa - map->raypa;
-	//correct *= (M_PI / 180.0);
 	length *= cos(correct);
+	printf("length:%d\n", (int)length);
 	int wall_height;
 	if (length > 0)
 		wall_height = (20 * screenlength) / length;
@@ -73,8 +73,8 @@ void	makethewalls(t_map *map)
 	int i = 0;
 	while (i < 20)
 	{
-		begin = (screenlength / 2) - (wall_height / 3);
- 		end = (screenlength / 2) + (wall_height / 3);
+		begin = (screenlength / 2) - (wall_height / 2);
+ 		end = (screenlength / 2) + (wall_height / 2);
 		y = begin - 1;
 		while  (y < 0)
 			y++;
@@ -94,8 +94,8 @@ void shoot_ray(t_map *map)
 	while (!checkwallhit(map, yx[1], yx[0]) && yx[0] > 0 && yx[0] < 500 && yx[1] > 0 && yx[1] < 500)
 	{
 		mlx_put_pixel(map->background, yx[0], yx[1], 0XFFFFFF);
-		yx[0] += map->raydirx;
-		yx[1] += map->raydiry;
+		yx[0] += map->raydirx / 100;
+		yx[1] += map->raydiry / 100;
 		i++;
 	}
 	map->rayposx = yx[0];
