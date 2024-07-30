@@ -208,7 +208,7 @@ void ft_loop_hook(void *param)
 		//	reset(map);
 		}
 	}
-	else if (mlx_is_key_down(map->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 	{
 		if (ft_check_move(map, 4) == 1)
 		{
@@ -219,7 +219,7 @@ void ft_loop_hook(void *param)
 		//	reset(map);
 		}
 	}
-	else if (mlx_is_key_down(map->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(map->mlx, MLX_KEY_A))
 	{
 		if (ft_check_move(map, 4) == 1)
 		{
@@ -227,7 +227,7 @@ void ft_loop_hook(void *param)
 			map->cameraposx -= -map->diry / 1.5;
 		}
 	}
-	else if (mlx_is_key_down(map->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(map->mlx, MLX_KEY_D))
 	{
 		if (ft_check_move(map, 4) == 1)
 		{
