@@ -219,6 +219,22 @@ void ft_loop_hook(void *param)
 		//	reset(map);
 		}
 	}
+	else if (mlx_is_key_down(map->mlx, MLX_KEY_A))
+	{
+		if (ft_check_move(map, 4) == 1)
+		{
+			map->cameraposy -= map->dirx / 1.5;
+			map->cameraposx -= -map->diry / 1.5;
+		}
+	}
+	else if (mlx_is_key_down(map->mlx, MLX_KEY_D))
+	{
+		if (ft_check_move(map, 4) == 1)
+		{
+			map->cameraposy += map->dirx / 1.5;
+			map->cameraposx += -map->diry / 1.5;
+		}
+	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
 		map->pa -= 0.1;
