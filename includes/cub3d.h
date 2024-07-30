@@ -44,8 +44,8 @@ typedef struct s_map
 	double raydiry;
 	double raypa;
 
-	int	rayposy;
-	int	rayposx;
+	double	rayposy;
+	double	rayposx;
 
 	double	cameraposy;
 	double	cameraposx;
