@@ -19,6 +19,23 @@ int	ft_check_move(t_map *img, int move)
 
 int checkwallhit(t_map *map, int y, int x)
 {
+	int yn;
+	int xn;
+
+	yn = 0;
+	xn = 0;
+	while (x >= 0)
+	{
+		xn++;
+		x -= 20;
+	}
+	while (y >= 0)
+	{
+		yn++;
+		y -= 20;
+	}
+		if (map->mapsave[yn + 7][xn - 1] == '1')
+			return (1);
 	return (0);
 }
 
@@ -60,7 +77,6 @@ void	makethewalls(t_map *map)
 	double length = sqrt(pow(map->cameraposx - map->rayposx, 2) + pow(map->cameraposy - map->rayposy, 2));
 	double correct = map->pa - map->raypa;
 	length *= cos(correct);
-	printf("length:%d\n", (int)length);
 	int wall_height;
 	if (length > 0)
 		wall_height = (20 * screenlength) / length;
@@ -71,15 +87,21 @@ void	makethewalls(t_map *map)
 	int y;
 
 	int i = 0;
+	int untily;
 	while (i < 20)
 	{
 		begin = (screenlength / 2) - (wall_height / 2);
  		end = (screenlength / 2) + (wall_height / 2);
 		y = begin - 1;
+		untily = 0;
 		while  (y < 0)
 			y++;
+		while (untily++ < y)
+			mlx_put_pixel(map->background, map->rayamount + i, untily, 11111111);
 		while (++y < end && y < screenlength)
 			mlx_put_pixel(map->background, map->rayamount + i, y, 0XFFFFFF);
+		while (y++ <= screenlength)	
+			mlx_put_pixel(map->background, map->rayamount + i, y, 00000000);
 		i++;
 	}
 }
@@ -91,11 +113,11 @@ void shoot_ray(t_map *map)
 	yx[1] = map->cameraposy;
 	yx[0] = map->cameraposx;
 	//printf("y%f x%f | iy%d ix%d\n", yx[1], yx[0], map->player->instances[0].y, map->player->instances[0].x);
-	while (!checkwallhit(map, yx[1], yx[0]) && yx[0] > 0 && yx[0] < 500 && yx[1] > 0 && yx[1] < 500)
+	while (!checkwallhit(map, yx[1], yx[0]))
 	{
 		mlx_put_pixel(map->background, yx[0], yx[1], 0XFFFFFF);
-		yx[0] += map->raydirx / 100;
-		yx[1] += map->raydiry / 100;
+		yx[0] += map->raydirx / 10;
+		yx[1] += map->raydiry / 10;
 		i++;
 	}
 	map->rayposx = yx[0];
@@ -162,7 +184,7 @@ void reset(t_map *map)
 			}
 			while (abcy <= 600)
 			{
-				mlx_put_pixel(map->background, abcx, abcy, 5555555);
+				mlx_put_pixel(map->background, abcx, abcy, 00000000);
 				abcy++;
 			}
 			abcx++;
@@ -183,21 +205,20 @@ void ft_loop_hook(void *param)
 			//map->player->instances[0].x += map->dirx;
 			map->cameraposy += map->diry;
 			map->cameraposx += map->dirx;
-			reset(map);
+		//	reset(map);
 		}
 	}
-	//else if (mlx_is_key_down(map->mlx, MLX_KEY_S))
-	//{
-	//   printf("Moving backward: dirx: %f, diry: %f\n", map->dirx, map->diry);
-	//	if (ft_check_move(map, 4) == 1)
-	//	{
-	//		map->player->instances[0].y -= map->diry;
-	//		map->player->instances[0].x -= map->dirx;
-	//		map->cameraposy -= map->diry;
-	//		map->cameraposx -= map->dirx;
-	//		reset(map);
-	//	}
-	//}
+	else if (mlx_is_key_down(map->mlx, MLX_KEY_S))
+	{
+		if (ft_check_move(map, 4) == 1)
+		{
+			//map->player->instances[0].y -= map->diry;
+			//map->player->instances[0].x -= map->dirx;
+			map->cameraposy -= map->diry;
+			map->cameraposx -= map->dirx;
+		//	reset(map);
+		}
+	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
 		map->pa -= 0.1;
@@ -207,7 +228,7 @@ void ft_loop_hook(void *param)
 		}
 		map->dirx = cos(map->pa) * 2;
 		map->diry = sin(map->pa) * 2;
-		reset(map);
+		//reset(map);
 
 	}
 	else if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
@@ -219,7 +240,7 @@ void ft_loop_hook(void *param)
 		}
 		map->dirx = cos(map->pa) * 2;
 		map->diry = sin(map->pa) * 2;
-		reset(map);
+		//reset(map);
 	}
 }
 
@@ -248,9 +269,9 @@ void	start_window(t_map *map)
 	mlx_put_pixel(map->background, 440, 100, 535353);
 	ft_create_wall(map);
 	if (map->playerstartpos == 'N')
-		map->pa = 0;
+		map->pa = 4.74;
 	else if (map->playerstartpos == 'S')
-		map->pa = -4.8;
+		map->pa = -4.74;
 	else if (map->playerstartpos == 'E')
 		map->pa = 0;
 	else if (map->playerstartpos == 'W')
