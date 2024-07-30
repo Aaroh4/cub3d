@@ -34,8 +34,8 @@ int checkwallhit(t_map *map, int y, int x)
 		yn++;
 		y -= 20;
 	}
-		if (map->mapsave[yn + 7][xn - 1] == '1')
-			return (1);
+	if (map->mapsave[yn + 7][xn - 1] == '1')
+		return (1);
 	return (0);
 }
 
@@ -131,7 +131,8 @@ void	makethelines(t_map *map)
 	map->raydirx = map->dirx;
 	map->raypa = map->pa;
 
-
+	shoot_ray(map);
+	makethewalls(map);
 	//shoot_ray(map);
 	int i = 0;
 	while (i < 60)
@@ -152,8 +153,9 @@ void	makethelines(t_map *map)
 	map->raydirx = map->dirx;
 	map->raypa = map->pa;
 
-	i = 0;
+	i = 1;
 	map->rayamount = screenwidth / 2;
+	map->rayamount -= screenwidth / 120;
 	while (i < 60)
 	{
 		map->rayamount -= screenwidth / 120;
