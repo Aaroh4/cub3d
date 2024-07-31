@@ -50,6 +50,12 @@ typedef struct s_map
 	double	cameraposy;
 	double	cameraposx;
 
+	int stepy;
+	int stepx;
+
+	double sidedisty;
+	double sidedistx;
+
 	int lastx;
 	int	lasty;
 
