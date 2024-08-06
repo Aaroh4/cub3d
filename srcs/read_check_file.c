@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:03:07 by plang             #+#    #+#             */
-/*   Updated: 2024/07/26 11:51:58 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/06 17:53:09 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,29 @@ void	clean_from_space_nl(char **str)
 	{
 		if (*copy != ' ' && *copy != '\n')
 			(*str)[i++] = *copy;
+		copy++;
+	}
+	(*str)[i] = '\0';
+	free(start);
+}
+
+// change to an index to jump over the the 2 chars for carddinal directions
+void	clean_cardinal_directions(char **str)
+{
+	char	*copy;
+	char	*start;
+	int		i;
+
+	i = 0;
+	copy = ft_strdup(*str);
+	if (!copy)
+		return ;
+	start = copy;
+	while (*copy >= 65 && *copy <= 90)
+		copy++;
+	while (*copy)
+	{
+		(*str)[i++] = *copy;
 		copy++;
 	}
 	(*str)[i] = '\0';
@@ -139,7 +162,7 @@ void	check_info_flag(t_fcheck *check, int i)
 {
 	if (check->info == 6)
 	{
-		check->map_start = i;
+		check->map_start = i + 1;
 		check->info = check->info + 1;
 	}
 }
@@ -151,6 +174,24 @@ void	check_failed_info_flag(t_fcheck *check)
 		ft_putstr_fd("Error\nSome information is missing\n", 2);
 		check->error = 1;
 	}
+}
+
+int	check_rest(t_fcheck *check, int	i)
+{
+	int	index;
+
+	index = i;
+	while (check->file[index])
+	{
+		if (check->file[index][0] != '\n')
+			return (1);
+		index++;
+	}
+	check->linecount--;
+	while (check->file[check->linecount][0] == '\n')
+		check->linecount--;
+	check->linecount++;
+	return (0);
 }
 
 void	get_map_information(t_fcheck *check)
@@ -169,7 +210,8 @@ void	get_map_information(t_fcheck *check)
 				continue ;
 			if (check->file[i] && check->file[i][0] != '\n')
 				map_start = 1;
-			if (check->file[i] && (check->file[i][0] == '\n' && map_start == 1))
+			if (check->file[i] && (check->file[i][0] == '\n' && map_start == 1 \
+				&& check_rest(check, i)))
 			{
 				ft_putstr_fd("Error\nMap not complete\n", 2);
 				check->error = 1;
@@ -253,6 +295,135 @@ void	check_rgb_ceiling(t_fcheck *check)
 	// printf("one: %d\ntwo: %d\nthree: %d\n", one, two, three);
 }
 
+void	print_check_struct(t_fcheck *check)
+{
+	printf("linecount: %d\n", check->linecount);
+	printf("count: %d\n", check->count);
+	printf("map_start: %d\n", check->map_start);
+	printf("info: %d\n", check->info);
+	printf("error: %d\n", check->error);
+	printf("north str: %s\n", check->north);
+	printf("south str: %s\n", check->south);
+	printf("west str: %s\n", check->west);
+	printf("east str: %s\n", check->east);
+	printf("ground str: %s\n", check->ground);
+	printf("sky str: %s\n", check->sky);
+	int	k = 0;
+	while (check->mapcpy[k])
+	{
+		printf("%s", check->mapcpy[k]);
+		k++;
+	}
+}
+
+void	clean_input_strings(t_fcheck *check)
+{
+	clean_from_space_nl(&check->north);
+	clean_from_space_nl(&check->south);
+	clean_from_space_nl(&check->west);
+	clean_from_space_nl(&check->east);
+	clean_from_space_nl(&check->ground);
+	clean_from_space_nl(&check->sky);
+	clean_cardinal_directions(&check->north);
+	clean_cardinal_directions(&check->south);
+	clean_cardinal_directions(&check->west);
+	clean_cardinal_directions(&check->east);
+	clean_cardinal_directions(&check->ground);
+	clean_cardinal_directions(&check->sky);
+}
+
+int check_num(char c)
+{
+	char *str;
+	str = "012";
+
+	while (*str)
+	{
+		if (c == *str)
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
+int	wall_flood_fill(t_fcheck *check, int posy, int posx)
+{
+	int i;
+
+	i = 0;
+	check->mapcpy[posy][posx] = '2';
+	if (check->mapcpy[posy - 1] == NULL
+		|| check_num(check->mapcpy[posy - 1][posx]) == 0 
+		|| check_num(check->mapcpy[posy + 1][posx]) == 0
+		|| check_num(check->mapcpy[posy][posx + 1]) == 0
+		|| check_num(check->mapcpy[posy][posx - 1]) == 0)
+		return (1);
+	if (check->mapcpy[posy + 1][posx] == '0' && i == 0)
+		i = wall_flood_fill(check, posy + 1, posx);
+	if (check->mapcpy[posy][posx + 1] == '0' && i == 0)
+		i = wall_flood_fill(check, posy, posx + 1);
+	if (check->mapcpy[posy - 1][posx] == '0' && i == 0)
+		i = wall_flood_fill(check, posy - 1, posx);
+	if (check->mapcpy[posy][posx - 1] == '0' && i == 0)
+		i = wall_flood_fill(check, posy, posx - 1);
+	return (i);
+}
+
+void	looptrough(t_fcheck *check, char *str, int count)
+{
+	static int	player;
+	int			i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
+		{
+			player++;
+			check->playerstartpos = str[i];
+			check->plocation[0] = i;
+			check->plocation[1] = count;
+			check->cameraposx = 20 * i;
+			check->cameraposy = 20 * (count - 8);
+		}
+		if (str[i] == '1')
+			check->wallcount++;
+		i++;
+	}
+	if (i > check->lenght)
+		check->lenght = i;
+	if (player != 1 && i - 1 == check->linecount)
+	{
+		printf("Error\nWrong amount of player\n");
+		exit (1);
+	}
+}
+
+void	check_player_and_boarder(t_fcheck *check)
+{
+	int	i;
+	int	map_size;
+
+	i = 0;
+	while (check->file[check->map_start][0] == '\n')
+		check->map_start++;
+	map_size = (check->linecount - check->map_start);
+	check->mapcpy = malloc((map_size + 1) * sizeof(char *));
+	while (check->map_start < check->linecount)
+	{
+		check->mapcpy[i] = ft_strdup(check->file[check->map_start]);
+		looptrough(check, check->mapcpy[i], i);
+		check->map_start++;
+		i++;
+	}
+	check->mapcpy[i] = 0;
+	if (wall_flood_fill(check, check->plocation[1], check->plocation[0]) == 1)
+	{
+		printf("Walls not closed!\n");
+		exit(1);
+	}
+}
+
 void	read_file(char *map_name, int count)
 {
 	int			fd;
@@ -283,6 +454,7 @@ void	read_file(char *map_name, int count)
 	check_rgb_ceiling(&check);
 	if (check.error == 1)
 		error_inside_file(&check);
+	check_player_and_boarder(&check);
 	// printf("\n");
 	// int	k = 0;
 	// while (check.file[k])
@@ -290,8 +462,11 @@ void	read_file(char *map_name, int count)
 	// 	printf("%s", check.file[k]);
 	// 	k++;
 	// }
+	// printf("\n");
+	// printf("check count: %d\nlinecount: %d\nmap start: %d\ninfo: %d\nnorth: %s\nsouth: %s\nwest: %s\neast: %s\nground: %s\nsky:%s\n", check.count, check.linecount, check.map_start, check.info, check.north, check.south, check.west, check.east, check.ground, check.sky);
 	printf("\n");
-	printf("check count: %d\nlinecount: %d\nmap start: %d\ninfo: %d\nnorth: %s\nsouth: %s\nwest: %s\neast: %s\nground: %s\nsky:%s\n", check.count, check.linecount, check.map_start, check.info, check.north, check.south, check.west, check.east, check.ground, check.sky);
+	clean_input_strings(&check);
+	print_check_struct(&check);
 }
 
 int	count_file_lines(char *map_name, int count)

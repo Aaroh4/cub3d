@@ -17,6 +17,13 @@
 
 typedef struct s_fcheck
 {
+	int		plocation[2];
+	int		cameraposy;
+	int		cameraposx;
+	int 	wallcount;
+	char	playerstartpos;
+	int		lenght;
+
 	int		linecount;
 	int		count;
 	int		map_start;
@@ -29,6 +36,7 @@ typedef struct s_fcheck
 	char	*ground;
 	char	*sky;
 	char	**file;
+	char	**mapcpy;
 }	t_fcheck;
 
 
