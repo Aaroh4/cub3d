@@ -21,8 +21,18 @@ void	makethewalls(t_map *map)
 	untily = 0;
 		while (untily++ < drawStart)
 			mlx_put_pixel(map->background, map->rayamount + i, untily, 11111111);
-		while (drawStart++ < drawEnd)
-					mlx_put_pixel(map->background, map->rayamount + i, drawStart, 0XFFFFFF);
+		if(map->side == 0 && map->raydirx > 0)
+			while (drawStart++ < drawEnd)
+				mlx_put_pixel(map->background, map->rayamount + i, drawStart, 0XFFFFFF);
+      	else if(map->side == 1 && map->raydiry < 0)
+			while (drawStart++ < drawEnd)
+				mlx_put_pixel(map->background, map->rayamount + i, drawStart, 33333333333);
+		else if (map->side == 1 && map->raydiry > 0)
+			while (drawStart++ < drawEnd)
+				mlx_put_pixel(map->background, map->rayamount + i, drawStart, 666666666);
+		else
+			while (drawStart++ < drawEnd)
+				mlx_put_pixel(map->background, map->rayamount + i, drawStart, 888888888);
 		while (drawStart++ <= screenlength)	
 			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 00000000);
 	//	i++;
