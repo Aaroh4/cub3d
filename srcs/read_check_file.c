@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:03:07 by plang             #+#    #+#             */
-/*   Updated: 2024/08/06 17:53:09 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/07 18:07:00 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,27 @@ void	clean_from_space_nl(char **str)
 	free(start);
 }
 
-// change to an index to jump over the the 2 chars for carddinal directions
+void	clean_from_nl(char **str)
+{
+	char	*copy;
+	char	*start;
+	int		i;
+
+	i = 0;
+	copy = ft_strdup(*str);
+	if (!copy)
+		return ;
+	start = copy;
+	while (*copy)
+	{
+		if (*copy != '\n')
+			(*str)[i++] = *copy;
+		copy++;
+	}
+	(*str)[i] = '\0';
+	free(start);
+}
+
 void	clean_cardinal_directions(char **str)
 {
 	char	*copy;
@@ -311,7 +331,7 @@ void	print_check_struct(t_fcheck *check)
 	int	k = 0;
 	while (check->mapcpy[k])
 	{
-		printf("%s", check->mapcpy[k]);
+		printf("%s\n", check->mapcpy[k]);
 		k++;
 	}
 }
@@ -332,46 +352,47 @@ void	clean_input_strings(t_fcheck *check)
 	clean_cardinal_directions(&check->sky);
 }
 
-int check_num(char c)
-{
-	char *str;
-	str = "012";
+// int check_num(char c)
+// {
+// 	char *str;
+// 	str = "012";
 
-	while (*str)
-	{
-		if (c == *str)
-			return (1);
-		str++;
-	}
-	return (0);
-}
+// 	while (*str)
+// 	{
+// 		if (c == *str)
+// 			return (1);
+// 		str++;
+// 	}
+// 	return (0);
+// }
 
-int	wall_flood_fill(t_fcheck *check, int posy, int posx)
-{
-	int i;
+// int	wall_flood_fill(t_fcheck *check, int posy, int posx)
+// {
+// 	int i;
 
-	i = 0;
-	check->mapcpy[posy][posx] = '2';
-	if (check->mapcpy[posy - 1] == NULL
-		|| check_num(check->mapcpy[posy - 1][posx]) == 0 
-		|| check_num(check->mapcpy[posy + 1][posx]) == 0
-		|| check_num(check->mapcpy[posy][posx + 1]) == 0
-		|| check_num(check->mapcpy[posy][posx - 1]) == 0)
-		return (1);
-	if (check->mapcpy[posy + 1][posx] == '0' && i == 0)
-		i = wall_flood_fill(check, posy + 1, posx);
-	if (check->mapcpy[posy][posx + 1] == '0' && i == 0)
-		i = wall_flood_fill(check, posy, posx + 1);
-	if (check->mapcpy[posy - 1][posx] == '0' && i == 0)
-		i = wall_flood_fill(check, posy - 1, posx);
-	if (check->mapcpy[posy][posx - 1] == '0' && i == 0)
-		i = wall_flood_fill(check, posy, posx - 1);
-	return (i);
-}
+// 	i = 0;
+// 	check->mapcpy[posy][posx] = '2';
+// 	if (check->mapcpy[posy - 1] == NULL
+// 		|| check_num(check->mapcpy[posy - 1][posx]) == 0 
+// 		|| check_num(check->mapcpy[posy + 1][posx]) == 0
+// 		|| check_num(check->mapcpy[posy][posx + 1]) == 0
+// 		|| check_num(check->mapcpy[posy][posx - 1]) == 0)
+// 		return (1);
+// 	if (check->mapcpy[posy + 1][posx] == '0' && i == 0)
+// 		i = wall_flood_fill(check, posy + 1, posx);
+// 	if (check->mapcpy[posy][posx + 1] == '0' && i == 0)
+// 		i = wall_flood_fill(check, posy, posx + 1);
+// 	if (check->mapcpy[posy - 1][posx] == '0' && i == 0)
+// 		i = wall_flood_fill(check, posy - 1, posx);
+// 	if (check->mapcpy[posy][posx - 1] == '0' && i == 0)
+// 		i = wall_flood_fill(check, posy, posx - 1);
+// 	return (i);
+// }
 
 void	looptrough(t_fcheck *check, char *str, int count)
 {
-	static int	player;
+	static int	player = 0;
+	static int	lines = 0;
 	int			i;
 
 	i = 0;
@@ -386,42 +407,111 @@ void	looptrough(t_fcheck *check, char *str, int count)
 			check->cameraposx = 20 * i;
 			check->cameraposy = 20 * (count - 8);
 		}
-		if (str[i] == '1')
-			check->wallcount++;
 		i++;
 	}
-	if (i > check->lenght)
-		check->lenght = i;
-	if (player != 1 && i - 1 == check->linecount)
+	lines++;
+	if (player != 1 && ((check->linecount - check->map_start) == (lines + 1)))
 	{
-		printf("Error\nWrong amount of player\n");
+		printf("Error\nWrong amount of player\n%d", player);
 		exit (1);
 	}
+}
+
+void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
+{
+	if (check->mapcpy[*i][*j + 1] == ' ' || \
+		check->mapcpy[*i][*j + 1] == '\0')
+		*invalid = 1;
+	if (check->mapcpy[*i][0] == '0' \
+		|| check->mapcpy[*i][0] == check->playerstartpos)
+		*invalid = 1;
+	if (check->mapcpy[*i][*j - 1] && check->mapcpy[*i][*j - 1] == ' ')
+		*invalid = 1;
+	if (check->mapcpy[*i + 1] && check->mapcpy[*i + 1][*j] == ' ')
+		*invalid = 1;
+	if (*i == 0 && (check->mapcpy[0][*j] == '0' \
+		|| check->mapcpy[0][*j] == ' ' \
+		|| check->mapcpy[0][*j] == check->playerstartpos))
+		*invalid = 1;
+	if (*i == check->map_size && (check->mapcpy[check->map_size][*j] == '0' \
+		|| check->mapcpy[check->map_size][*j] == ' ' \
+		|| check->mapcpy[check->map_size][*j] == check->playerstartpos))
+		*invalid = 1;
+}
+
+int check_char(char c)
+{
+	char *str;
+	str = "01NSWE ";
+
+	while (*str)
+	{
+		if (c == *str)
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
+void	map_boarder_check(t_fcheck *check)
+{
+	int	i;
+	int	j;
+	int	invalid;
+
+	i = 0;
+	invalid = 0;
+	while (check->mapcpy[i] != 0)
+	{
+		j = 0;
+		while (check->mapcpy[i][j] != '\0')
+		{
+			if (check->mapcpy[i][j] == '0')
+				direction_check(check, &invalid, &i, &j);
+			if (check->mapcpy[i][j] == check->playerstartpos)
+				direction_check(check, &invalid, &i, &j);
+			if (check_char(check->mapcpy[i][j]) == 0)
+				invalid = 1;
+			j++;
+		}
+		i++;
+	}
+	if (invalid == 1)
+		ft_putstr_fd("Error\nBuilding blocks are invalid\n", 2);
 }
 
 void	check_player_and_boarder(t_fcheck *check)
 {
 	int	i;
-	int	map_size;
+	int	j;
 
 	i = 0;
-	while (check->file[check->map_start][0] == '\n')
-		check->map_start++;
-	map_size = (check->linecount - check->map_start);
-	check->mapcpy = malloc((map_size + 1) * sizeof(char *));
-	while (check->map_start < check->linecount)
+	j = check->map_start;
+	while (check->file[j][0] == '\n')
 	{
-		check->mapcpy[i] = ft_strdup(check->file[check->map_start]);
-		looptrough(check, check->mapcpy[i], i);
 		check->map_start++;
+		j++;
+	}
+	check->map_size = (check->linecount - check->map_start - 1);
+	check->mapcpy = malloc((check->map_size + 1) * sizeof(char *));
+	// if (!check->mapcpy)
+		// error;
+	printf("%d\n", check->map_size);
+	while (j < check->linecount)
+	{
+		check->mapcpy[i] = ft_strdup(check->file[j]);
+		clean_from_nl(&check->mapcpy[i]);
+		looptrough(check, check->mapcpy[i], i);
+		j++;
 		i++;
 	}
 	check->mapcpy[i] = 0;
-	if (wall_flood_fill(check, check->plocation[1], check->plocation[0]) == 1)
-	{
-		printf("Walls not closed!\n");
-		exit(1);
-	}
+	map_boarder_check(check);
+	// if (wall_flood_fill(check, check->plocation[1], check->plocation[0]) == 1)
+	// {
+	// 	printf("Walls not closed!\n");
+	// 	exit(1);
+	// }
 }
 
 void	read_file(char *map_name, int count)
