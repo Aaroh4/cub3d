@@ -2,135 +2,84 @@
 
 #include <stdio.h>
 
-int checkwallhit(t_map *map, int y, int x)
-{
-	int mapy = (int)map->cameraposy / 20;
-	int mapx = (int)map->cameraposx / 20 + 8;
-	//double deltadistx = sqrt(1 + (map->raydiry * map->raydiry) / (rmap->raydirx * map->raydirx));
-	//double deltadisty = sqrt(1 + (map->raydirx * map->raydirx) / (map->raydiry * map->raydiry));
-	//if (map->raydirx < 0)
-    //{
-    //    map->stepx = -1;
-    //    map->sidedistx = (posX - mapX) * deltadistx;
-    //}
-    //else
-    //{
-    //    map->stepx = 1;
-    //    map->sidedistx = (mapX + 1.0 - posX) * deltadistx;
-    //}
-    //if (map->raydiry < 0)
-    //{
-    //    map->stepy = -1;
-    //    sideDistY = (posY - mapY) * deltadisty;
-    //}
-    //else
-    //{
-    //	map->stepy = 1;
-    //	sideDistY = (mapY + 1.0 - posY) * deltadisty;
-    //}
-	int yn;
-	int xn;
-
-	yn = 0;
-	xn = 0;
-	while (x >= 0)
-	{
-		xn++;
-		x -= 20;
-	}
-	while (y >= 0)
-	{
-		yn++;
-		y -= 20;
-	}
-	if (map->mapsave[yn + 7][xn - 1] == '1')
-		return (1);
-	return (0);
-}
-
-
-//void	makethewalls(t_map *map)
-//{
-//	double length = sqrt((map->cameraposx - map->rayposx) * (map->cameraposx - map->rayposx) +
-//                      (map->cameraposy - map->rayposy) * (map->cameraposy - map->rayposy));
-//	double correct = map->pa - map->raypa;
-//	length *= cos(correct);
-//	int wall_height;
-//	if (length > 0)
-//		wall_height = (20 * screenlength) / length;
-//	else
-//		wall_height = (20 * screenlength);
-//	int	begin;
-//	int end;
-//	int y;
-
-//	map->fd = 1;
-
-
-//	int i = 0;
-//	while (i < 20)
-//	{
-//		begin = (screenlength / 2) - (wall_height / 3);
-// 		end = (screenlength / 2) + (wall_height / 3);
-//		y = begin - 1;
-//		while  (y < 0)
-//			y++;
-//		while (++y < end && y < screenlength)
-//			mlx_put_pixel(map->background, map->rayamount + i, y, 0XFFFFFF);
-//		i++;
-//	}
-//}
-
 void	makethewalls(t_map *map)
 {
-	double length = sqrt(pow(map->cameraposx - map->rayposx, 2) + pow(map->cameraposy - map->rayposy, 2));
-	double correct = map->pa - map->raypa;
-	length *= cos(correct);
-	int wall_height;
-	if (length > 0)
-		wall_height = (20 * screenlength) / length;
+	double lengtha;
+	if (map->side == 0)
+		lengtha = (map->rayposx - map->deltadistx);
 	else
-		wall_height = (20 * screenlength);
-	int	begin;
-	int end;
-	int y;
-
+		lengtha = (map->rayposy - map->deltadisty);
+	double wall_height = screenlength / lengtha;
 	int i = 0;
 	int untily;
-	while (i < 20)
-	{
-		begin = (screenlength / 2) - (wall_height / 2);
- 		end = (screenlength / 2) + (wall_height / 2);
-		y = begin - 1;
-		untily = 0;
-		while  (y < 0)
-			y++;
-		while (untily++ < y)
+	//while (i < 20)
+	//{
+	double drawStart = -wall_height / 2 + screenlength / 2;
+    if(drawStart < 0) drawStart = 0;
+    double drawEnd = wall_height / 2 + screenlength / 2;
+    if(drawEnd >= screenlength) drawEnd = screenlength - 1;
+	untily = 0;
+		while (untily++ < drawStart)
 			mlx_put_pixel(map->background, map->rayamount + i, untily, 11111111);
-		while (++y < end && y < screenlength)
-					mlx_put_pixel(map->background, map->rayamount + i, y, 0XFFFFFF);
-		while (y++ <= screenlength)	
-			mlx_put_pixel(map->background, map->rayamount + i, y, 00000000);
-		i++;
-	}
+		while (drawStart++ < drawEnd)
+					mlx_put_pixel(map->background, map->rayamount + i, drawStart, 0XFFFFFF);
+		while (drawStart++ <= screenlength)	
+			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 00000000);
+	//	i++;
+	//}
 }
 
 void shoot_ray(t_map *map)
 {
-	double yx[2];
+	//int yx[2];
 	int i = 0;
-	yx[1] = map->cameraposy;
-	yx[0] = map->cameraposx;
-	//printf("y%f x%f | iy%d ix%d\n", yx[1], yx[0], map->player->instances[0].y, map->player->instances[0].x);
-	while (!checkwallhit(map, yx[1], yx[0]))
+	//yx[1] = (int)map->cameraposy;
+	//yx[0] = (int)map->cameraposx;
+
+	int mapy = map->cameraposy;
+	int mapx = map->cameraposx;
+	//printf("y%d x%d\n", mapy, mapx);
+	map->deltadistx = sqrt(1 + (map->raydiry * map->raydiry) / (map->raydirx * map->raydirx));
+	map->deltadisty = sqrt(1 + (map->raydirx * map->raydirx) / (map->raydiry * map->raydiry));
+
+	if (map->raydirx < 0)
+    {
+        map->stepx = -1;
+        map->rayposx = (map->cameraposx - mapx) * map->deltadistx;
+    }
+    else
+    {
+        map->stepx = 1;
+        map->rayposx = (mapx + 1.0 - map->cameraposx) * map->deltadistx;
+    }
+    if (map->raydiry < 0)
+    {
+        map->stepy = -1;
+        map->rayposy = (map->cameraposy - mapy) * map->deltadisty;
+    }
+    else
+    {
+    	map->stepy = 1;
+    	map->rayposy = (mapy + 1.0 - map->cameraposy) * map->deltadisty;
+    }
+	while (1)
 	{
-		//mlx_put_pixel(map->background, yx[0], yx[1], 0XFFFFFF);
-		yx[0] += map->raydirx / 10;
-		yx[1] += map->raydiry / 10;
-		i++;
+		//mlx_put_pixel(map->background, map->rayposx, map->rayposy, 0XFFFFFF);
+		if (map->rayposx < map->rayposy)
+		{
+			map->rayposx += map->deltadistx;
+			mapx += map->stepx;
+			map->side = 0;
+		}
+		else
+		{
+			map->rayposy += map->deltadisty;
+			mapy += map->stepy;
+			map->side = 1;
+		}
+		if (map->mapsave[mapy + 8][mapx] == '1')
+			break ;
 	}
-	map->rayposx = yx[0];
-	map->rayposy = yx[1];
 }
 
 void	makethelines(t_map *map)
@@ -143,11 +92,12 @@ void	makethelines(t_map *map)
 	shoot_ray(map);
 	makethewalls(map);
 	//shoot_ray(map);
+	
 	int i = 0;
-	while (i < 60)
+	while (i < 120 * 10)
 	{
-		map->rayamount += screenwidth / 120;
-		map->raypa += 0.01;
+		map->rayamount += screenwidth / (120 * 10);
+		map->raypa += (0.01 / 10);
 		if (map->raypa > 2 * PI)
 		{
 			map->raypa -= 2 * PI;
@@ -164,11 +114,11 @@ void	makethelines(t_map *map)
 
 	i = 1;
 	map->rayamount = screenwidth / 2;
-	map->rayamount -= screenwidth / 120;
-	while (i < 60)
+	map->rayamount -= screenwidth / (120 * 10);
+	while (i < 120 * 10)
 	{
-		map->rayamount -= screenwidth / 120;
-		map->raypa -= 0.01;
+		map->rayamount -= screenwidth / (120 * 10);
+		map->raypa -= (0.01 / 10);
 		if (map->raypa < 0)
 		{
 			map->raypa += 2 * PI;
@@ -207,26 +157,29 @@ void ft_loop_hook(void *param)
 	t_map	*map;
 
 	map = param;
-	makethelines(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 	{
 		map->cameraposy += map->diry;
 		map->cameraposx += map->dirx;
+	//	reset(map);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 	{
 		map->cameraposy -= map->diry;
 		map->cameraposx -= map->dirx;
+	//	reset(map);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_A))
 	{
 		map->cameraposy -= map->dirx / 1.5;
 		map->cameraposx -= -map->diry / 1.5;
+	//	reset(map);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_D))
 	{
 		map->cameraposy += map->dirx / 1.5;
 		map->cameraposx += -map->diry / 1.5;
+	//	reset(map);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
@@ -235,10 +188,9 @@ void ft_loop_hook(void *param)
 		{
 			map->pa += 2 * PI;
 		}
-		map->dirx = cos(map->pa) * 2;
-		map->diry = sin(map->pa) * 2;
-		//reset(map);
-
+		map->dirx = cos(map->pa) / 5;
+		map->diry = sin(map->pa) / 5;
+	//	reset(map);
 	}
 	else if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
 	{
@@ -247,10 +199,11 @@ void ft_loop_hook(void *param)
 		{
 			map->pa -= 2 * PI;
 		}
-		map->dirx = cos(map->pa) * 2;
-		map->diry = sin(map->pa) * 2;
-		//reset(map);
+		map->dirx = cos(map->pa) / 5;
+		map->diry = sin(map->pa) / 5;
+	//	reset(map);
 	}
+	makethelines(map);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
@@ -285,14 +238,10 @@ void	start_window(t_map *map)
 		map->pa = 0;
 	else if (map->playerstartpos == 'W')
 		map->pa = 9.5;
-	map->dirx = cos(map->pa) * 3;
-	map->diry = sin(map->pa) * 3;
+	map->dirx = cos(map->pa) / 5;
+	map->diry = sin(map->pa) / 5;
 	mlx_key_hook(map->mlx, ft_key_hook, map);
 	mlx_loop_hook(map->mlx, ft_loop_hook, map);
-//	shoot_ray(map);
-	//plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + 20, map->firstray[1], map);
-	//plot_line(map->cameraposx, map->cameraposy, map->firstray[0] - 30, map->firstray[1], map);
-	//plot_line(map->cameraposx, map->cameraposy, map->firstray[0] + 30, map->firstray[1], map);
 	mlx_loop(map->mlx);
 	mlx_terminate(map->mlx);
 }

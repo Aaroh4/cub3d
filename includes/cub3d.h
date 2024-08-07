@@ -37,6 +37,8 @@ typedef struct s_map
 
 	double pa;
 
+	int side;
+
 	double diry;
 	double dirx;
 
@@ -53,8 +55,11 @@ typedef struct s_map
 	int stepy;
 	int stepx;
 
-	double sidedisty;
-	double sidedistx;
+	//double sidedisty;
+	//double sidedistx;
+
+	double deltadisty;
+	double deltadistx;
 
 	int lastx;
 	int	lasty;
