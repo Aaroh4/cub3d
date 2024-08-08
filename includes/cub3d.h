@@ -4,6 +4,7 @@
 #define WALL "textures/wall.png"
 #define GROUND "textures/ground.png"
 #define PI 3.14159265358979323846
+#define FOV 120
 
 #define screenwidth 1200
 #define screenlength 600
@@ -16,24 +17,13 @@
 # include <math.h>
 
 
-typedef struct s_ray
-{
-	int x;
-	int	y;
-	int lenght;
-} t_ray;
-
 typedef struct s_map
 {
-	t_ray rays[90];
 	int	fd;
 	int	linecount;
 	int wallcount;
 	int	lenght;
 	int	plocation[2]; // 0 for x // 1 for y
-
-	int	py;
-	int	px;
 
 	double pa;
 
@@ -60,6 +50,9 @@ typedef struct s_map
 
 	double deltadisty;
 	double deltadistx;
+
+	int mapy;
+	int mapx;
 
 	int lastx;
 	int	lasty;
