@@ -98,12 +98,12 @@ void shoot_ray(t_map *map)
     	map->stepy = 1;
     	map->rayposy = (map->mapy + 1.0 - map->cameraposy) * map->deltadisty;
     }
-	if (map->cameraposy < 1 || map->cameraposy > map->linecount - 8 || map->cameraposx < 1)
-	{
-		map->rayposx = -1;
-		map->rayposy = -1;
-		return ;
-	}
+	//if (map->cameraposy < 1 || map->cameraposy > map->linecount - 8 || map->cameraposx < 1)
+	//{
+	//	map->rayposx = -1;
+	//	map->rayposy = -1;
+	//	return ;
+	//}
 	while (1)
 	{
 		//mlx_put_pixel(map->background, map->rayposx, map->rayposy, 0XFFFFFF);
