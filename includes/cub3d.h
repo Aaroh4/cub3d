@@ -5,6 +5,7 @@
 #define GROUND "textures/ground.png"
 #define PI 3.14159265358979323846
 #define FOV 120
+#define DEGREE 0.01745329
 
 #define screenwidth 1200
 #define screenlength 600

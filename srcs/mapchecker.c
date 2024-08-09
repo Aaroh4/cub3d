@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:53:08 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/08 13:36:01 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/09 11:47:48 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	loop_trough(t_map *map, char *str, int count)
 			map->playerstartpos = str[i];
 			map->plocation[0] = i;
 			map->plocation[1] = count;
-			map->cameraposx = i;
-			map->cameraposy = (count - 8);
+			map->cameraposx = i + 0.5;
+			map->cameraposy = (count - 8) + 0.5;
 		}
 		if (str[i] == '1')
 			map->wallcount++;
