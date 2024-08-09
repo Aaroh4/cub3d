@@ -41,8 +41,8 @@ void	makethewalls(t_map *map)
 		lengtha = (map->rayposx - map->deltadistx);
 	else
 		lengtha = (map->rayposy - map->deltadisty);
-	//double correct = (map->pa - map->raypa);
-	//lengtha *= cos(correct);
+	double correct = (map->pa - map->raypa);
+	lengtha *= cos(correct);
 	int wall_height = screenlength / lengtha;
 	int i = 0;
 	int untily;
@@ -185,6 +185,7 @@ void ft_loop_hook(void *param)
 
 	map = param;
 	//printf("posy%d\n", map->cameraposx);
+	makethelines(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 	{
 		map->cameraposy += map->diry / 2;
@@ -231,7 +232,6 @@ void ft_loop_hook(void *param)
 		map->diry = sin(map->pa) / 5;
 	//	reset(map);
 	}
-	makethelines(map);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)

@@ -4,7 +4,7 @@
 #define WALL "textures/wall.png"
 #define GROUND "textures/ground.png"
 #define PI 3.14159265358979323846
-#define FOV 120
+#define FOV 60
 #define DEGREE 0.01745329
 
 #define screenwidth 1200
