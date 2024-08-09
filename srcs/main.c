@@ -2,6 +2,38 @@
 
 #include <stdio.h>
 
+void draw_line(int x, int y, t_map *map)
+{
+	if(map->side == 0 && map->raydirx > 0)
+	{
+		if (map->mapy % 2 == 0)
+				mlx_put_pixel(map->background, x, y, 0XFFFFFFFF);
+		else
+				mlx_put_pixel(map->background, x, y, 00000000);
+	}
+	else if(map->side == 1 && map->raydiry < 0)
+	{
+		if (map->mapx % 2 == 0)
+				mlx_put_pixel(map->background, x, y, 3333333333);
+		else
+				mlx_put_pixel(map->background, x, y, 00000000);
+	}
+	else if (map->side == 1 && map->raydiry > 0)
+	{
+		if (map->mapx % 2 == 0)
+			mlx_put_pixel(map->background, x, y, 66666666);
+		else
+			mlx_put_pixel(map->background, x, y, 00000000);
+	}
+	else
+	{
+		if (map->mapy % 2 == 0)
+			mlx_put_pixel(map->background, x, y, 6666666666);
+		else
+			mlx_put_pixel(map->background, x, y, 00000000);
+	}
+}
+
 void	makethewalls(t_map *map)
 {
 	double lengtha;
@@ -9,14 +41,14 @@ void	makethewalls(t_map *map)
 		lengtha = (map->rayposx - map->deltadistx);
 	else
 		lengtha = (map->rayposy - map->deltadisty);
-	double correct = (map->pa - map->raypa);
-	lengtha *= cos(correct);
-	double wall_height = screenlength / lengtha;
+	//double correct = (map->pa - map->raypa);
+	//lengtha *= cos(correct);
+	int wall_height = screenlength / lengtha;
 	int i = 0;
 	int untily;
-	double drawStart = -wall_height / 2 + screenlength / 2;
+	int drawStart = -wall_height / 2 + screenlength / 2;
     if(drawStart < 0) drawStart = 0;
-    double drawEnd = wall_height / 2 + screenlength / 2;
+    int drawEnd = wall_height / 2 + screenlength / 2;
     if(drawEnd >= screenlength) drawEnd = screenlength - 1;
 	untily = 0;
 	while (i < screenlength)
@@ -24,47 +56,13 @@ void	makethewalls(t_map *map)
 		if (i < drawStart)
 			mlx_put_pixel(map->background, map->rayamount, i, 11111111);
 		else if (i >= drawStart && i <= drawEnd)
-			mlx_put_pixel(map->background, map->rayamount, i, 0XFFFFFF);
+		{
+			draw_line(map->rayamount, i, map);
+		}
 		else if (i > drawEnd)
 			mlx_put_pixel(map->background, map->rayamount, i, 00000000);
 		i++;
 	}
-		//if(map->side == 0 && map->raydirx > 0)
-		//{
-		//	if (map->mapy % 2 == 0)
-		//		while (drawStart++ < drawEnd)
-		//			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 0XFFFFFF);
-		//	else
-		//		while (drawStart++ < drawEnd)
-		//			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 00000000);
-		//}
-      	//else if(map->side == 1 && map->raydiry < 0)
-		//{
-		//	if (map->mapx % 2 == 0)
-		//		while (drawStart++ < drawEnd)
-		//			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 3333333333);
-		//	else
-		//		while (drawStart++ < drawEnd)
-		//			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 00000000);
-		//}
-		//else if (map->side == 1 && map->raydiry > 0)
-		//{
-		//	if (map->mapx % 2 == 0)
-		//		while (drawStart++ < drawEnd)
-		//			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 66666666);
-		//	else
-		//		while (drawStart++ < drawEnd)
-		//			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 00000000);
-		//}
-		//else
-		//{
-		//	if (map->mapy % 2 == 0)
-		//		while (drawStart++ < drawEnd)
-		//			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 6666666666);
-		//	else
-		//		while (drawStart++ < drawEnd)
-		//			mlx_put_pixel(map->background, map->rayamount + i, drawStart, 00000000);
-		//}
 }
 
 void shoot_ray(t_map *map)

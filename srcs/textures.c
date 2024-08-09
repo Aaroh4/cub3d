@@ -34,7 +34,7 @@ void	ft_init_img(mlx_t *mlx, t_map *map)
 	map->player = mlx_texture_to_image(mlx, map->player_txt);
 	//if (map->player == NULL)
 	//	ft_error_mlx(map);
-	mlx_delete_texture(map->player_txt);
+	//mlx_delete_texture(map->player_txt);
 	map->wall = mlx_texture_to_image(mlx, map->wall_txt);
 	//if (map->background == NULL)
 	//	ft_error_mlx(map);
