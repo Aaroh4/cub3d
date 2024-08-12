@@ -6,6 +6,7 @@
 #define PI 3.14159265358979323846
 #define FOV 60
 #define DEGREE 0.01745329
+#define STEPSIZE 1
 
 #define screenwidth 1200
 #define screenlength 600
@@ -17,6 +18,14 @@
 # include <fcntl.h>
 # include <math.h>
 
+typedef struct s_wall
+{
+	mlx_texture_t	*txt[4];
+	double	x;
+	double	y;
+	double	ty_off;
+	double	ty_step;
+}	t_wall;
 
 typedef struct s_map
 {
@@ -46,6 +55,8 @@ typedef struct s_map
 	int stepy;
 	int stepx;
 
+	t_wall	wall;
+
 	//double sidedisty;
 	//double sidedistx;
 
@@ -68,12 +79,7 @@ typedef struct s_map
 	mlx_t	*mlx;
 
 	mlx_image_t		*background;
-	mlx_image_t		*wall;
-	mlx_image_t		*floor;
-	mlx_image_t		*player;
-
 	mlx_texture_t	*background_txt;
-	mlx_texture_t	*wall_txt;
 	mlx_texture_t	*floor_txt;
 	mlx_texture_t	*player_txt;
 
@@ -81,7 +87,6 @@ typedef struct s_map
 
 
 void	ft_init_textu(t_map *map);
-void	ft_init_img(mlx_t *mlx, t_map *map);
 void	ft_create_wall(t_map *img);
 
 
