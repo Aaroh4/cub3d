@@ -10,11 +10,21 @@ void getting_index(t_map *map, int size)
 		if (map->raydiry > 0)
 		{
 			map->wall.x = size - map->wall.x;
+			map->wall.side = 0;
 		}
+		else
+			map->wall.side = 1;
 	}
 	else
 	{
-		map->wall.x = 300;
+		map->wall.x = ((int)map->rayposy % size);
+		if (map->raydirx > 0)
+		{
+			map->wall.x = size - map->wall.x;
+			map->wall.side = 2;
+		}
+		else
+			map->wall.side = 3;
 	}
 }
 
@@ -29,9 +39,9 @@ int calculate_wall(t_map *map)
 	double correct = (map->pa - map->raypa);
 	length *= cos(correct);
 	height = (STEPSIZE * screenlength) / length;
-	getting_index(map, map->wall.txt[0]->height);
 	map->wall.ty_off = 0;
 	map->wall.ty_step = map->wall.txt[0]->height / height;
+	getting_index(map, map->wall.txt[0]->height);
 	if (height > screenlength)
 	{
 		map->wall.ty_off = (height - screenlength) / 2;
@@ -48,7 +58,7 @@ void draw_line(int x, int y, t_map *map)
 	int				offset = 0;
 	uint32_t		pixel = 0;
 
-	wall = map->wall.txt[0];
+	wall = map->wall.txt[map->wall.side];
 	offset = (((int)map->wall.y * 64 + (int)map->wall.x))
 		* sizeof(uint32_t);
 	if (offset < (height * height * 4))

@@ -21,6 +21,7 @@
 typedef struct s_wall
 {
 	mlx_texture_t	*txt[4];
+	int side;
 	double	x;
 	double	y;
 	double	ty_off;
@@ -80,7 +81,6 @@ typedef struct s_map
 
 	mlx_image_t		*background;
 	mlx_texture_t	*background_txt;
-	mlx_texture_t	*floor_txt;
 	mlx_texture_t	*player_txt;
 
 }	t_map;
