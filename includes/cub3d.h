@@ -21,7 +21,6 @@ typedef struct s_fcheck
 	int		plocation[2];
 	int		cameraposy;
 	int		cameraposx;
-	int 	wallcount;
 	char	playerstartpos;
 
 	int		map_size;

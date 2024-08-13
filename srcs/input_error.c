@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:29 by plang             #+#    #+#             */
-/*   Updated: 2024/08/08 09:28:03 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/13 16:00:31 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ void	error_inside_file(t_fcheck *check)
 		i++;
 	}
 	free(check->file);
+	i = 0;
+	while (i < check->map_size)
+	{
+		free(check->mapcpy[i]);
+		i++;
+	}
+	free(check->mapcpy);
 	free(check->north);
 	free(check->south);
 	free(check->west);

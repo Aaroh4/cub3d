@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/08 09:46:22 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/13 17:56:45 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,39 +24,47 @@ void	looptrough(t_fcheck *check, char *str, int count)
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'E' || str[i] == 'W')
 		{
 			player++;
-			check->playerstartpos = str[i];
-			check->plocation[0] = i;
-			check->plocation[1] = count;
-			check->cameraposx = 20 * i;
-			check->cameraposy = 20 * (count - 8);
+			if (player == 1)
+			{
+				check->playerstartpos = str[i];
+				check->plocation[0] = i;
+				check->plocation[1] = count;
+				check->cameraposx = 20 * i;
+				check->cameraposy = 20 * (count - 8);
+			}
 		}
 		i++;
 	}
 	lines++;
-	if (player != 1 && ((check->linecount - check->map_start) == (lines + 1)))
+	if (player != 1 && ((check->map_size) == (lines)))
 	{
-		printf("Error\nWrong amount of player\n%d", player);
-		exit (1);
+		ft_putstr_fd("Error\nWrong amount of player\n", 2);
+		error_inside_file(check);
 	}
 }
 
+
+// this needs more work, to check if we are in bound of accessable memory. Lauri filled
+// all the strings wiith spaces to match the longest one.
 void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 {
-	if (check->mapcpy[*i][*j + 1] == ' ' || \
-		check->mapcpy[*i][*j + 1] == '\0')
-		*invalid = 1;
-	if (check->mapcpy[*i][0] == '0' \
-		|| check->mapcpy[*i][0] == check->playerstartpos)
-		*invalid = 1;
-	if (check->mapcpy[*i][*j - 1] && check->mapcpy[*i][*j - 1] == ' ')
-		*invalid = 1;
-	if (check->mapcpy[*i + 1] && check->mapcpy[*i + 1][*j] == ' ')
-		*invalid = 1;
 	if (*i == 0 && (check->mapcpy[0][*j] == '0' \
 		|| check->mapcpy[0][*j] == ' ' \
 		|| check->mapcpy[0][*j] == check->playerstartpos))
 		*invalid = 1;
-	if (*i == check->map_size && (check->mapcpy[check->map_size][*j] == '0' \
+	else if (check->mapcpy[*i][*j + 1] == ' ' || \
+		check->mapcpy[*i][*j + 1] == '\0')
+		*invalid = 1;
+	else if (check->mapcpy[*i][0] == '0' \
+		|| check->mapcpy[*i][0] == check->playerstartpos)
+		*invalid = 1;
+	else if (check->mapcpy[*i][*j - 1] && check->mapcpy[*i][*j - 1] == ' ')
+		*invalid = 1;
+	else if (check->mapcpy[*i + 1][*j] && check->mapcpy[*i + 1][*j] == ' ')
+		*invalid = 1;
+	else if (check->mapcpy[*i - 1][*j] && check->mapcpy[*i - 1][*j] == ' ')
+		*invalid = 1;
+	else if (*i == check->map_size && (check->mapcpy[check->map_size][*j] == '0' \
 		|| check->mapcpy[check->map_size][*j] == ' ' \
 		|| check->mapcpy[check->map_size][*j] == check->playerstartpos))
 		*invalid = 1;
@@ -116,11 +124,10 @@ void	check_player_and_boarder(t_fcheck *check)
 		check->map_start++;
 		j++;
 	}
-	check->map_size = (check->linecount - check->map_start - 1);
+	check->map_size = (check->linecount - check->map_start);
 	check->mapcpy = malloc((check->map_size + 1) * sizeof(char *));
 	if (!check->mapcpy)
 		return ;
-	printf("%d\n", check->map_size);
 	while (j < check->linecount)
 	{
 		check->mapcpy[i] = ft_strdup(check->file[j]);

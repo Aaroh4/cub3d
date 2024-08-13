@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/08 09:42:35 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/13 16:12:54 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,15 @@ void	read_file(char *map_name, int count)
 	if (check.error == 1)
 		error_inside_file(&check);
 	check_rgb_floor(&check);
+	if (check.error == 1)
+		error_inside_file(&check);
 	check_rgb_ceiling(&check);
 	if (check.error == 1)
 		error_inside_file(&check);
 	check_player_and_boarder(&check);
 	clean_input_strings(&check);
 	print_check_struct(&check);
+	error_inside_file(&check);
 }
 
 void	get_map_information(t_fcheck *check)
@@ -124,8 +127,5 @@ void	argument_check(char *argv)
 	ber = ".cub";
 	file = ft_strnstr(argv, ber, len);
 	if ((file == NULL) || (argv[0] == '.') || ft_strncmp(file, ber, len))
-	{
-		ft_putstr_fd("Error\nWe need a .cub file\n", 2);
-		exit(1);
-	}
+		invalid_input("Error\nWe need a .cub file\n");
 }
