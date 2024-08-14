@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_reader.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 15:10:35 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:31:32 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	count_file_lines(char *map_name, int count)
 
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
-		invalid_input("Error\nFile does not exist\n");
+		invalid_input(INVFILE);
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -42,7 +42,7 @@ void	read_file(char *map_name, int count, t_map *map)
 	i = 0;
 	fd = open(map_name, O_RDONLY);
 	if (fd == -1)
-		invalid_input("Error\nFile does not exist\n");
+		invalid_input(INVFILE);
 	check.file = malloc((count + 1) * sizeof(char *));
 	if (!check.file)
 		return ;
@@ -57,19 +57,19 @@ void	read_file(char *map_name, int count, t_map *map)
 	check.linecount = check.count;
 	get_map_information(&check);
 	if (check.error == 1)
-		error_inside_file(&check);
+		error_inside_file(&check, INVTXTMAP);
 	check_rgb_floor(&check);
 	if (check.error == 1)
-		error_inside_file(&check);
+		error_inside_file(&check, INVRGB);
 	check_rgb_ceiling(&check);
 	if (check.error == 1)
-		error_inside_file(&check);
+		error_inside_file(&check, INVRGB);
 	check_player_and_boarder(&check);
 	clean_input_strings(&check);
 	map->mapsave = check.mapcpy;
-	//print_check_struct(&check);
-	//error_inside_file(&check);
 }
+//print_check_struct(&check);
+//error_inside_file(&check);
 
 void	get_map_information(t_fcheck *check)
 {
@@ -90,7 +90,6 @@ void	get_map_information(t_fcheck *check)
 			if (check->file[i] && (check->file[i][0] == '\n' && map_start == 1 \
 				&& check_rest(check, i)))
 			{
-				ft_putstr_fd("Error\nMap not complete\n", 2);
 				check->error = 1;
 				break ;
 			}
@@ -128,5 +127,5 @@ void	argument_check(char *argv)
 	ber = ".cub";
 	file = ft_strnstr(argv, ber, len);
 	if ((file == NULL) || (argv[0] == '.') || ft_strncmp(file, ber, len))
-		invalid_input("Error\nWe need a .cub file\n");
+		invalid_input(INVCUB);
 }

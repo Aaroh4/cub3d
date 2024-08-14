@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:52 by plang             #+#    #+#             */
-/*   Updated: 2024/08/13 13:01:15 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/14 16:16:27 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ void	check_int_of_rgb(t_fcheck *check, char **surface)
 		if (i++ > 2)
 			check->error = 1;
 		if (check->error == 1)
-		{
-			ft_putstr_fd("Error\nRGB not valid\n", 2);
 			break ;
-		}
 	}
 }
 

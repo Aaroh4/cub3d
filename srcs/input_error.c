@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:29 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 13:35:55 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/14 16:18:01 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	invalid_input(char *str)
 
 // make function to take error string and define them all in the header
 // put out the string and free -> exit
-void	error_inside_file(t_fcheck *check)
+void	error_inside_file(t_fcheck *check, char *str)
 {
 	int	i;
 
 	i = 0;
+	ft_putstr_fd(str, 2);
 	while (i < check->linecount)
 	{
 		free(check->file[i]);

@@ -3,6 +3,14 @@
 
 #define WALL "textures/wall.png"
 #define GROUND "textures/ground.png"
+
+#define INVTXTMAP "Error\nTextures or map invalid\n"
+#define INVRGB "Error\nRGB not valid\n"
+#define INVFILE "Error\nCan not open file\n"
+#define INVCUB "Error\nWe need a .cub file\n"
+#define INVWALLS "Error\nBuilding blocks are invalid\n"
+#define INVPCOUNT "Error\nNot the right amount of players\n"
+
 #define PI 3.14159265358979323846
 #define FOV 60
 #define DEGREE 0.01745329
@@ -148,7 +156,7 @@ char	*check_and_set_info(char *str, char *info, t_fcheck *check);
 void	check_info_flag(t_fcheck *check, int i);
 void	check_failed_info_flag(t_fcheck *check);
 void	invalid_input(char *str);
-void	error_inside_file(t_fcheck *check);
+void	error_inside_file(t_fcheck *check, char *str);
 void	clean_from_space_nl(char **str);
 void	clean_from_nl(char **str);
 void	clean_cardinal_directions(char **str);
