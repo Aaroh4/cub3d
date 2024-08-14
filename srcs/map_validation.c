@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/13 17:56:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/14 13:24:54 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,14 @@ void	looptrough(t_fcheck *check, char *str, int count)
 	lines++;
 	if (player != 1 && ((check->map_size) == (lines)))
 	{
-		ft_putstr_fd("Error\nWrong amount of player\n", 2);
+		ft_putstr_fd("Error\nWrong count of players\n", 2);
 		error_inside_file(check);
 	}
 }
 
-
-// this needs more work, to check if we are in bound of accessable memory. Lauri filled
-// all the strings wiith spaces to match the longest one.
 void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 {
-	if (*i == 0 && (check->mapcpy[0][*j] == '0' \
-		|| check->mapcpy[0][*j] == ' ' \
+	if (*i == 0 && (check->mapcpy[0][*j] == '0' || check->mapcpy[0][*j] == ' ' \
 		|| check->mapcpy[0][*j] == check->playerstartpos))
 		*invalid = 1;
 	else if (check->mapcpy[*i][*j + 1] == ' ' || \
@@ -60,12 +56,16 @@ void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 		*invalid = 1;
 	else if (check->mapcpy[*i][*j - 1] && check->mapcpy[*i][*j - 1] == ' ')
 		*invalid = 1;
-	else if (check->mapcpy[*i + 1][*j] && check->mapcpy[*i + 1][*j] == ' ')
+	else if (((check->mapcpy[*i + 1] && ((int)ft_strlen(check->mapcpy[*i + 1]) \
+		< *j)) || (check->mapcpy[*i + 1] && check->mapcpy[*i + 1][*j] == '\0') \
+		|| (check->mapcpy[*i + 1][*j] && check->mapcpy[*i + 1][*j] == ' ')))
 		*invalid = 1;
-	else if (check->mapcpy[*i - 1][*j] && check->mapcpy[*i - 1][*j] == ' ')
+	else if (((check->mapcpy[*i - 1] && ((int)ft_strlen(check->mapcpy[*i - 1]) \
+		< *j)) || (check->mapcpy[*i - 1] && check->mapcpy[*i - 1][*j] == '\0') \
+		|| (check->mapcpy[*i - 1][*j] && check->mapcpy[*i - 1][*j] == ' ')))
 		*invalid = 1;
-	else if (*i == check->map_size && (check->mapcpy[check->map_size][*j] == '0' \
-		|| check->mapcpy[check->map_size][*j] == ' ' \
+	else if (*i == check->map_size && (check->mapcpy[check->map_size][*j] \
+		== '0' || check->mapcpy[check->map_size][*j] == ' ' \
 		|| check->mapcpy[check->map_size][*j] == check->playerstartpos))
 		*invalid = 1;
 }
