@@ -2,7 +2,7 @@ NAME = cub3d
 LIBFTDIR = ./libft
 MAKE = make
 CC = cc
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 HEAD = includes/so_long.h
 LIBMLX = ./MLX42
 SRCS = srcs/textures.c srcs/mapchecker.c srcs/main.c

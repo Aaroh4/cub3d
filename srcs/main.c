@@ -280,9 +280,16 @@ int main(int argc, char **argv)
 	char	*map_name;
 	t_map map;
 
+	if (argc != 2)
+		exit(1);
+	// argument_check(argv[1]);
 	map_name = argv[1];
 	ft_memset(&map, 0, sizeof(map));
 	read_map(&map, map_name);
 	start_window(&map);
 	return (0);
 }
+
+
+// split up the whole read map, check the file, all the input in the file, is it valid is it not, if ok
+// put it to the sturct that we use for the game otehrwise free everything and exit with correct error message!
