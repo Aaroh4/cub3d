@@ -80,7 +80,7 @@ void	makethewalls(t_map *map)
 	{
 		if (i < drawStart)
 		{
-			mlx_put_pixel(map->background, map->rayamount, i, 11111111);
+			mlx_put_pixel(map->background, map->rayamount, i, 0xFFFFFFF);
 		}
 		else if (i >= drawStart && i <= drawEnd)
 		{
@@ -88,7 +88,7 @@ void	makethewalls(t_map *map)
 		}
 		else if (i > drawEnd)
 		{
-			mlx_put_pixel(map->background, map->rayamount, i, 00000000);
+			mlx_put_pixel(map->background, map->rayamount, i, 888888888);
 		}
 		i++;
 	}
@@ -184,27 +184,6 @@ void	makethelines(t_map *map)
 	}
 }
 
-void reset(t_map *map)
-{
-		int abcx = 0;
-		int abcy = 0;
-		while (abcx <= 1200)
-		{
-			abcy = 0;
-			while (abcy <= 300)
-			{
-				mlx_put_pixel(map->background, abcx, abcy, 11111111);
-				abcy++;
-			}
-			while (abcy <= 600)
-			{
-				mlx_put_pixel(map->background, abcx, abcy, 00000000);
-				abcy++;
-			}
-			abcx++;
-		}
-}
-
 void ft_loop_hook(void *param)
 {
 	t_map	*map;
@@ -274,7 +253,7 @@ void	start_window(t_map *map)
 {
 	map->mlx = mlx_init(screenwidth, screenlength, "Game", false);
 	ft_init_textu(map);
-	reset(map);
+	//reset(map);
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	mlx_put_pixel(map->background, 440, 100, 535353);
 	//ft_create_wall(map);
