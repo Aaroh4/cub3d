@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void getting_index(t_map *map, int size)
+void getting_index(t_map *map)
 {
 	if(map->side == 1)
 	{
@@ -30,6 +30,7 @@ int calculate_wall(t_map *map)
 	else
 		length = (map->rayposy - map->deltadisty);
 	double correct = (map->pa - map->raypa);
+	getting_index(map);
 	if (map->side == 0) 
 		map->wallX = map->cameraposy + length * map->raydiry;
 	else           
@@ -38,8 +39,7 @@ int calculate_wall(t_map *map)
 	length *= cos(correct);
 	height = (STEPSIZE * screenlength) / length;
 	map->wall.ty_off = 0;
-	map->wall.ty_step = map->wall.txt[0]->height / height;
-	getting_index(map, map->wall.txt[0]->height);
+	map->wall.ty_step = map->wall.txt[map->wall.side]->height / height;
 	if (height > screenlength)
 	{
 		map->wall.ty_off = (height - screenlength) / 2;
@@ -52,14 +52,13 @@ int calculate_wall(t_map *map)
 void draw_line(int x, int y, t_map *map)
 {
 	mlx_texture_t	*wall;
-	int height = map->wall.txt[0]->height;
+	int height = map->wall.txt[map->wall.side]->height;
 	int				offset = 0;
 	uint32_t		pixel = 0;
 
 	wall = map->wall.txt[map->wall.side];
-	offset = (((int)map->wall.y * 64 + (int)(map->wallX * 64)))
+	offset = (((int)map->wall.y * map->wall.txt[map->wall.side]->height + (int)(map->wallX * map->wall.txt[map->wall.side]->width)))
 		* sizeof(uint32_t);
-	//printf("offset%dtsize%d\n", offset, (height * height * 4));
 	if (offset < (height * height * 4))
 		pixel = (wall->pixels[offset] << 24) | (wall->pixels[offset + 1] << 16)
 			| (wall->pixels[offset + 2] << 8) | wall->pixels[offset + 3];

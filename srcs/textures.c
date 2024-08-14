@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:36:37 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/14 12:35:19 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:21:20 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_init_textu(t_map *map)
 	mlx_delete_texture(map->background_txt);
 	//if (map->player_txt == NULL)
 	//	ft_error_mlx(map);
-	map->wall.txt[0] = mlx_load_png("textures/CRATE_2M.PNG");
-	map->wall.txt[1] = mlx_load_png("textures/WOOD_1C.PNG");
-	map->wall.txt[2] = mlx_load_png("textures/CONCRETE_3C.PNG");
-	map->wall.txt[3] = mlx_load_png("textures/LAB_2B.PNG");
+	map->wall.txt[0] = mlx_load_png("textures/64.png");
+	map->wall.txt[1] = mlx_load_png("textures/64.png");
+	map->wall.txt[2] = mlx_load_png("textures/64.png");
+	map->wall.txt[3] = mlx_load_png("textures/64.png");
 	//if (map->player_txt == NULL)
 	//	ft_error_mlx(map);
 }
