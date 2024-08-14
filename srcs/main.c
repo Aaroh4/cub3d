@@ -106,8 +106,6 @@ int checkarraysize(char **arr)
 
 void shoot_ray(t_map *map)
 {
-	int i = 0;
-
 	map->mapy = map->cameraposy;
 	map->mapx = map->cameraposx;
 	map->deltadistx = sqrt(1 + (map->raydiry * map->raydiry) / (map->raydirx * map->raydirx));
@@ -147,7 +145,7 @@ void shoot_ray(t_map *map)
 			map->mapy += map->stepy;
 			map->side = 1;
 		}
-		if (checkarraysize(map->mapsave) <= map->mapy + 8 || map->mapy < 0 || map->mapx < 0 || ft_strlen(map->mapsave[map->mapy + 8]) < map->mapx)
+		if (checkarraysize(map->mapsave) <= map->mapy || map->mapy < 0 || map->mapx < 0 || (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
 		{
 			map->rayposx = 2;
 			map->rayposy = 2;
@@ -155,7 +153,7 @@ void shoot_ray(t_map *map)
 			map->deltadistx = 1;
 			break ;
 		}
-		if (map->mapsave[map->mapy + 8][map->mapx] == '1')
+		if (map->mapsave[map->mapy][map->mapx] == '1')
 			break ;
 	}
 }
@@ -273,22 +271,47 @@ void	start_window(t_map *map)
 	mlx_terminate(map->mlx);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
+	char	*map_name;
+	int		count;
 	if (argc != 2 || screenwidth > 3000 || screenlength > 1500)
 		exit(1);
-	char	*map_name;
 	t_map map;
 
-	if (argc != 2)
-		exit(1);
-	// argument_check(argv[1]);
+	argument_check(argv[1]);
+	count = 0;
 	map_name = argv[1];
-	ft_memset(&map, 0, sizeof(map));
-	read_map(&map, map_name);
+	count = count_file_lines(map_name, count);
+	read_file(map_name, count, &map);
 	start_window(&map);
 	return (0);
 }
+
+//int main(int argc, char **argv)
+//{
+//	if (argc != 2 || screenwidth > 3000 || screenlength > 1500)
+//		exit(1);
+//	char	*map_name;
+//	t_map map;
+
+//	//argument_check(argv[1]);
+//	map_name = argv[1];
+//	ft_memset(&map, 0, sizeof(map));
+//	read_map(&map, map_name);
+//	printf("%s\n", map.mapsave[0]);
+//	printf("%s\n", map.mapsave[1]);
+//	printf("%s\n", map.mapsave[2]);
+//	printf("%s\n", map.mapsave[3]);
+//	int i = 0;
+//	while (map.mapsave[i] != NULL)
+//	{
+//		printf("%s\n", map.mapsave[i]);
+//		i++;
+//	}
+//	start_window(&map);
+//	return (0);
+//}
 
 
 // split up the whole read map, check the file, all the input in the file, is it valid is it not, if ok

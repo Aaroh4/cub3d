@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_reader.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/13 16:12:54 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/14 15:10:35 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	count_file_lines(char *map_name, int count)
 }
 
 //error for malloc fail needed;
-void	read_file(char *map_name, int count)
+void	read_file(char *map_name, int count, t_map *map)
 {
 	int			fd;
 	int			i;
@@ -66,8 +66,9 @@ void	read_file(char *map_name, int count)
 		error_inside_file(&check);
 	check_player_and_boarder(&check);
 	clean_input_strings(&check);
-	print_check_struct(&check);
-	error_inside_file(&check);
+	map->mapsave = check.mapcpy;
+	//print_check_struct(&check);
+	//error_inside_file(&check);
 }
 
 void	get_map_information(t_fcheck *check)

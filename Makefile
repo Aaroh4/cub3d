@@ -2,10 +2,17 @@ NAME = cub3d
 LIBFTDIR = ./libft
 MAKE = make
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 HEAD = includes/so_long.h
 LIBMLX = ./MLX42
-SRCS = srcs/textures.c srcs/mapchecker.c srcs/main.c
+SRCS = srcs/textures.c \
+			srcs/main.c \
+			srcs/input_extractor.c \
+			srcs/file_reader.c \
+			srcs/map_validation.c \
+			srcs/rgb_validation.c \
+			srcs/input_cleaner.c \
+			srcs/input_error.c
 		
 OBJS = $(SRCS:.c=.o)
 

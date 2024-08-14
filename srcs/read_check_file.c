@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_check_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 11:03:07 by plang             #+#    #+#             */
-/*   Updated: 2024/08/08 09:38:44 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/14 15:11:02 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -578,17 +578,19 @@ void	print_check_struct(t_fcheck *check)
 // 	return (count);
 // }
 
-int	main(int argc, char **argv)
-{
-	char	*map_name;
-	int		count;
+//int	main(int argc, char **argv)
+//{
+//	char	*map_name;
+//	int		count;
+//	if (argc != 2 || screenwidth > 3000 || screenlength > 1500)
+//		exit(1);
+//	t_map map;
 
-	if (argc != 2)
-		exit(1);
-	argument_check(argv[1]);
-	count = 0;
-	map_name = argv[1];
-	count = count_file_lines(map_name, count);
-	read_file(map_name, count);
-	return (0);
-}
+//	argument_check(argv[1]);
+//	count = 0;
+//	map_name = argv[1];
+//	count = count_file_lines(map_name, count);
+//	read_file(map_name, count, map);
+//	start_window(&map);
+//	return (0);
+//}

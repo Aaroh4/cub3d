@@ -125,11 +125,11 @@ void	ft_init_textu(t_map *map);
 void	ft_create_wall(t_map *img);
 
 
-void	 read_map(t_map *map, char *map_name);
-void	save_map(t_map *map, char *map_name);
-int		wallfloodfill(t_map *map, int posy, int posx);
-int		check_num(char c);
-void	loop_trough(t_map *map, char *str, int count);
+//void	 read_map(t_map *map, char *map_name);
+//void	save_map(t_map *map, char *map_name);
+//int		wallfloodfill(t_map *map, int posy, int posx);
+//int		check_num(char c);
+//void	loop_trough(t_map *map, char *str, int count);
 
 
 //parsing files
@@ -154,11 +154,11 @@ void	clean_from_nl(char **str);
 void	clean_cardinal_directions(char **str);
 void	clean_input_strings(t_fcheck *check);
 int		count_file_lines(char *map_name, int count);
-void	read_file(char *map_name, int count);
+void	read_file(char *map_name, int count, t_map *map);
 void	get_map_information(t_fcheck *check);
 int		check_rest(t_fcheck *check, int	i);
 void	argument_check(char *argv);
-// remove;
-void	print_check_struct(t_fcheck *check);
+//// remove;
+//void	print_check_struct(t_fcheck *check);
 
 #endif
