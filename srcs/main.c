@@ -2,6 +2,22 @@
 
 #include <stdio.h>
 
+void	argument_check(char *argv)
+{
+	int		len;
+	char	*ber;
+	char	*file;
+
+	len = ft_strlen(argv);
+	ber = ".cub";
+	file = ft_strnstr(argv, ber, len);
+	if ((file == NULL) || (argv[0] == '.') || ft_strncmp(file, ber, len))
+	{
+		ft_putstr_fd("Error\nWe need a .cub file\n", 2);
+		exit(1);
+	}
+}
+
 int	ft_check_move(t_map *img, int move)
 {
 	if (move == 3 && img->mapsave[img->plocation[1] - 1][img->plocation[0]] != '1')
@@ -317,14 +333,19 @@ void	start_window(t_map *map)
 
 int main(int argc, char **argv)
 {
-	if (argc != 2)
-		exit(1);
 	char	*map_name;
 	t_map map;
 
+	if (argc != 2)
+		exit(1);
+	// argument_check(argv[1]);
 	map_name = argv[1];
 	ft_memset(&map, 0, sizeof(map));
 	read_map(&map, map_name);
 	start_window(&map);
 	return (0);
 }
+
+
+// split up the whole read map, check the file, all the input in the file, is it valid is it not, if ok
+// put it to the sturct that we use for the game otehrwise free everything and exit with correct error message!
