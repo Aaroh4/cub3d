@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapchecker.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:53:08 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/07 11:34:48 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/14 14:42:35 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	loop_trough(t_map *map, char *str, int count)
 			map->playerstartpos = str[i];
 			map->plocation[0] = i;
 			map->plocation[1] = count;
-			map->cameraposx = 20 * i;
-			map->cameraposy = 20 * (count - 8);
+			map->cameraposx = i + 0.5;
+			map->cameraposy = (count - 8) + 0.5;
 		}
 		if (str[i] == '1')
 			map->wallcount++;
@@ -268,8 +268,6 @@ void	save_map(t_map *map, char *map_name)
 	arr[count] = 0;
 	map->mapcopy = arr;
 	map_save(map);
-	printf("\n %s\n %s\n %s\n %s\n %s\n %s\n", map->north, map->south, map->west, map->east, map->surface, map->sky);
-	printf(" x%d\n y%d\n", map->plocation[0], map->plocation[1]);
 	if (wallfloodfill(map, map->plocation[1], map->plocation[0]) == 1)
 	{
 		printf("Walls not closed!\n");

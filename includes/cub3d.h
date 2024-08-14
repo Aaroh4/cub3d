@@ -3,10 +3,13 @@
 
 #define WALL "textures/wall.png"
 #define GROUND "textures/ground.png"
-#define PI 3.1415926535
+#define PI 3.14159265358979323846
+#define FOV 60
+#define DEGREE 0.01745329
+#define STEPSIZE 1
 
-#define screenwidth 1200
-#define screenlength 600
+#define screenwidth  1500 // HIGHER VALUES WILL CAUSE LAG
+#define screenlength 1000 // HIGHER VALUES WILL CAUSE LAG
 
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -39,17 +42,18 @@ typedef struct s_fcheck
 	char	**file;
 }	t_fcheck;
 
-
-typedef struct s_ray
+typedef struct s_wall
 {
-	int x;
-	int	y;
-	int lenght;
-} t_ray;
+	mlx_texture_t	*txt[4];
+	int side;
+	double	x;
+	double	y;
+	double	ty_off;
+	double	ty_step;
+}	t_wall;
 
 typedef struct s_map
 {
-	t_ray rays[90];
 	int	fd;
 	int	linecount;
 	int wallcount;
@@ -58,19 +62,39 @@ typedef struct s_map
 	int	info_set;
 	int	map_start;
 
-	int	py;
-	int	px;
-
 	double pa;
+
+	int side;
 
 	double diry;
 	double dirx;
 
-	int	rayposy;
-	int	rayposx;
+	double raydirx;
+	double raydiry;
+	double raypa;
 
-	int	cameraposy;
-	int	cameraposx;
+	double	rayposy;
+	double	rayposx;
+
+	double	cameraposy;
+	double	cameraposx;
+
+	double wallX;
+	double wallY;
+
+	int stepy;
+	int stepx;
+
+	t_wall	wall;
+
+	//double sidedisty;
+	//double sidedistx;
+
+	double deltadisty;
+	double deltadistx;
+
+	int mapy;
+	int mapx;
 
 	int lastx;
 	int	lasty;
@@ -91,20 +115,13 @@ typedef struct s_map
 	mlx_t	*mlx;
 
 	mlx_image_t		*background;
-	mlx_image_t		*wall;
-	mlx_image_t		*floor;
-	mlx_image_t		*player;
-
 	mlx_texture_t	*background_txt;
-	mlx_texture_t	*wall_txt;
-	mlx_texture_t	*floor_txt;
 	mlx_texture_t	*player_txt;
 
 }	t_map;
 
 
 void	ft_init_textu(t_map *map);
-void	ft_init_img(mlx_t *mlx, t_map *map);
 void	ft_create_wall(t_map *img);
 
 
