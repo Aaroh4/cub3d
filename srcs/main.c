@@ -30,8 +30,10 @@ int calculate_wall(t_map *map)
 	else
 		length = (map->rayposy - map->deltadisty);
 	double correct = (map->pa - map->raypa);
-	 if (map->side == 0) map->wallX = map->cameraposy + length * map->raydiry;
-     else           map->wallX = map->cameraposx + length * map->raydirx;
+	if (map->side == 0) 
+		map->wallX = map->cameraposy + length * map->raydiry;
+	else           
+		map->wallX = map->cameraposx + length * map->raydirx;
     map->wallX -= floor((map->wallX));
 	length *= cos(correct);
 	height = (STEPSIZE * screenlength) / length;
@@ -78,15 +80,29 @@ void	makethewalls(t_map *map)
 	while (i < screenlength)
 	{
 		if (i < drawStart)
+		{
 			mlx_put_pixel(map->background, map->rayamount, i, 11111111);
+		}
 		else if (i >= drawStart && i <= drawEnd)
 		{
 			draw_line(map->rayamount, i, map);
 		}
 		else if (i > drawEnd)
+		{
 			mlx_put_pixel(map->background, map->rayamount, i, 00000000);
+		}
 		i++;
 	}
+}
+
+int checkarraysize(char **arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i] != NULL)
+		i++;
+	return (i);
 }
 
 void shoot_ray(t_map *map)
@@ -132,6 +148,14 @@ void shoot_ray(t_map *map)
 			map->mapy += map->stepy;
 			map->side = 1;
 		}
+		if (checkarraysize(map->mapsave) <= map->mapy + 8 || map->mapy < 0 || map->mapx < 0 || ft_strlen(map->mapsave[map->mapy + 8]) < map->mapx)
+		{
+			map->rayposx = 2;
+			map->rayposy = 2;
+			map->deltadisty = 1;
+			map->deltadistx = 1;
+			break ;
+		}
 		if (map->mapsave[map->mapy + 8][map->mapx] == '1')
 			break ;
 	}
@@ -144,10 +168,6 @@ void	makethelines(t_map *map)
 	map->raydirx = map->dirx;
 	map->raypa = map->pa - DEGREE * FOV / 2;
 
-	//if (map->raypa < 0)
-	//	map->raypa += 2 * PI;
-	//if (map->raypa >= 2 * PI)
-	//	map->raypa -= 2 * PI;
 	int i = 0;
 	while (i < screenwidth)
 	{
@@ -247,13 +267,8 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 
 	map = param;
 
-	//double angle = pa / (1.0 + 0.28 * pa * pa);
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(map->mlx);
-	//if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-	//{
-	//	printf("size%d\n", map->wall_txt->height);
-	//}
 }
 
 void	start_window(t_map *map)
@@ -282,7 +297,7 @@ void	start_window(t_map *map)
 
 int main(int argc, char **argv)
 {
-	if (argc != 2)
+	if (argc != 2 || screenwidth > 3000 || screenlength > 1500)
 		exit(1);
 	char	*map_name;
 	t_map map;

@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 09:53:08 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/09 11:47:48 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:17:02 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void	save_map(t_map *map, char *map_name)
 	arr[count] = 0;
 	map->mapcopy = arr;
 	map_save(map);
-	printf("x%d\n y%d\n", map->plocation[0], map->plocation[1]);
 	if (wallfloodfill(map, map->plocation[1], map->plocation[0]) == 1)
 	{
 		printf("Walls not closed!\n");

@@ -8,8 +8,8 @@
 #define DEGREE 0.01745329
 #define STEPSIZE 1
 
-#define screenwidth 1200
-#define screenlength 600
+#define screenwidth  1500 // HIGHER VALUES WILL CAUSE LAG
+#define screenlength 1000 // HIGHER VALUES WILL CAUSE LAG
 
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
