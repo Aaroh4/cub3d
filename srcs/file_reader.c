@@ -67,11 +67,11 @@ void	read_file(char *map_name, int count, t_map *map)
 	check_player_and_boarder(&check);
 	clean_input_strings(&check);
 	map->mapsave = check.mapcpy;
+	map->cameraposx = check.cameraposx;
+	map->cameraposy = check.cameraposy;
 	map->playerstartpos = check.playerstartpos;
-	// map->cameraposx = check.cameraposx;
-	// map->cameraposy = check.cameraposy; 
-	map->plocation[0] = check.plocation[0]; //never set
-	map->plocation[1] = check.plocation[1]; //never set
+	//print_check_struct(&check);
+	//error_inside_file(&check);
 }
 //print_check_struct(&check);
 //error_inside_file(&check);

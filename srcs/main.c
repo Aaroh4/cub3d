@@ -256,13 +256,13 @@ void	start_window(t_map *map)
 	mlx_put_pixel(map->background, 440, 100, 535353);
 	//ft_create_wall(map);
 	if (map->playerstartpos == 'N')
-		map->pa = 4.74;
+		map->pa = 4.71;
 	else if (map->playerstartpos == 'S')
-		map->pa = -4.74;
+		map->pa = -4.71;
 	else if (map->playerstartpos == 'E')
 		map->pa = 0;
 	else if (map->playerstartpos == 'W')
-		map->pa = 9.5;
+		map->pa = 9.42;
 	map->dirx = cos(map->pa) / 5;
 	map->diry = sin(map->pa) / 5;
 	mlx_key_hook(map->mlx, ft_key_hook, map);
