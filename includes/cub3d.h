@@ -30,25 +30,26 @@
 
 typedef struct s_fcheck
 {
-	int		plocation[2];
 	double		cameraposy;
 	double		cameraposx;
-	char	playerstartpos;
+	char		playerstartpos;
 
-	int		map_size;
-	int		linecount;
-	int		count;
-	int		map_start;
-	int		info;
-	int		error;
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
-	char	*ground;
-	char	*sky;
-	char	**mapcpy;
-	char	**file;
+	int			map_size;
+	int			linecount;
+	int			count;
+	int			map_start;
+	int			info;
+	int			error;
+	char		*north;
+	char		*south;
+	char		*west;
+	char		*east;
+	char		*sky;
+	char		*ground;
+	uint32_t	top;
+	uint32_t	bottom;
+	char		**mapcpy;
+	char		**file;
 }	t_fcheck;
 
 typedef struct s_wall
@@ -67,9 +68,11 @@ typedef struct s_map
 	int	linecount;
 	int wallcount;
 	int	lenght;
-	int	plocation[2]; // 0 for x // 1 for y
 	int	info_set;
 	int	map_start;
+
+	uint32_t	floor;
+	uint32_t	ceiling;
 
 	double pa;
 
@@ -140,7 +143,7 @@ void	ft_create_wall(t_map *img);
 
 //parsing files
 
-void	check_int_of_rgb(t_fcheck *check, char **ceiling);
+int		check_int_of_rgb(t_fcheck *check, char **surface);
 void	check_rgb_floor(t_fcheck *check);
 void	check_rgb_ceiling(t_fcheck *check);
 void	looptrough(t_fcheck *check, char *str, int count);

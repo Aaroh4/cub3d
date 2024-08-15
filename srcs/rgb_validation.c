@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:52 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 16:16:27 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/15 14:39:59 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ void	rgb_free(char **strings)
 	free(strings);
 }
 
-void	check_int_of_rgb(t_fcheck *check, char **surface)
+uint32_t bitshift_rgba(int r, int g, int b, int a)
+{
+	printf("%d %d %d %d\n", r, g, b, a);
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
+int	check_int_of_rgb(t_fcheck *check, char **surface)
 {
 	int	i;
 	int	j;
@@ -46,15 +52,16 @@ void	check_int_of_rgb(t_fcheck *check, char **surface)
 		if (i++ > 2)
 			check->error = 1;
 		if (check->error == 1)
-			break ;
+			return (-1);
 	}
+	return (0);
 }
 
-//malloc failed error needed;
 void	check_rgb_floor(t_fcheck *check)
 {
 	char	**floor;
 	char	*temp;
+	int		tempnum;
 
 	floor = NULL;
 	temp = check->ground;
@@ -62,16 +69,23 @@ void	check_rgb_floor(t_fcheck *check)
 		temp++;
 	floor = ft_split(temp, ',');
 	if (!floor)
-		return ;
-	check_int_of_rgb(check, floor);
+		error_inside_file(check, MALLOCFAIL);
+	tempnum = check_int_of_rgb(check, floor);
+	if (tempnum == 0)
+	{
+		check->bottom = bitshift_rgba(ft_atoi(floor[0]), ft_atoi(floor[1]), \
+		ft_atoi(floor[2]), 210);
+	}
+	else
+		check->error = 1;
 	rgb_free(floor);
 }
 
-//malloc failed error needed;
 void	check_rgb_ceiling(t_fcheck *check)
 {
 	char	**ceiling;
 	char	*temp;
+	int		tempnum;
 
 	ceiling = NULL;
 	temp = check->sky;
@@ -79,7 +93,14 @@ void	check_rgb_ceiling(t_fcheck *check)
 		temp++;
 	ceiling = ft_split(temp, ',');
 	if (!ceiling)
-		return ;
-	check_int_of_rgb(check, ceiling);
+		error_inside_file(check, MALLOCFAIL);
+	tempnum = check_int_of_rgb(check, ceiling);
+	if (tempnum == 0)
+	{
+		check->top = bitshift_rgba(ft_atoi(ceiling[0]), ft_atoi(ceiling[1]), \
+		ft_atoi(ceiling[2]), 210);
+	}
+	else
+		check->error = 1;
 	rgb_free(ceiling);
 }

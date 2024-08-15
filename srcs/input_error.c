@@ -6,11 +6,33 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:29 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 16:18:01 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/15 14:13:46 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	ft_strfree(char *str)
+{
+	if (str)
+	{
+		free(str);
+		str = NULL;
+	}
+	else
+		return ;
+}
+
+void	ft_arrfree(char **arr)
+{
+	if (arr)
+	{
+		free(arr);
+		arr = NULL;
+	}
+	else
+		return ;
+}
 
 void	invalid_input(char *str)
 {
@@ -18,8 +40,6 @@ void	invalid_input(char *str)
 	exit(1);
 }
 
-// make function to take error string and define them all in the header
-// put out the string and free -> exit
 void	error_inside_file(t_fcheck *check, char *str)
 {
 	int	i;
@@ -28,22 +48,22 @@ void	error_inside_file(t_fcheck *check, char *str)
 	ft_putstr_fd(str, 2);
 	while (i < check->linecount)
 	{
-		free(check->file[i]);
+		ft_strfree(check->file[i]);
 		i++;
 	}
-	free(check->file);
+	ft_arrfree(check->file);
 	i = 0;
 	while (i < check->map_size)
 	{
-		free(check->mapcpy[i]);
+		ft_strfree(check->mapcpy[i]);
 		i++;
 	}
-	free(check->mapcpy);
-	free(check->north);
-	free(check->south);
-	free(check->west);
-	free(check->east);
-	free(check->ground);
-	free(check->sky);
+	ft_arrfree(check->mapcpy);
+	ft_strfree(check->north);
+	ft_strfree(check->south);
+	ft_strfree(check->west);
+	ft_strfree(check->east);
+	ft_strfree(check->ground);
+	ft_strfree(check->sky);
 	exit (1);
 }

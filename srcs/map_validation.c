@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 11:10:40 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/15 11:47:02 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,9 @@ void	map_boarder_check(t_fcheck *check)
 
 void	check_player_and_boarder(t_fcheck *check)
 {
-	int	i;
-	int	j;
+	static int	i = 0;
+	int			j;
 
-	i = 0;
 	j = check->map_start;
 	while (check->file[j][0] == '\n')
 	{

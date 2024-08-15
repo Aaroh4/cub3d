@@ -88,11 +88,11 @@ void	makethewalls(t_map *map)
 	while (i < screenlength)
 	{
 		if (i < drawStart)
-			mlx_put_pixel(map->background, map->rayamount, i, 00);
+			mlx_put_pixel(map->background, map->rayamount, i, map->ceiling);
 		else if (i >= drawStart && i <= drawEnd)
 			draw_line(map->rayamount, i, map);
 		else if (i > drawEnd)
-			mlx_put_pixel(map->background, map->rayamount, i, 999999);
+			mlx_put_pixel(map->background, map->rayamount, i, map->floor);
 		i++;
 	}
 }
