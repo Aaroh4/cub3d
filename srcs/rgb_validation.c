@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:52 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 14:39:59 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/15 17:59:15 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ void	rgb_free(char **strings)
 	free(strings);
 }
 
-uint32_t bitshift_rgba(int r, int g, int b, int a)
+uint32_t	bitshift_rgba(int r, int g, int b, int a)
 {
-	printf("%d %d %d %d\n", r, g, b, a);
-    return (r << 24 | g << 16 | b << 8 | a);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 int	check_int_of_rgb(t_fcheck *check, char **surface)

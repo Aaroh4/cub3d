@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:39 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 16:14:33 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/15 17:26:19 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	extract_and_set_info1(char *str, int info_set, t_fcheck *check)
 
 int	extract_and_set_info2(char *str, int info_set, t_fcheck *check)
 {
-	if (str && (ft_strnstr(str, "F", (size_t)ft_strlen(str)) != 0))
+	if (str && (ft_strnstr(str, "F", (size_t)ft_strlen("F")) != 0))
 	{
 		info_set++;
 		check->ground = check_and_set_info(str, check->ground, check);
 	}
-	if (str && (ft_strnstr(str, "C", (size_t)ft_strlen(str)) != 0))
+	if (str && (ft_strnstr(str, "C", (size_t)ft_strlen("C")) != 0))
 	{
 		info_set++;
 		check->sky = check_and_set_info(str, check->sky, check);

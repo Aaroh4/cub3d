@@ -8,6 +8,7 @@ LIBMLX = ./MLX42
 SRCS = srcs/main.c \
 			srcs/input_extractor.c \
 			srcs/file_reader.c \
+			srcs/file_reader_utils.c \
 			srcs/map_validation.c \
 			srcs/rgb_validation.c \
 			srcs/input_cleaner.c \
