@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_reader.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 14:37:14 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/15 15:07:08 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,13 @@ void	read_file(char *map_name, int count, t_map *map)
 	map->playerstartpos = check.playerstartpos;
 	map->floor = check.bottom;
 	map->ceiling = check.top;
-
+		
+	map->wall.txt[0] = mlx_load_png(check.south);
+	map->wall.txt[1] = mlx_load_png(check.north);
+	map->wall.txt[2] = mlx_load_png(check.west);
+	map->wall.txt[3] = mlx_load_png(check.east);
+	//if (map->player_txt == NULL)
+	//	ft_error_mlx(map);
 }
 //print_check_struct(&check);
 //error_inside_file(&check);

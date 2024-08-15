@@ -125,7 +125,6 @@ typedef struct s_map
 
 	mlx_image_t		*background;
 	mlx_texture_t	*background_txt;
-	mlx_texture_t	*player_txt;
 
 }	t_map;
 
