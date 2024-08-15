@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 11:03:08 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:10:40 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,7 @@ void	looptrough(t_fcheck *check, char *str, int count)
 	}
 	lines++;
 	if (player != 1 && ((check->map_size) == (lines)))
-	{
-		ft_putstr_fd("Error\nWrong count of players\n", 2);
-		error_inside_file(check);
-	}
+		error_inside_file(check, INVPCOUNT);
 }
 
 void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
@@ -106,10 +103,9 @@ void	map_boarder_check(t_fcheck *check)
 		i++;
 	}
 	if (invalid == 1)
-		ft_putstr_fd("Error\nBuilding blocks are invalid\n", 2);
+		error_inside_file(check, INVWALLS);
 }
 
-// malloc fail error needed;
 void	check_player_and_boarder(t_fcheck *check)
 {
 	int	i;
@@ -125,10 +121,12 @@ void	check_player_and_boarder(t_fcheck *check)
 	check->map_size = (check->linecount - check->map_start);
 	check->mapcpy = malloc((check->map_size + 1) * sizeof(char *));
 	if (!check->mapcpy)
-		return ;
+		error_inside_file(check, MALLOCFAIL);
 	while (j < check->linecount)
 	{
 		check->mapcpy[i] = ft_strdup(check->file[j]);
+		if (!check->mapcpy[i])
+			error_inside_file(check, MALLOCFAIL);
 		clean_from_nl(&check->mapcpy[i]);
 		looptrough(check, check->mapcpy[i], i);
 		j++;

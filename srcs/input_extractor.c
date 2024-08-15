@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:39 by plang             #+#    #+#             */
-/*   Updated: 2024/08/08 09:44:27 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/14 16:14:33 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ char	*check_and_set_info(char *str, char *info, t_fcheck *check)
 	if (!info)
 		info = ft_strdup(str);
 	else
-	{
-		ft_putstr_fd("Error\nDuplicate info input\n", 2);
 		check->error = 1;
-	}
 	return (info);
 }
 
@@ -79,8 +76,5 @@ void	check_info_flag(t_fcheck *check, int i)
 void	check_failed_info_flag(t_fcheck *check)
 {
 	if (check->info < 7)
-	{
-		ft_putstr_fd("Error\nSome information is missing\n", 2);
 		check->error = 1;
-	}
 }
