@@ -52,14 +52,23 @@ int calculate_wall(t_map *map)
 void draw_line(int x, int y, t_map *map)
 {
 	mlx_texture_t	*wall;
-	int height = map->wall.txt[map->wall.side]->height;
 	int				offset = 0;
 	uint32_t		pixel = 0;
 
 	wall = map->wall.txt[map->wall.side];
-	offset = (((int)map->wall.y * map->wall.txt[map->wall.side]->height + (int)(map->wallX * map->wall.txt[map->wall.side]->width)))
-		* sizeof(uint32_t);
-	if (offset < (height * height * 4))
+	if (map->wall.side == 0 || map->wall.side == 3)
+	{
+		if (map->wallX < 0.015)
+			offset = (((int)(map->wall.y)  * wall->height + (int)(map->wallX * (wall->width + 1) * -1)))
+				* sizeof(uint32_t);
+		else
+			offset = (((int)(map->wall.y + 1)  * wall->height + (int)(map->wallX * (wall->width + 1) * -1)))
+				* sizeof(uint32_t);
+	}
+	else
+		offset = (((int)map->wall.y * wall->height + (int)(map->wallX * wall->width)))
+			* sizeof(uint32_t);
+	if (offset <= (int)(wall->width * wall->height * sizeof(uint32_t)))
 		pixel = (wall->pixels[offset] << 24) | (wall->pixels[offset + 1] << 16)
 			| (wall->pixels[offset + 2] << 8) | wall->pixels[offset + 3];
 	mlx_put_pixel(map->background, x, y, pixel);
@@ -79,17 +88,11 @@ void	makethewalls(t_map *map)
 	while (i < screenlength)
 	{
 		if (i < drawStart)
-		{
 			mlx_put_pixel(map->background, map->rayamount, i, map->ceiling);
-		}
 		else if (i >= drawStart && i <= drawEnd)
-		{
 			draw_line(map->rayamount, i, map);
-		}
 		else if (i > drawEnd)
-		{
 			mlx_put_pixel(map->background, map->rayamount, i, map->floor);
-		}
 		i++;
 	}
 }
@@ -104,13 +107,8 @@ int checkarraysize(char **arr)
 	return (i);
 }
 
-void shoot_ray(t_map *map)
+void rayposition(t_map *map)
 {
-	map->mapy = map->cameraposy;
-	map->mapx = map->cameraposx;
-	map->deltadistx = sqrt(1 + (map->raydiry * map->raydiry) / (map->raydirx * map->raydirx));
-	map->deltadisty = sqrt(1 + (map->raydirx * map->raydirx) / (map->raydiry * map->raydiry));
-
 	if (map->raydirx < 0)
     {
         map->stepx = -1;
@@ -131,6 +129,15 @@ void shoot_ray(t_map *map)
     	map->stepy = 1;
     	map->rayposy = (map->mapy + 1.0 - map->cameraposy) * map->deltadisty;
     }
+}
+
+void shoot_ray(t_map *map)
+{
+	map->mapy = map->cameraposy;
+	map->mapx = map->cameraposx;
+	map->deltadistx = sqrt(1 + (map->raydiry * map->raydiry) / (map->raydirx * map->raydirx));
+	map->deltadisty = sqrt(1 + (map->raydirx * map->raydirx) / (map->raydiry * map->raydiry));
+	rayposition(map);
 	while (1)
 	{
 		if (map->rayposx < map->rayposy)
@@ -147,8 +154,8 @@ void shoot_ray(t_map *map)
 		}
 		if (checkarraysize(map->mapsave) <= map->mapy || map->mapy < 0 || map->mapx < 0 || (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
 		{
-			map->rayposx = 2;
-			map->rayposy = 2;
+			map->rayposx = 5;
+			map->rayposy = 5;
 			map->deltadisty = 1;
 			map->deltadistx = 1;
 			break ;
@@ -182,59 +189,59 @@ void	makethelines(t_map *map)
 	}
 }
 
-void ft_loop_hook(void *param)
+void playermovement(t_map *map)
 {
-	t_map	*map;
-
-	map = param;
-	//printf("posy%d\n", map->cameraposx);
-	makethelines(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 	{
 		map->cameraposy += map->diry / 2;
 		map->cameraposx += map->dirx / 2;
-	//	reset(map);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 	{
 		map->cameraposy -= map->diry / 2;
 		map->cameraposx -= map->dirx / 2;
-	//	reset(map);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_A))
 	{
 		map->cameraposy -= map->dirx / 3;
 		map->cameraposx -= -map->diry / 3;
-	//	reset(map);
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_D))
 	{
 		map->cameraposy += map->dirx / 3;
 		map->cameraposx += -map->diry / 3;
-	//	reset(map);
 	}
+}
+
+void playerrotation(t_map *map)
+{
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
 		map->pa -= 0.05;
 		if (map->pa < 0)
-		{
 			map->pa += 2 * PI;
-		}
-		map->dirx = cos(map->pa) / 5;
-		map->diry = sin(map->pa) / 5;
-	//	reset(map);
 	}
 	else if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT))
 	{
 		map->pa += 0.05;
 		if (map->pa >= 2 * PI)
-		{
 			map->pa -= 2 * PI;
-		}
-		map->dirx = cos(map->pa) / 5;
-		map->diry = sin(map->pa) / 5;
-	//	reset(map);
 	}
+	map->dirx = cos(map->pa) / 5;
+	map->diry = sin(map->pa) / 5;
+}
+
+void ft_loop_hook(void *param)
+{
+	t_map	*map;
+
+	map = param;
+	makethelines(map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_W) || mlx_is_key_down(map->mlx, MLX_KEY_S) 
+		|| mlx_is_key_down(map->mlx, MLX_KEY_A) || mlx_is_key_down(map->mlx, MLX_KEY_D))
+		playermovement(map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT) || mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
+		playerrotation(map);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
@@ -251,10 +258,8 @@ void	start_window(t_map *map)
 {
 	map->mlx = mlx_init(screenwidth, screenlength, "Game", false);
 	ft_init_textu(map);
-	//reset(map);
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	mlx_put_pixel(map->background, 440, 100, 535353);
-	//ft_create_wall(map);
 	if (map->playerstartpos == 'N')
 		map->pa = 4.71;
 	else if (map->playerstartpos == 'S')
@@ -287,32 +292,6 @@ int	main(int argc, char **argv)
 	start_window(&map);
 	return (0);
 }
-
-//int main(int argc, char **argv)
-//{
-//	if (argc != 2 || screenwidth > 3000 || screenlength > 1500)
-//		exit(1);
-//	char	*map_name;
-//	t_map map;
-
-//	//argument_check(argv[1]);
-//	map_name = argv[1];
-//	ft_memset(&map, 0, sizeof(map));
-//	read_map(&map, map_name);
-//	printf("%s\n", map.mapsave[0]);
-//	printf("%s\n", map.mapsave[1]);
-//	printf("%s\n", map.mapsave[2]);
-//	printf("%s\n", map.mapsave[3]);
-//	int i = 0;
-//	while (map.mapsave[i] != NULL)
-//	{
-//		printf("%s\n", map.mapsave[i]);
-//		i++;
-//	}
-//	start_window(&map);
-//	return (0);
-//}
-
 
 // split up the whole read map, check the file, all the input in the file, is it valid is it not, if ok
 // put it to the sturct that we use for the game otehrwise free everything and exit with correct error message!
