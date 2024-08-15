@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 18:26:11 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/15 14:37:14 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int	count_file_lines(char *map_name, int count)
 	return (count);
 }
 
-//error for malloc fail needed;
 void	read_file(char *map_name, int count, t_map *map)
 {
 	int			fd;
@@ -45,7 +44,7 @@ void	read_file(char *map_name, int count, t_map *map)
 		invalid_input(INVFILE);
 	check.file = malloc((count + 1) * sizeof(char *));
 	if (!check.file)
-		return ;
+		invalid_input(MALLOCFAIL);
 	while (check.count < count)
 	{
 		check.file[i] = get_next_line(fd);
@@ -70,8 +69,9 @@ void	read_file(char *map_name, int count, t_map *map)
 	map->cameraposx = check.cameraposx;
 	map->cameraposy = check.cameraposy;
 	map->playerstartpos = check.playerstartpos;
-	//print_check_struct(&check);
-	//error_inside_file(&check);
+	map->floor = check.bottom;
+	map->ceiling = check.top;
+
 }
 //print_check_struct(&check);
 //error_inside_file(&check);

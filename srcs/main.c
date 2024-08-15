@@ -80,7 +80,7 @@ void	makethewalls(t_map *map)
 	{
 		if (i < drawStart)
 		{
-			mlx_put_pixel(map->background, map->rayamount, i, 0xFFFFFFF);
+			mlx_put_pixel(map->background, map->rayamount, i, map->ceiling);
 		}
 		else if (i >= drawStart && i <= drawEnd)
 		{
@@ -88,7 +88,7 @@ void	makethewalls(t_map *map)
 		}
 		else if (i > drawEnd)
 		{
-			mlx_put_pixel(map->background, map->rayamount, i, 888888888);
+			mlx_put_pixel(map->background, map->rayamount, i, map->floor);
 		}
 		i++;
 	}
