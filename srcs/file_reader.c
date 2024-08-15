@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 16:31:32 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/14 18:26:11 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ void	read_file(char *map_name, int count, t_map *map)
 	check_player_and_boarder(&check);
 	clean_input_strings(&check);
 	map->mapsave = check.mapcpy;
+	map->playerstartpos = check.playerstartpos;
+	// map->cameraposx = check.cameraposx;
+	// map->cameraposy = check.cameraposy; 
+	map->plocation[0] = check.plocation[0]; //never set
+	map->plocation[1] = check.plocation[1]; //never set
 }
 //print_check_struct(&check);
 //error_inside_file(&check);

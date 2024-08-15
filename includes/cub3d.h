@@ -10,6 +10,7 @@
 #define INVCUB "Error\nWe need a .cub file\n"
 #define INVWALLS "Error\nBuilding blocks are invalid\n"
 #define INVPCOUNT "Error\nNot the right amount of players\n"
+#define MALLOCFAIL "Error\nMalloc failed\n"
 
 #define PI 3.14159265358979323846
 #define FOV 60
