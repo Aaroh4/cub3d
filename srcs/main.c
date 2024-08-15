@@ -59,10 +59,10 @@ void draw_line(int x, int y, t_map *map)
 	if (map->wall.side == 0 || map->wall.side == 3)
 	{
 		if (map->wallX < 0.015)
-			offset = (((int)(map->wall.y)  * wall->height + (int)(map->wallX * wall->width * -1)))
+			offset = (((int)(map->wall.y)  * wall->height + (int)(map->wallX * (wall->width + 1) * -1)))
 				* sizeof(uint32_t);
 		else
-			offset = (((int)(map->wall.y + 1)  * wall->height + (int)(map->wallX * wall->width * -1)))
+			offset = (((int)(map->wall.y + 1)  * wall->height + (int)(map->wallX * (wall->width + 1) * -1)))
 				* sizeof(uint32_t);
 	}
 	else

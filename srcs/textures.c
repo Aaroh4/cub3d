@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:36:37 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/15 13:55:32 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:05:23 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_init_textu(t_map *map)
 	//if (map->player_txt == NULL)
 	//	ft_error_mlx(map);
 	map->wall.txt[0] = mlx_load_png("textures/sus.png");
-	map->wall.txt[1] = mlx_load_png("textures/sus.png");
+	map->wall.txt[1] = mlx_load_png("textures/cool.png");
 	map->wall.txt[2] = mlx_load_png("textures/sus.png");
 	map->wall.txt[3] = mlx_load_png("textures/cool.png");
 	//if (map->player_txt == NULL)
