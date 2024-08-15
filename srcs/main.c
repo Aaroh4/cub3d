@@ -88,17 +88,11 @@ void	makethewalls(t_map *map)
 	while (i < screenlength)
 	{
 		if (i < drawStart)
-		{
 			mlx_put_pixel(map->background, map->rayamount, i, 00);
-		}
 		else if (i >= drawStart && i <= drawEnd)
-		{
 			draw_line(map->rayamount, i, map);
-		}
 		else if (i > drawEnd)
-		{
 			mlx_put_pixel(map->background, map->rayamount, i, 999999);
-		}
 		i++;
 	}
 }
@@ -113,13 +107,8 @@ int checkarraysize(char **arr)
 	return (i);
 }
 
-void shoot_ray(t_map *map)
+void rayposition(t_map *map)
 {
-	map->mapy = map->cameraposy;
-	map->mapx = map->cameraposx;
-	map->deltadistx = sqrt(1 + (map->raydiry * map->raydiry) / (map->raydirx * map->raydirx));
-	map->deltadisty = sqrt(1 + (map->raydirx * map->raydirx) / (map->raydiry * map->raydiry));
-
 	if (map->raydirx < 0)
     {
         map->stepx = -1;
@@ -140,6 +129,15 @@ void shoot_ray(t_map *map)
     	map->stepy = 1;
     	map->rayposy = (map->mapy + 1.0 - map->cameraposy) * map->deltadisty;
     }
+}
+
+void shoot_ray(t_map *map)
+{
+	map->mapy = map->cameraposy;
+	map->mapx = map->cameraposx;
+	map->deltadistx = sqrt(1 + (map->raydiry * map->raydiry) / (map->raydirx * map->raydirx));
+	map->deltadisty = sqrt(1 + (map->raydirx * map->raydirx) / (map->raydiry * map->raydiry));
+	rayposition(map);
 	while (1)
 	{
 		if (map->rayposx < map->rayposy)
@@ -156,8 +154,8 @@ void shoot_ray(t_map *map)
 		}
 		if (checkarraysize(map->mapsave) <= map->mapy || map->mapy < 0 || map->mapx < 0 || (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
 		{
-			map->rayposx = 2;
-			map->rayposy = 2;
+			map->rayposx = 5;
+			map->rayposy = 5;
 			map->deltadisty = 1;
 			map->deltadistx = 1;
 			break ;
