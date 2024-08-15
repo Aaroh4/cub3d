@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 13:24:54 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/15 11:03:08 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,8 @@ void	looptrough(t_fcheck *check, char *str, int count)
 			if (player == 1)
 			{
 				check->playerstartpos = str[i];
-				check->plocation[0] = i;
-				check->plocation[1] = count;
-				check->cameraposx = 20 * i;
-				check->cameraposy = 20 * (count - 8);
+				check->cameraposx = i + 0.5;
+				check->cameraposy = count + 0.5;
 			}
 		}
 		i++;

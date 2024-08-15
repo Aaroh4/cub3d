@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/14 15:10:35 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/15 11:03:48 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ void	read_file(char *map_name, int count, t_map *map)
 	check_player_and_boarder(&check);
 	clean_input_strings(&check);
 	map->mapsave = check.mapcpy;
+	map->cameraposx = check.cameraposx;
+	map->cameraposy = check.cameraposy;
+	map->playerstartpos = check.playerstartpos;
 	//print_check_struct(&check);
 	//error_inside_file(&check);
 }
