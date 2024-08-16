@@ -18,7 +18,6 @@ void getting_index(t_map *map)
 		else
 			map->wall.side = 3;
 	}
-//	printf("%f\n", map->wall.x);
 }
 
 int calculate_wall(t_map *map)
@@ -298,6 +297,3 @@ int	main(int argc, char **argv)
 	start_window(&map);
 	return (0);
 }
-
-// split up the whole read map, check the file, all the input in the file, is it valid is it not, if ok
-// put it to the sturct that we use for the game otehrwise free everything and exit with correct error message!

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 17:55:19 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/16 13:29:28 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	read_file(char *map_name, int count, t_map *map)
 	data_transfer(map, &check);
 	free_check_struct(&check);
 }
-//print_check_struct(&check);
-//error_inside_file(&check);
 
 void	get_map_information(t_fcheck *check)
 {
