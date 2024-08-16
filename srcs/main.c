@@ -278,6 +278,7 @@ void	start_window(t_map *map)
 	mlx_key_hook(map->mlx, ft_key_hook, map);
 	mlx_loop_hook(map->mlx, ft_loop_hook, map);
 	mlx_loop(map->mlx);
+	successful_exit(map, 3);
 	mlx_terminate(map->mlx);
 }
 
