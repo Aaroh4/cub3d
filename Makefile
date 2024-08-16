@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: plang <plang@student.hive.fi>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/08/16 13:58:06 by plang             #+#    #+#              #
+#    Updated: 2024/08/16 16:11:38 by plang            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = cub3d
 LIBFTDIR = ./libft
 MAKE = make
@@ -13,7 +25,7 @@ SRCS = srcs/main.c \
 			srcs/rgb_validation.c \
 			srcs/input_cleaner.c \
 			srcs/input_error.c \
-			srcs/input_error2.c 
+			srcs/free_memory.c 
 		
 OBJS = $(SRCS:.c=.o)
 

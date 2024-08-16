@@ -6,32 +6,46 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:29 by plang             #+#    #+#             */
-/*   Updated: 2024/08/16 13:07:35 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/16 16:08:31 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	ft_strfree(char *str)
+void	ft_loadpng_fail(t_fcheck *check, t_map *map, int index)
 {
-	if (str)
+	while (index >= 0)
 	{
-		free(str);
-		str = NULL;
+		mlx_delete_texture(map->wall.txt[index]);
+		index--;
 	}
-	else
-		return ;
+	error_inside_file(check, MLXLPFAIL);
 }
 
-void	ft_arrfree(char **arr)
+void	ft_loadpng_fail2(t_map *map, int index, int imagef)
 {
-	if (arr)
+	int	i;
+
+	i = 0;
+	if (imagef == 1)
+		mlx_delete_texture(map->background_txt);
+	while (i < map->map_size)
 	{
-		free(arr);
-		arr = NULL;
+		ft_strfree(map->mapsave[i]);
+		i++;
 	}
-	else
-		return ;
+	ft_arrfree(map->mapsave);
+	while (index >= 0)
+	{
+		mlx_delete_texture(map->wall.txt[index]);
+		index--;
+	}
+	if (imagef == 0)
+		ft_putstr_fd(MLXLPFAIL, 2);
+	else if (imagef == 1)
+		ft_putstr_fd(MLXTXTFAIL, 2);
+	mlx_terminate(map->mlx);
+	exit (1);
 }
 
 void	invalid_input(char *str)

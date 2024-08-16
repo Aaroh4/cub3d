@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
+/*   Updated: 2024/08/16 16:06:31 by plang            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 #define CUB3D_H
 
@@ -28,7 +40,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <stdio.h> //remove;
+# include <stdio.h>
 
 typedef struct s_fcheck
 {
@@ -145,38 +157,70 @@ void	ft_create_wall(t_map *img);
 
 //parsing files
 
-int		check_int_of_rgb(t_fcheck *check, char **surface);
-void	check_rgb_floor(t_fcheck *check);
-void	check_rgb_ceiling(t_fcheck *check);
-void	looptrough(t_fcheck *check, char *str, int count);
-void	direction_check(t_fcheck *check, int *invalid, int *i, int *j);
-int 	check_char(char c);
-void	map_boarder_check(t_fcheck *check);
-void	check_player_and_boarder(t_fcheck *check);
-int		extract_and_set_info1(char *str, int info_set, t_fcheck *check);
-int		extract_and_set_info2(char *str, int info_set, t_fcheck *check);
-char	*check_and_set_info(char *str, char *info, t_fcheck *check);
-void	check_info_flag(t_fcheck *check, int i);
-void	check_failed_info_flag(t_fcheck *check);
-void	invalid_input(char *str);
-void	error_inside_file(t_fcheck *check, char *str);
-void	clean_from_space_nl(char **str);
-void	clean_from_nl(char **str);
-void	clean_cardinal_directions(char **str);
-void	clean_input_strings(t_fcheck *check);
+/* ************************************************************************** */
+/*                              file_reader.c                                 */
+/* ************************************************************************** */
 int		count_file_lines(char *map_name, int count);
 void	read_file(char *map_name, int count, t_map *map);
 void	get_map_information(t_fcheck *check);
 int		check_rest(t_fcheck *check, int	i);
 void	argument_check(char *argv);
-void	data_reading(t_fcheck *check);
+
+/* ************************************************************************** */
+/*                           file_reader_utils.c                              */
+/* ************************************************************************** */
+void	free_check_struct(t_fcheck *check);
 void	data_transfer(t_map *map, t_fcheck *check);
+void	data_reading(t_fcheck *check);
+
+/* ************************************************************************** */
+/*                             map_validation.c                               */
+/* ************************************************************************** */
+void	looptrough(t_fcheck *check, char *str, int count);
+void	direction_check(t_fcheck *check, int *invalid, int *i, int *j);
+int 	check_char(char c);
+void	map_boarder_check(t_fcheck *check);
+void	check_player_and_boarder(t_fcheck *check);
+
+/* ************************************************************************** */
+/*                             rgb_validation.c                               */
+/* ************************************************************************** */
+void		rgb_free(char **strings);
+uint32_t	bitshift_rgba(int r, int g, int b, int a);
+int			check_int_of_rgb(t_fcheck *check, char **surface);
+void		check_rgb_floor(t_fcheck *check);
+void		check_rgb_ceiling(t_fcheck *check);
+
+/* ************************************************************************** */
+/*                            input_extractor.c                               */
+/* ************************************************************************** */
+int		extract_and_set_info1(char *str, int info_set, t_fcheck *check);
+int		extract_and_set_info2(char *str, int info_set, t_fcheck *check);
+char	*check_and_set_info(char *str, char *info, t_fcheck *check);
+void	check_info_flag(t_fcheck *check, int i);
+void	check_failed_info_flag(t_fcheck *check);
+
+/* ************************************************************************** */
+/*                             input_cleaner.c                                */
+/* ************************************************************************** */
+void	clean_from_space_nl(char **str);
+void	clean_from_nl(char **str);
+void	clean_cardinal_directions(char **str);
+void	clean_input_strings(t_fcheck *check);
+
+/* ************************************************************************** */
+/*                              input_error.c                                 */
+/* ************************************************************************** */
 void	ft_loadpng_fail(t_fcheck *check, t_map *map, int index);
 void	ft_loadpng_fail2(t_map *map, int index, int imagef);
-void	free_check_struct(t_fcheck *check);
-void	ft_arrfree(char **arr);
+void	invalid_input(char *str);
+void	error_inside_file(t_fcheck *check, char *str);
+
+/* ************************************************************************** */
+/*                              free_memory.c                                 */
+/* ************************************************************************** */
 void	ft_strfree(char *str);
-//// remove;
-//void	print_check_struct(t_fcheck *check);
+void	ft_arrfree(char **arr);
+void	successful_exit(t_map *map, int index);
 
 #endif
