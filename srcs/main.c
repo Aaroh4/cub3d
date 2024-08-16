@@ -18,7 +18,6 @@ void getting_index(t_map *map)
 		else
 			map->wall.side = 3;
 	}
-//	printf("%f\n", map->wall.x);
 }
 
 int calculate_wall(t_map *map)
@@ -258,11 +257,11 @@ void	start_window(t_map *map)
 {
 	map->mlx = mlx_init(screenwidth, screenlength, "Game", false);
 	map->background_txt = mlx_load_png("textures/background.png");
-	//if (map->background_txt == NULL)
-	//	ft_error_mlx(map);
+	if (map->background_txt == NULL)
+		ft_loadpng_fail2(map, 3, 0);
 	map->background = mlx_texture_to_image(map->mlx, map->background_txt);
-	//if (map->background == NULL)
-	//	ft_error_mlx(map);
+	if (map->background == NULL)
+		ft_loadpng_fail2(map, 3, 1);
 	mlx_delete_texture(map->background_txt);
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	mlx_put_pixel(map->background, 440, 100, 535353);
@@ -298,6 +297,3 @@ int	main(int argc, char **argv)
 	start_window(&map);
 	return (0);
 }
-
-// split up the whole read map, check the file, all the input in the file, is it valid is it not, if ok
-// put it to the sturct that we use for the game otehrwise free everything and exit with correct error message!

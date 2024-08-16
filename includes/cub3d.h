@@ -11,6 +11,8 @@
 #define INVWALLS "Error\nBuilding blocks are invalid\n"
 #define INVPCOUNT "Error\nNot the right amount of players\n"
 #define MALLOCFAIL "Error\nMalloc failed\n"
+#define MLXLPFAIL "Error\nMLX load png failed\n"
+#define MLXTXTFAIL "Error\nMLX texture to img failed\n"
 
 #define PI 3.14159265358979323846
 #define FOV 60
@@ -70,6 +72,7 @@ typedef struct s_map
 	int	lenght;
 	int	info_set;
 	int	map_start;
+	int	map_size;
 
 	uint32_t	floor;
 	uint32_t	ceiling;
@@ -166,6 +169,13 @@ void	read_file(char *map_name, int count, t_map *map);
 void	get_map_information(t_fcheck *check);
 int		check_rest(t_fcheck *check, int	i);
 void	argument_check(char *argv);
+void	data_reading(t_fcheck *check);
+void	data_transfer(t_map *map, t_fcheck *check);
+void	ft_loadpng_fail(t_fcheck *check, t_map *map, int index);
+void	ft_loadpng_fail2(t_map *map, int index, int imagef);
+void	free_check_struct(t_fcheck *check);
+void	ft_arrfree(char **arr);
+void	ft_strfree(char *str);
 //// remove;
 //void	print_check_struct(t_fcheck *check);
 

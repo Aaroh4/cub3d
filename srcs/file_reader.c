@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_reader.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:25:58 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 15:07:08 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/16 13:29:28 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,10 @@ void	read_file(char *map_name, int count, t_map *map)
 	}
 	check.file[i] = 0;
 	close(fd);
-	check.linecount = check.count;
-	get_map_information(&check);
-	if (check.error == 1)
-		error_inside_file(&check, INVTXTMAP);
-	check_rgb_floor(&check);
-	if (check.error == 1)
-		error_inside_file(&check, INVRGB);
-	check_rgb_ceiling(&check);
-	if (check.error == 1)
-		error_inside_file(&check, INVRGB);
-	check_player_and_boarder(&check);
-	clean_input_strings(&check);
-	map->mapsave = check.mapcpy;
-	map->cameraposx = check.cameraposx;
-	map->cameraposy = check.cameraposy;
-	map->playerstartpos = check.playerstartpos;
-	map->floor = check.bottom;
-	map->ceiling = check.top;
-		
-	map->wall.txt[0] = mlx_load_png(check.south);
-	map->wall.txt[1] = mlx_load_png(check.north);
-	map->wall.txt[2] = mlx_load_png(check.west);
-	map->wall.txt[3] = mlx_load_png(check.east);
-	//if (map->player_txt == NULL)
-	//	ft_error_mlx(map);
+	data_reading(&check);
+	data_transfer(map, &check);
+	free_check_struct(&check);
 }
-//print_check_struct(&check);
-//error_inside_file(&check);
 
 void	get_map_information(t_fcheck *check)
 {

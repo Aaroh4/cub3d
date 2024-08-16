@@ -1,9 +1,9 @@
                              NO ./textures/cool.png
-           SO ./textures/cool.png
-          WE ./textures/cool.png
-EA ./textures/cool.png
+           SO ./textures/RIVET_1A.PNG
+          WE ./textures/CRATE_1D.PNG
+EA ./textures/BRICK_4A.PNG
 
-F 0   ,  0,   0
+F 0   ,  0,   2
 C 0,     0,   0
 
 1111111111111111111111111111111
