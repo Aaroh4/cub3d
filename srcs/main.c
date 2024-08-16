@@ -36,13 +36,13 @@ int calculate_wall(t_map *map)
 		map->wallX = map->cameraposx + length * map->raydirx;
     map->wallX -= floor((map->wallX));
 	length *= cos(correct);
-	height = (STEPSIZE * screenlength) / length;
+	height = (STEPSIZE * SCREENLENGTH) / length;
 	map->wall.ty_off = 0;
 	map->wall.ty_step = map->wall.txt[map->wall.side]->height / height;
-	if (height > screenlength)
+	if (height > SCREENLENGTH)
 	{
-		map->wall.ty_off = (height - screenlength) / 2;
-		height = screenlength;
+		map->wall.ty_off = (height - SCREENLENGTH) / 2;
+		height = SCREENLENGTH;
 	}
 	map->wall.y = map->wall.ty_off * map->wall.ty_step;
 	return (height);
@@ -79,12 +79,12 @@ void	makethewalls(t_map *map)
 	int wall_height = calculate_wall(map);
 	int i = 0;
 	int untily;
-	int drawStart = -wall_height / 2 + screenlength / 2;
+	int drawStart = -wall_height / 2 + SCREENLENGTH / 2;
     if(drawStart < 0) 
 		drawStart = 0;
-    int drawEnd = wall_height / 2 + screenlength / 2;
+    int drawEnd = wall_height / 2 + SCREENLENGTH / 2;
 	untily = 0;
-	while (i < screenlength)
+	while (i < SCREENLENGTH)
 	{
 		if (i < drawStart)
 			mlx_put_pixel(map->background, map->rayamount, i, map->ceiling);
@@ -172,10 +172,10 @@ void	makethelines(t_map *map)
 	map->raypa = map->pa - DEGREE * FOV / 2;
 
 	int i = 0;
-	while (i < screenwidth)
+	while (i < SCREENWIDTH)
 	{
 		map->rayamount += 1;
-		map->raypa += DEGREE / (double)(screenwidth / FOV);
+		map->raypa += DEGREE / (double)(SCREENWIDTH / FOV);
 		if (map->raypa > 2 * PI)
 		{
 			map->raypa -= 2 * PI;
@@ -255,7 +255,7 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 
 void	start_window(t_map *map)
 {
-	map->mlx = mlx_init(screenwidth, screenlength, "Game", false);
+	map->mlx = mlx_init(SCREENWIDTH, SCREENLENGTH, "Game", false);
 	map->background_txt = mlx_load_png("textures/background.png");
 	if (map->background_txt == NULL)
 		ft_loadpng_fail2(map, 3, 0);
@@ -286,7 +286,7 @@ int	main(int argc, char **argv)
 {
 	char	*map_name;
 	int		count;
-	if (argc != 2 || screenwidth > 3000 || screenlength > 1500)
+	if (argc != 2 || SCREENWIDTH > 3000 || SCREENLENGTH > 1500)
 		exit(1);
 	t_map map;
 
