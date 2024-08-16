@@ -6,21 +6,11 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:29 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 18:29:42 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/16 13:07:35 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	ft_loadpng_fail(t_fcheck *check, t_map *map, int index)
-{
-	while (index >= 0)
-	{
-		mlx_delete_texture(map->wall.txt[index]);
-		index--;
-	}
-	error_inside_file(check, MLXFAIL);
-}
 
 void	ft_strfree(char *str)
 {

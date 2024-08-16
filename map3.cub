@@ -1,10 +1,10 @@
-                             NO ./textures/Cool.png
+                             NO ./textures/cool.png
            SO ./textures/RIVET_1A.PNG
           WE ./textures/CRATE_1D.PNG
 EA ./textures/BRICK_4A.PNG
 
-F 0   ,  0,   200
-C 250,     0,   0
+F 0   ,  0,   2
+C 0,     0,   0
 
 1111111111111111111111111111111
 1000000000000000000000000001111

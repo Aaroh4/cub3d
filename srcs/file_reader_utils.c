@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:33:49 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 17:54:51 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/16 12:54:44 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	data_transfer(t_map *map, t_fcheck *check)
 	map->cameraposx = check->cameraposx;
 	map->cameraposy = check->cameraposy;
 	map->playerstartpos = check->playerstartpos;
+	map->map_size = check->map_size;
 	map->floor = check->bottom;
 	map->ceiling = check->top;
 	map->wall.txt[0] = mlx_load_png(check->south);

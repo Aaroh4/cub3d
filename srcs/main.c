@@ -258,11 +258,11 @@ void	start_window(t_map *map)
 {
 	map->mlx = mlx_init(screenwidth, screenlength, "Game", false);
 	map->background_txt = mlx_load_png("textures/background.png");
-	//if (map->background_txt == NULL)
-	//	ft_error_mlx(map);
+	if (map->background_txt == NULL)
+		ft_loadpng_fail2(map, 3, 0);
 	map->background = mlx_texture_to_image(map->mlx, map->background_txt);
-	//if (map->background == NULL)
-	//	ft_error_mlx(map);
+	if (map->background == NULL)
+		ft_loadpng_fail2(map, 3, 1);
 	mlx_delete_texture(map->background_txt);
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
 	mlx_put_pixel(map->background, 440, 100, 535353);
