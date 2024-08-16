@@ -6,30 +6,11 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:33:49 by plang             #+#    #+#             */
-/*   Updated: 2024/08/16 12:54:44 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/16 16:25:05 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void	free_check_struct(t_fcheck *check)
-{
-	int	i;
-
-	i = 0;
-	while (i < check->linecount)
-	{
-		ft_strfree(check->file[i]);
-		i++;
-	}
-	ft_arrfree(check->file);
-	ft_strfree(check->north);
-	ft_strfree(check->south);
-	ft_strfree(check->west);
-	ft_strfree(check->east);
-	ft_strfree(check->ground);
-	ft_strfree(check->sky);
-}
 
 void	data_transfer(t_map *map, t_fcheck *check)
 {
