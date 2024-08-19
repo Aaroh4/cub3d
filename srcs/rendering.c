@@ -6,13 +6,13 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:25:31 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/19 12:27:25 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:41:30 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	getting_index(t_map *map, double length)
+static void	getting_index(t_map *map, double length)
 {
 	if (map->side == 1)
 	{
@@ -34,7 +34,7 @@ void	getting_index(t_map *map, double length)
 		map->wallx = map->cameraposx + length * map->raydirx;
 }
 
-int	calculate_wall(t_map *map)
+static int	calculate_wall(t_map *map)
 {
 	double	length;
 	double	height;
@@ -60,7 +60,7 @@ int	calculate_wall(t_map *map)
 	return (height);
 }
 
-void	draw_line(int x, int y, t_map *map)
+static void	draw_line(int x, int y, t_map *map)
 {
 	mlx_texture_t	*wall;
 	int				offset;

@@ -6,13 +6,13 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:26:19 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/19 12:27:28 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 12:39:29 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	rayposition(t_map *map)
+static void	rayposition(t_map *map)
 {
 	if (map->raydirx < 0)
 	{
@@ -36,7 +36,7 @@ void	rayposition(t_map *map)
 	}
 }
 
-int	ray_loop(t_map *map)
+static int	ray_loop(t_map *map)
 {
 	while (1)
 	{
@@ -60,7 +60,7 @@ int	ray_loop(t_map *map)
 	}
 }
 
-void	shoot_ray(t_map *map)
+static void	shoot_ray(t_map *map)
 {
 	map->mapy = map->cameraposy;
 	map->mapx = map->cameraposx;

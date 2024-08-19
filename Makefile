@@ -6,7 +6,7 @@
 #    By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 13:58:06 by plang             #+#    #+#              #
-#    Updated: 2024/08/19 11:53:13 by ahamalai         ###   ########.fr        #
+#    Updated: 2024/08/19 12:38:14 by ahamalai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,10 @@ SRCS = srcs/main.c \
 			srcs/rgb_validation.c \
 			srcs/input_cleaner.c \
 			srcs/input_error.c \
-			srcs/free_memory.c 
+			srcs/free_memory.c \
+			srcs/rendering.c \
+			srcs/raycasting.c \
+			srcs/movement.c
 		
 OBJS = $(SRCS:.c=.o)
 
