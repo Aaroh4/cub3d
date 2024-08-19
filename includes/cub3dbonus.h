@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/19 14:00:52 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:19:46 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ void		successful_exit(t_map *map, int index);
 /* ************************************************************************** */
 void		playermovement(t_map *map);
 void		playerrotation(t_map *map);
+void		playerstrafe(t_map *map);
 
 /* ************************************************************************** */
 /*                              raycasting.c                                  */

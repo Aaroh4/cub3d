@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/19 14:01:44 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:19:21 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ void	ft_loop_hook(void *param)
 	map = param;
 	makethelines(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W)
-		|| mlx_is_key_down(map->mlx, MLX_KEY_S)
-		|| mlx_is_key_down(map->mlx, MLX_KEY_A)
-		|| mlx_is_key_down(map->mlx, MLX_KEY_D))
+		|| mlx_is_key_down(map->mlx, MLX_KEY_S))
 		playermovement(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 		playerrotation(map);
+	if (mlx_is_key_down(map->mlx, MLX_KEY_A)
+		|| mlx_is_key_down(map->mlx, MLX_KEY_D))
+		playerstrafe(map);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)

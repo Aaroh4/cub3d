@@ -1,13 +1,13 @@
-                          NO ./path_to_the_north_texture
+                          NO ./textures/cool.png
 
 
-                 SO ./path_to_the_south_texture
+                 SO ./textures/cool.png
 
 
 
-WE ./path_to_the_west_texture
+WE ./textures/cool.png
 
-EA ./path_to_the_east_texture
+EA ./textures/cool.png
 
 
 F 220,100,0
