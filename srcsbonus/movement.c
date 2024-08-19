@@ -6,33 +6,52 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:24:42 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/19 14:02:05 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:13:42 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3dbonus.h"
 
+static int is_colliding(int y, int x, t_map *map)
+{
+	if (map->mapsave[y][x] == '1')
+		return (1);
+	return (0);
+}
+
 void	playermovement(t_map *map)
 {
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 	{
-		map->cameraposy += map->diry / 2;
-		map->cameraposx += map->dirx / 2;
+		if (!is_colliding(map->cameraposy + map->diry / 2, map->cameraposx + map->dirx / 2, map))
+		{
+			map->cameraposy += map->diry / 2;
+			map->cameraposx += map->dirx / 2;
+		}
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_S))
 	{
-		map->cameraposy -= map->diry / 2;
-		map->cameraposx -= map->dirx / 2;
+		if (!is_colliding(map->cameraposy - map->diry / 2, map->cameraposx - map->dirx / 2, map))
+		{
+			map->cameraposy -= map->diry / 2;
+			map->cameraposx -= map->dirx / 2;
+		}
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_A))
 	{
-		map->cameraposy -= map->dirx / 3;
-		map->cameraposx -= -map->diry / 3;
+		if (!is_colliding(map->cameraposy - map->dirx / 3, map->cameraposx - -map->diry / 3, map))
+		{
+			map->cameraposy -= map->dirx / 3;
+			map->cameraposx -= -map->diry / 3;
+		}
 	}
 	if (mlx_is_key_down(map->mlx, MLX_KEY_D))
 	{
-		map->cameraposy += map->dirx / 3;
-		map->cameraposx += -map->diry / 3;
+		if (!is_colliding(map->cameraposy + map->dirx / 3, map->cameraposx + -map->diry / 3, map))
+		{
+			map->cameraposy += map->dirx / 3;
+			map->cameraposx += -map->diry / 3;
+		}
 	}
 }
 
