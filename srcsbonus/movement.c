@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:24:42 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/19 14:20:41 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:26:51 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	is_colliding(int y, int x, t_map *map)
 {
-	if (map->mapsave[y][x] == '1')
+	if (map->mapsave[y][x] == '1' || map->mapsave[y][x] == '2')
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/19 14:19:46 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:56:51 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define FOV 60
 # define DEGREE 0.01745329
 # define STEPSIZE 1
+# define DOORTXT "./textures/DOOR_1A.PNG"
 
 # define SCREENWIDTH  1500 // HIGHER VALUES WILL CAUSE LAG
 # define SCREENLENGTH 1000 // HIGHER VALUES WILL CAUSE LAG
@@ -68,6 +69,7 @@ typedef struct s_fcheck
 
 typedef struct s_wall
 {
+	mlx_texture_t	*door;
 	mlx_texture_t	*txt[4];
 	int				side;
 	double			x;
@@ -113,6 +115,8 @@ typedef struct s_map
 	int				stepx;
 
 	t_wall			wall;
+	
+	int				is_door;
 
 	double			deltadisty;
 	double			deltadistx;

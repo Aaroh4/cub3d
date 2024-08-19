@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/19 14:19:21 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:26:16 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,35 @@ void	ft_loop_hook(void *param)
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
 {
+	int	i;
+	int	y;
+	int	x;
 	t_map	*map;
 
 	map = param;
+	i = 0;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(map->mlx);
+	while (i < 4)
+	{
+		y = 0;
+		x = 0;
+		if (i == 0)
+			y = 1;
+		else if (i == 1)
+			y = -1;
+		else if (i == 2)
+			x = 1;
+		else
+			x = -1;
+		if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS && 
+			(map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] == '2'))
+			map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] = '3';
+		else if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS && 
+		(map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] == '3'))
+			map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] = '2';
+		i++;
+	}
 }
 
 void	start_window(t_map *map)

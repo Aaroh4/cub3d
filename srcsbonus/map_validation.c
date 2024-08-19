@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/19 14:02:08 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:48:24 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	check_char(char c)
 {
 	char	*str;
 
-	str = "01NSWE ";
+	str = "012NSWE ";
 	while (*str)
 	{
 		if (c == *str)

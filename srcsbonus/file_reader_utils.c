@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:33:49 by plang             #+#    #+#             */
-/*   Updated: 2024/08/19 14:01:57 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/19 14:58:21 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	data_transfer(t_map *map, t_fcheck *check)
 	map->wall.txt[3] = mlx_load_png(check->east);
 	if (map->wall.txt[3] == NULL)
 		ft_loadpng_fail(check, map, 2);
+	map->wall.door = mlx_load_png(DOORTXT);
+	if (map->wall.txt[3] == NULL)
+		ft_loadpng_fail(check, map, 3);
 }
 
 void	data_reading(t_fcheck *check)
