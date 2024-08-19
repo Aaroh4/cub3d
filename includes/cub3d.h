@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/16 16:47:37 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/19 12:01:16 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_map
 	int				info_set;
 	int				map_start;
 	int				map_size;
+	int				size;
 
 	uint32_t		floor;
 	uint32_t		ceiling;
@@ -106,8 +107,7 @@ typedef struct s_map
 	double			cameraposy;
 	double			cameraposx;
 
-	double			wallX; //change to lowercase
-	double			wallY; //change to lowercase
+	double			wallx;
 
 	int				stepy;
 	int				stepx;

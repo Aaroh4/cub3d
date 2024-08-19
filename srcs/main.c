@@ -1,10 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
+/*   Updated: 2024/08/19 12:23:11 by ahamalai         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
-#include <stdio.h>
-
-void getting_index(t_map *map)
+void	getting_index(t_map *map, double length)
 {
-	if(map->side == 1)
+	if (map->side == 1)
 	{
 		if (map->raydiry > 0)
 			map->wall.side = 0;
@@ -18,23 +28,25 @@ void getting_index(t_map *map)
 		else
 			map->wall.side = 3;
 	}
+	if (map->side == 0)
+		map->wallx = map->cameraposy + length * map->raydiry;
+	else
+		map->wallx = map->cameraposx + length * map->raydirx;
 }
 
-int calculate_wall(t_map *map)
+int	calculate_wall(t_map *map)
 {
-	double length;
-	double height;
+	double	length;
+	double	height;
+	double	correct;
+
 	if (map->side == 0)
 		length = (map->rayposx - map->deltadistx);
 	else
 		length = (map->rayposy - map->deltadisty);
-	double correct = (map->pa - map->raypa);
-	getting_index(map);
-	if (map->side == 0) 
-		map->wallX = map->cameraposy + length * map->raydiry;
-	else           
-		map->wallX = map->cameraposx + length * map->raydirx;
-    map->wallX -= floor((map->wallX));
+	correct = (map->pa - map->raypa);
+	getting_index(map, length);
+	map->wallx -= floor((map->wallx));
 	length *= cos(correct);
 	height = (STEPSIZE * SCREENLENGTH) / length;
 	map->wall.ty_off = 0;
@@ -48,26 +60,28 @@ int calculate_wall(t_map *map)
 	return (height);
 }
 
-void draw_line(int x, int y, t_map *map)
+void	draw_line(int x, int y, t_map *map)
 {
 	mlx_texture_t	*wall;
-	int				offset = 0;
-	uint32_t		pixel = 0;
+	int				offset;
+	uint32_t		pixel;
 
+	offset = 0;
+	pixel = 0;
 	wall = map->wall.txt[map->wall.side];
 	if (map->wall.side == 0 || map->wall.side == 3)
 	{
-		if (map->wallX < 0.015)
-			offset = (((int)(map->wall.y)  * wall->height + (int)(map->wallX * (wall->width + 1) * -1)))
-				* sizeof(uint32_t);
+		if (map->wallx < 0.015)
+			offset = (((int)(map->wall.y) * wall->height + (int)(map->wallx
+							* (wall->width + 1) * -1))) * sizeof(uint32_t);
 		else
-			offset = (((int)(map->wall.y + 1)  * wall->height + (int)(map->wallX * (wall->width + 1) * -1)))
-				* sizeof(uint32_t);
+			offset = (((int)(map->wall.y + 1) * wall->height + (int)(map->wallx
+							* (wall->width + 1) * -1))) * sizeof(uint32_t);
 	}
 	else
-		offset = (((int)map->wall.y * wall->height + (int)(map->wallX * wall->width)))
-			* sizeof(uint32_t);
-	if (offset <= (int)(wall->width * wall->height * sizeof(uint32_t)))
+		offset = (((int)map->wall.y * wall->height
+					+ (int)(map->wallx * wall->width))) * sizeof(uint32_t);
+	if (offset < (int)(wall->width * wall->height * sizeof(uint32_t)))
 		pixel = (wall->pixels[offset] << 24) | (wall->pixels[offset + 1] << 16)
 			| (wall->pixels[offset + 2] << 8) | wall->pixels[offset + 3];
 	mlx_put_pixel(map->background, x, y, pixel);
@@ -76,29 +90,34 @@ void draw_line(int x, int y, t_map *map)
 
 void	makethewalls(t_map *map)
 {
-	int wall_height = calculate_wall(map);
-	int i = 0;
-	int untily;
-	int drawStart = -wall_height / 2 + SCREENLENGTH / 2;
-    if(drawStart < 0) 
-		drawStart = 0;
-    int drawEnd = wall_height / 2 + SCREENLENGTH / 2;
+	int	wall_height;
+	int	i;
+	int	untily;
+	int	drawstart;
+	int	drawend;
+
+	wall_height = calculate_wall(map);
+	i = 0;
+	drawstart = -wall_height / 2 + SCREENLENGTH / 2;
+	if (drawstart < 0)
+		drawstart = 0;
+	drawend = wall_height / 2 + SCREENLENGTH / 2;
 	untily = 0;
 	while (i < SCREENLENGTH)
 	{
-		if (i < drawStart)
+		if (i < drawstart)
 			mlx_put_pixel(map->background, map->rayamount, i, map->ceiling);
-		else if (i >= drawStart && i <= drawEnd)
+		else if (i >= drawstart && i <= drawend)
 			draw_line(map->rayamount, i, map);
-		else if (i > drawEnd)
+		else if (i > drawend)
 			mlx_put_pixel(map->background, map->rayamount, i, map->floor);
 		i++;
 	}
 }
 
-int checkarraysize(char **arr)
+int	checkarraysize(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (arr[i] != NULL)
@@ -106,37 +125,32 @@ int checkarraysize(char **arr)
 	return (i);
 }
 
-void rayposition(t_map *map)
+void	rayposition(t_map *map)
 {
 	if (map->raydirx < 0)
-    {
-        map->stepx = -1;
-        map->rayposx = (map->cameraposx - map->mapx) * map->deltadistx;
-    }
-    else
-    {
-        map->stepx = 1;
-        map->rayposx = (map->mapx + 1.0 - map->cameraposx) * map->deltadistx;
-    }
-    if (map->raydiry < 0)
-    {
-        map->stepy = -1;
-        map->rayposy = (map->cameraposy - map->mapy) * map->deltadisty;
-    }
-    else
-    {
-    	map->stepy = 1;
-    	map->rayposy = (map->mapy + 1.0 - map->cameraposy) * map->deltadisty;
-    }
+	{
+		map->stepx = -1;
+		map->rayposx = (map->cameraposx - map->mapx) * map->deltadistx;
+	}
+	else
+	{
+		map->stepx = 1;
+		map->rayposx = (map->mapx + 1.0 - map->cameraposx) * map->deltadistx;
+	}
+	if (map->raydiry < 0)
+	{
+		map->stepy = -1;
+		map->rayposy = (map->cameraposy - map->mapy) * map->deltadisty;
+	}
+	else
+	{
+		map->stepy = 1;
+		map->rayposy = (map->mapy + 1.0 - map->cameraposy) * map->deltadisty;
+	}
 }
 
-void shoot_ray(t_map *map)
+int	ray_loop(t_map *map)
 {
-	map->mapy = map->cameraposy;
-	map->mapx = map->cameraposx;
-	map->deltadistx = sqrt(1 + (map->raydiry * map->raydiry) / (map->raydirx * map->raydirx));
-	map->deltadisty = sqrt(1 + (map->raydirx * map->raydirx) / (map->raydiry * map->raydiry));
-	rayposition(map);
 	while (1)
 	{
 		if (map->rayposx < map->rayposy)
@@ -151,27 +165,41 @@ void shoot_ray(t_map *map)
 			map->mapy += map->stepy;
 			map->side = 1;
 		}
-		if (checkarraysize(map->mapsave) <= map->mapy || map->mapy < 0 || map->mapx < 0 || (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
-		{
-			map->rayposx = 5;
-			map->rayposy = 5;
-			map->deltadisty = 1;
-			map->deltadistx = 1;
-			break ;
-		}
+		if (map->size <= map->mapy || map->mapy < 0 || map->mapx < 0
+			|| (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
+			return (1);
 		if (map->mapsave[map->mapy][map->mapx] == '1')
-			break ;
+			return (0);
+	}
+}
+
+void	shoot_ray(t_map *map)
+{
+	map->mapy = map->cameraposy;
+	map->mapx = map->cameraposx;
+	map->deltadistx = sqrt(1 + (map->raydiry * map->raydiry)
+			/ (map->raydirx * map->raydirx));
+	map->deltadisty = sqrt(1 + (map->raydirx * map->raydirx)
+			/ (map->raydiry * map->raydiry));
+	rayposition(map);
+	if (ray_loop(map))
+	{
+		map->rayposx = 5;
+		map->rayposy = 5;
+		map->deltadisty = 1;
+		map->deltadistx = 1;
 	}
 }
 
 void	makethelines(t_map *map)
 {
+	int	i;
+
+	i = 0;
 	map->rayamount = -1;
 	map->raydiry = map->diry;
 	map->raydirx = map->dirx;
 	map->raypa = map->pa - DEGREE * FOV / 2;
-
-	int i = 0;
 	while (i < SCREENWIDTH)
 	{
 		map->rayamount += 1;
@@ -188,7 +216,7 @@ void	makethelines(t_map *map)
 	}
 }
 
-void playermovement(t_map *map)
+void	playermovement(t_map *map)
 {
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W))
 	{
@@ -212,7 +240,7 @@ void playermovement(t_map *map)
 	}
 }
 
-void playerrotation(t_map *map)
+void	playerrotation(t_map *map)
 {
 	if (mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 	{
@@ -230,16 +258,19 @@ void playerrotation(t_map *map)
 	map->diry = sin(map->pa) / 5;
 }
 
-void ft_loop_hook(void *param)
+void	ft_loop_hook(void *param)
 {
 	t_map	*map;
 
 	map = param;
 	makethelines(map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_W) || mlx_is_key_down(map->mlx, MLX_KEY_S) 
-		|| mlx_is_key_down(map->mlx, MLX_KEY_A) || mlx_is_key_down(map->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(map->mlx, MLX_KEY_W)
+		|| mlx_is_key_down(map->mlx, MLX_KEY_S)
+		|| mlx_is_key_down(map->mlx, MLX_KEY_A)
+		|| mlx_is_key_down(map->mlx, MLX_KEY_D))
 		playermovement(map);
-	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT) || mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT)
+		|| mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 		playerrotation(map);
 }
 
@@ -248,7 +279,6 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 	t_map	*map;
 
 	map = param;
-
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(map->mlx);
 }
@@ -286,15 +316,16 @@ int	main(int argc, char **argv)
 {
 	char	*map_name;
 	int		count;
+	t_map	map;
+
 	if (argc != 2 || SCREENWIDTH > 3000 || SCREENLENGTH > 1500)
 		exit(1);
-	t_map map;
-
 	argument_check(argv[1]);
 	count = 0;
 	map_name = argv[1];
 	count = count_file_lines(map_name, count);
 	read_file(map_name, count, &map);
+	map.size = checkarraysize(map.mapsave);
 	start_window(&map);
 	return (0);
 }
