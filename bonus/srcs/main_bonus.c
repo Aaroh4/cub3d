@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 16:06:54 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 16:50:56 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,6 @@ void	start_window(t_map *map)
 	map->diry = sin(map->pa) / 5;
 	mlx_key_hook(map->mlx, ft_key_hook, map);
 	mlx_loop_hook(map->mlx, ft_loop_hook, map);
-	// mlx_cursor_hook(map->mlx, ft_cursor_hook, map);
 	mlx_loop(map->mlx);
 	successful_exit(map, 3);
 	mlx_terminate(map->mlx);
