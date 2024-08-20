@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:25:31 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 14:03:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 16:17:31 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ static void	draw_line(int x, int y, t_map *map)
 
 	offset = 0;
 	pixel = 0;
-	wall = map->wall.txt[map->wall.side];
+	if (!map->is_door)
+		wall = map->wall.txt[map->wall.side];
+	else
+		wall = map->wall.door;
 	if (map->wall.side == 0 || map->wall.side == 3)
 	{
 		if (map->wallx < 0.015)

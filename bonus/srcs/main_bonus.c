@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 15:40:54 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 16:06:54 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,13 @@ void	ft_loop_hook(void *param)
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
 {
+	int	i;
+	int	y;
+	int	x;
 	t_map	*map;
 
 	map = param;
+	i = 0;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(map->mlx);
 	if (keydata.key == MLX_KEY_H && keydata.action == MLX_PRESS && map->mouse_enabled == 0)
@@ -62,35 +66,27 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		mlx_set_cursor_mode(map->mlx, MLX_MOUSE_NORMAL);
 		map->mouse_enabled = 0;
 	}
+	while (i < 4)
+	{
+		y = 0;
+		x = 0;
+		if (i == 0)
+			y = 1;
+		else if (i == 1)
+			y = -1;
+		else if (i == 2)
+			x = 1;
+		else
+			x = -1;
+		if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS && 
+			(map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] == '2'))
+			map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] = '3';
+		else if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS && 
+		(map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] == '3'))
+			map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] = '2';
+		i++;
+	}
 }
-
-// void	ft_cursor_hook(double x, double y, void *param)
-// {
-// 	t_map	*map;
-// 	double	mousex;
-// 	double	senssi;
-	
-// 	y = 0;
-// 	// static double prevx = 0;
-// 	// static double prevy = 0;
-
-// 	senssi = 0.003;
-// 	map = param;
-// 	mousex = x;// - prevx;
-//  	 double centerX = SCREENWIDTH / 2.0;
-//     // double centerY = SCREENLENGTH / 2.0;
-//     // double distFromCenterX = fabs(x - centerX);
-//     // double distFromCenterY = fabs(y - centerY);
-//     // double sensitivityScale = 1.0 + (distFromCenterX + distFromCenterY) * 0.01;
-
-// 	//map->pa += (mousex * senssi); //* sensitivityScale);
-// 	// if (map->pa < 0)
-// 	// 	map->pa += 2 * PI;
-//     // else if (map->pa > 2 * PI)
-// 	// 	map->pa -= 2 * PI;
-// 	// prevx = x;
-// 	// prevy = y;
-// }
 
 void	start_window(t_map *map)
 {

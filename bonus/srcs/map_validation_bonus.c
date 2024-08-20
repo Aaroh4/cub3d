@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 14:03:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 16:10:52 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	check_char(char c)
 {
 	char	*str;
 
-	str = "01NSWE ";
+	str = "012NSWE ";
 	while (*str)
 	{
 		if (c == *str)

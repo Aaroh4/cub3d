@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:26:19 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 14:03:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 16:18:02 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ static int	ray_loop(t_map *map)
 			return (1);
 		if (map->mapsave[map->mapy][map->mapx] == '1')
 			return (0);
+		if (map->mapsave[map->mapy][map->mapx] == '2')
+		{
+			map->is_door = 1;
+			return (0);
+		}
 	}
 }
 
@@ -69,6 +74,7 @@ static void	shoot_ray(t_map *map)
 	map->deltadisty = sqrt(1 + (map->raydirx * map->raydirx)
 			/ (map->raydiry * map->raydiry));
 	rayposition(map);
+	map->is_door = 0;
 	if (ray_loop(map))
 	{
 		map->rayposx = 5;
