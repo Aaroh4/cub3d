@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 16:08:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 16:52:10 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ typedef struct s_wall
 
 typedef struct s_map
 {
+    bool waiting;
+    double elapsed_time;
+	int wait_stage;
+	
 	int				fd;
 	int				linecount;
 	int				wallcount;
@@ -149,6 +153,18 @@ typedef struct s_map
 
 	mlx_image_t		*background;
 	mlx_texture_t	*background_txt;
+
+	mlx_image_t		*gun1;
+	mlx_texture_t	*gun1_txt;
+	
+	mlx_image_t		*gun2;
+	mlx_texture_t	*gun2_txt;
+	
+	mlx_image_t		*gun3;
+	mlx_texture_t	*gun3_txt;
+	
+	mlx_image_t		*gun4;
+	mlx_texture_t	*gun4_txt;
 
 }	t_map;
 

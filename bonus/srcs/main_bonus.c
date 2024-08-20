@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 16:50:56 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 17:01:42 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,32 @@ int	checkarraysize(char **arr)
 	while (arr[i] != NULL)
 		i++;
 	return (i);
+}
+
+void	process_wait(t_map *map)
+{
+	if (map->waiting)
+	{
+		map->gun2->instances[0].enabled = true;
+		map->elapsed_time += map->mlx->delta_time;
+		
+		if (map->elapsed_time > 0.1)
+		{
+			map->gun2->instances[0].enabled = false;
+			map->gun3->instances[0].enabled = true;
+		}
+		if (map->elapsed_time > 0.2)
+		{
+			map->gun3->instances[0].enabled = false;
+			map->gun4->instances[0].enabled = true;
+		}
+		if (map->elapsed_time > 0.3)
+		{
+			map->gun4->instances[0].enabled = false;
+			map->gun1->instances[0].enabled = true;
+			map->waiting = false;
+		}
+	}
 }
 
 void	ft_loop_hook(void *param)
@@ -43,6 +69,7 @@ void	ft_loop_hook(void *param)
 	makethelines(map);
 	if (map->mouse_enabled == 1)
 		mlx_set_mouse_pos(map->mlx, (SCREENWIDTH / 2), (SCREENLENGTH / 2));
+	process_wait(map);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
@@ -54,6 +81,14 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 
 	map = param;
 	i = 0;
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS && map->waiting == false)
+	{
+		map->gun1->instances[0].enabled = false;
+
+		map->wait_stage = 1;
+		map->elapsed_time = 0;
+		map->waiting = true;
+	}
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(map->mlx);
 	if (keydata.key == MLX_KEY_H && keydata.action == MLX_PRESS && map->mouse_enabled == 0)
@@ -98,7 +133,51 @@ void	start_window(t_map *map)
 	if (map->background == NULL)
 		ft_loadpng_fail2(map, 3, 1);
 	mlx_delete_texture(map->background_txt);
+
+
+	
+	map->gun1_txt = mlx_load_png("textures/sprites/correct1.png");
+	if (map->gun1_txt == NULL)
+		ft_loadpng_fail2(map, 3, 0);
+	map->gun1 = mlx_texture_to_image(map->mlx, map->gun1_txt);
+	if (map->gun1 == NULL)
+		ft_loadpng_fail2(map, 3, 1);
+	mlx_delete_texture(map->gun1_txt);
+	
+	map->gun2_txt = mlx_load_png("textures/sprites/correct2.png");
+	if (map->gun2_txt == NULL)
+		ft_loadpng_fail2(map, 3, 0);
+	map->gun2 = mlx_texture_to_image(map->mlx, map->gun2_txt);
+	if (map->gun2 == NULL)
+		ft_loadpng_fail2(map, 3, 1);
+	mlx_delete_texture(map->gun2_txt);
+
+	map->gun3_txt = mlx_load_png("textures/sprites/correct3.png");
+	if (map->gun3_txt == NULL)
+		ft_loadpng_fail2(map, 3, 0);
+	map->gun3 = mlx_texture_to_image(map->mlx, map->gun3_txt);
+	if (map->gun3 == NULL)
+		ft_loadpng_fail2(map, 3, 1);
+	mlx_delete_texture(map->gun3_txt);
+	
+		map->gun4_txt = mlx_load_png("textures/sprites/correct4.png");
+	if (map->gun4_txt == NULL)
+		ft_loadpng_fail2(map, 3, 0);
+	map->gun4 = mlx_texture_to_image(map->mlx, map->gun4_txt);
+	if (map->gun4 == NULL)
+		ft_loadpng_fail2(map, 3, 1);
+	mlx_delete_texture(map->gun4_txt);
+
+
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
+	mlx_image_to_window(map->mlx, map->gun1, SCREENWIDTH / 2, SCREENLENGTH / 1.5);
+	mlx_image_to_window(map->mlx, map->gun2, SCREENWIDTH / 2, SCREENLENGTH / 1.5);
+	mlx_image_to_window(map->mlx, map->gun3, SCREENWIDTH / 2, SCREENLENGTH / 1.5);
+	mlx_image_to_window(map->mlx, map->gun4, SCREENWIDTH / 2, SCREENLENGTH / 1.5);
+
+	map->gun2->instances[0].enabled = false;
+	map->gun3->instances[0].enabled = false;
+	map->gun4->instances[0].enabled = false;
 	mlx_put_pixel(map->background, 440, 100, 535353);
 	if (map->playerstartpos == 'N')
 		map->pa = 4.71;
