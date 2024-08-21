@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/21 13:26:48 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:17:06 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void	ft_loop_hook(void *param)
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
 {
 	int	i;
-	int	y;
-	int	x;
+	//int	y;
+	//int	x;
 	t_map	*map;
 
 	map = param;
@@ -100,27 +100,37 @@ void	ft_key_hook(mlx_key_data_t keydata, void *param)
 		mlx_set_cursor_mode(map->mlx, MLX_MOUSE_NORMAL);
 		map->mouse_enabled = 0;
 	}
-	while (i < 4)
+	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 	{
-		y = 0;
-		x = 0;
-		if (i == 0)
-			y = 1;
-		else if (i == 1)
-			y = -1;
-		else if (i == 2)
-			x = 1;
-		else
-			x = -1;
-		if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS && 
-			(map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] == '2'))
-			map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] = '3';
-		else if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS && 
-		(map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] == '3'))
-			map->mapsave[(int)map->cameraposy + y][(int)map->cameraposx + x] = '2';
-		i++;
+		if (map->middlerayside == 1 &&
+			(map->mapsave[(int)map->cameraposy - 1][(int)map->cameraposx] == '2'))
+		map->mapsave[(int)map->cameraposy - 1][(int)map->cameraposx] = '3';
+		else if (map->middlerayside == 1 &&
+			(map->mapsave[(int)map->cameraposy - 1][(int)map->cameraposx] == '3'))
+		map->mapsave[(int)map->cameraposy - 1][(int)map->cameraposx] = '2';
+		
+		if (map->middlerayside == 2 &&
+			(map->mapsave[(int)map->cameraposy][(int)map->cameraposx + 1] == '2'))
+		map->mapsave[(int)map->cameraposy][(int)map->cameraposx + 1] = '3';
+		else if (map->middlerayside == 2 &&
+			(map->mapsave[(int)map->cameraposy][(int)map->cameraposx + 1] == '3'))
+		map->mapsave[(int)map->cameraposy][(int)map->cameraposx + 1] = '2';
+		
+		if (map->middlerayside == 3 &&
+			(map->mapsave[(int)map->cameraposy][(int)map->cameraposx - 1] == '2'))
+		map->mapsave[(int)map->cameraposy][(int)map->cameraposx - 1] = '3';
+		else if (map->middlerayside == 3 &&
+			(map->mapsave[(int)map->cameraposy][(int)map->cameraposx - 1] == '3'))
+		map->mapsave[(int)map->cameraposy][(int)map->cameraposx - 1] = '2';
+	
+		if (map->middlerayside == 0 &&
+			(map->mapsave[(int)map->cameraposy + 1][(int)map->cameraposx] == '2'))
+		map->mapsave[(int)map->cameraposy + 1][(int)map->cameraposx] = '3';
+		else if (map->middlerayside == 0 &&
+			(map->mapsave[(int)map->cameraposy + 1][(int)map->cameraposx] == '3'))
+		map->mapsave[(int)map->cameraposy + 1][(int)map->cameraposx] = '2';
 	}
-}
+	}
 
 void	start_window(t_map *map)
 {

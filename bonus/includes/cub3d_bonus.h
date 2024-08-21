@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 17:32:20 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:52:37 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_map
 	double			pa;
 
 	int				side;
+	int				middlerayside;
 
 	double			diry;
 	double			dirx;

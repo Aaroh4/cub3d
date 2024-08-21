@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:26:19 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/21 12:57:38 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 13:57:03 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ static int	ray_loop(t_map *map)
 			map->mapy += map->stepy;
 			map->side = 1;
 		}
-		//if (map->size <= map->mapy || map->mapy < 0 || map->mapx < 0
-		//	|| (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
-		//	return (1);
 		if (map->mapsave[map->mapy][map->mapx] == '1')
 			return (0);
 		if (map->mapsave[map->mapy][map->mapx] == '2')
