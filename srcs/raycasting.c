@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:26:19 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/21 13:25:36 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:10:50 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ray_loop(t_map *map)
 			map->mapy += map->stepy;
 			map->side = 1;
 		}
-		if (map->size <= map->mapy || map->mapy < 0 || map->mapx < 0
+		if (map->map_size <= map->mapy || map->mapy < 0 || map->mapx < 0
 			|| (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
 			return (1);
 		if (map->mapsave[map->mapy][map->mapx] == '1')

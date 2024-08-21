@@ -6,21 +6,11 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/21 13:22:51 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:11:26 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-int	checkarraysize(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i] != NULL)
-		i++;
-	return (i);
-}
 
 void	ft_loop_hook(void *param)
 {
@@ -72,7 +62,6 @@ void	start_window(t_map *map)
 	mlx_loop_hook(map->mlx, ft_loop_hook, map);
 	mlx_loop(map->mlx);
 	successful_exit(map, 3);
-	mlx_terminate(map->mlx);
 }
 
 int	main(int argc, char **argv)
@@ -89,7 +78,7 @@ int	main(int argc, char **argv)
 	ft_memset(&map, 0, sizeof(map));
 	count = count_file_lines(map_name, count);
 	read_file(map_name, count, &map);
-	map.size = checkarraysize(map.mapsave);
 	start_window(&map);
+	mlx_terminate(map.mlx);
 	return (0);
 }

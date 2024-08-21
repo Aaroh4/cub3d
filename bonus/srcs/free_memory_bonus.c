@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:29:01 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 14:03:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/21 17:23:39 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,11 @@ void	successful_exit(t_map *map, int index)
 		mlx_delete_texture(map->wall.txt[index]);
 		index--;
 	}
+	mlx_delete_texture(map->wall.door);
 	mlx_delete_image(map->mlx, map->background);
+	mlx_delete_image(map->mlx, map->gun1);
+	mlx_delete_image(map->mlx, map->gun2);
+	mlx_delete_image(map->mlx, map->gun3);
+	mlx_delete_image(map->mlx, map->gun4);
+	ft_putstr_fd(ENDGAME, 1);
 }

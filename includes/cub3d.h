@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 17:35:23 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:44:38 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct s_map
 	int				info_set;
 	int				map_start;
 	int				map_size;
-	int				size;
 
 	uint32_t		floor;
 	uint32_t		ceiling;
@@ -125,7 +124,7 @@ typedef struct s_map
 
 	int				rayamount;
 
-	double			firstray[2]; // 0 for x // 1 for y
+	double			firstray[2];
 
 	char			playerstartpos;
 	char			**mapsave;
@@ -142,8 +141,6 @@ typedef struct s_map
 	mlx_texture_t	*background_txt;
 
 }	t_map;
-
-//parsing files
 
 /* ************************************************************************** */
 /*                              file_reader.c                                 */
