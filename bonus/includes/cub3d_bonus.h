@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/21 14:27:28 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/21 13:52:37 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ typedef struct s_map
 	int				map_size;
 	int				size;
 
-
 	uint32_t		floor;
 	uint32_t		ceiling;
 
 	double			pa;
 
 	int				side;
+	int				middlerayside;
 
 	double			diry;
 	double			dirx;
@@ -167,6 +167,8 @@ typedef struct s_map
 	mlx_image_t		*gun4;
 	mlx_texture_t	*gun4_txt;
 
+	int				gunpos;
+	int				gunway;
 }	t_map;
 
 //parsing files

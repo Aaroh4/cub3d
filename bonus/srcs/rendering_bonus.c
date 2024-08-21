@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:25:31 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 16:17:31 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/21 14:21:37 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void	getting_index(t_map *map, double length)
 			map->wall.side = 0;
 		else
 			map->wall.side = 1;
+		if (map->rayamount == SCREENWIDTH / 2)
+			map->middlerayside = map->wall.side;
 	}
 	else
 	{
@@ -27,6 +29,8 @@ static void	getting_index(t_map *map, double length)
 			map->wall.side = 2;
 		else
 			map->wall.side = 3;
+		if (map->rayamount == SCREENWIDTH / 2)
+			map->middlerayside = map->wall.side;
 	}
 	if (map->side == 0)
 		map->wallx = map->cameraposy + length * map->raydiry;

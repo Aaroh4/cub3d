@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 18:11:22 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/21 13:22:51 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_loop_hook(void *param)
 	t_map	*map;
 
 	map = param;
-	makethelines(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_W)
 		|| mlx_is_key_down(map->mlx, MLX_KEY_S)
 		|| mlx_is_key_down(map->mlx, MLX_KEY_A)
@@ -36,6 +35,7 @@ void	ft_loop_hook(void *param)
 	if (mlx_is_key_down(map->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(map->mlx, MLX_KEY_LEFT))
 		playerrotation(map);
+	makethelines(map);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
@@ -58,7 +58,6 @@ void	start_window(t_map *map)
 		ft_loadpng_fail2(map, 3, 1);
 	mlx_delete_texture(map->background_txt);
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
-	mlx_put_pixel(map->background, 440, 100, 535353);
 	if (map->playerstartpos == 'N')
 		map->pa = 4.71;
 	else if (map->playerstartpos == 'S')
@@ -82,7 +81,7 @@ int	main(int argc, char **argv)
 	int		count;
 	t_map	map;
 
-	if (argc != 2 || SCREENWIDTH > 3000 || SCREENLENGTH > 1500)
+	if (argc != 2 || SCREENWIDTH > 1600 || SCREENLENGTH > 800)
 		invalid_input(INVCUB);
 	argument_check(argv[1]);
 	count = 0;
