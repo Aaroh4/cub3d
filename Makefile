@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+         #
+#    By: plang <plang@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 13:58:06 by plang             #+#    #+#              #
-#    Updated: 2024/08/21 12:34:34 by ahamalai         ###   ########.fr        #
+#    Updated: 2024/08/21 17:23:59 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 BONUS = .bonus
 LIBFTDIR = ./libft
 MAKE = make
@@ -41,7 +41,9 @@ SRCS_B = bonus/srcs/main_bonus.c \
 			bonus/srcs/free_memory_bonus.c \
 			bonus/srcs/rendering_bonus.c \
 			bonus/srcs/raycasting_bonus.c \
-			bonus/srcs/movement_bonus.c
+			bonus/srcs/movement_bonus.c \
+			bonus/srcs/texture_utils_bonus.c \
+			bonus/srcs/movement_utils_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 
