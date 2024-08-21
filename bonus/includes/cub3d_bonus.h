@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 16:52:10 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:32:20 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define STEPSIZE 1
 # define DOORTXT "./textures/DOOR_1A.PNG"
 
-# define SCREENWIDTH  1500 // HIGHER VALUES WILL CAUSE LAG
-# define SCREENLENGTH 1000 // HIGHER VALUES WILL CAUSE LAG
+# define SCREENWIDTH  1200// HIGHER VALUES WILL CAUSE LAG
+# define SCREENLENGTH 800 // HIGHER VALUES WILL CAUSE LAG
 
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -92,7 +92,6 @@ typedef struct s_map
 	int				map_start;
 	int				map_size;
 	int				size;
-
 
 	uint32_t		floor;
 	uint32_t		ceiling;
@@ -166,6 +165,8 @@ typedef struct s_map
 	mlx_image_t		*gun4;
 	mlx_texture_t	*gun4_txt;
 
+	int				gunpos;
+	int				gunway;
 }	t_map;
 
 //parsing files

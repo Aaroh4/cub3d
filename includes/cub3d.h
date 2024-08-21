@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/19 12:41:45 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/20 17:35:23 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define DEGREE 0.01745329
 # define STEPSIZE 1
 
-# define SCREENWIDTH  1500 // HIGHER VALUES WILL CAUSE LAG
-# define SCREENLENGTH 1000 // HIGHER VALUES WILL CAUSE LAG
+# define SCREENWIDTH 1200 // HIGHER VALUES WILL CAUSE LAG
+# define SCREENLENGTH 800 // HIGHER VALUES WILL CAUSE LAG
 
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"

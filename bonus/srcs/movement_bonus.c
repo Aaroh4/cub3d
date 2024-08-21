@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:24:42 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 16:10:23 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 17:37:39 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,26 @@ void	playermovement(t_map *map)
 			map->cameraposy -= map->diry / 2;
 			map->cameraposx -= map->dirx / 2;
 		}
+	}
+	if (map->gunpos == 20)
+		map->gunway = 1;
+	else if (map->gunpos == 0)
+		map->gunway = 0;
+	if (map->gunway == 0)
+	{
+		map->gun1->instances[0].x += 4;
+		map->gun2->instances[0].x += 4;
+		map->gun3->instances[0].x += 4;
+		map->gun4->instances[0].x += 4;
+		map->gunpos++;
+	}
+	else
+	{
+		map->gun1->instances[0].x -= 4;
+		map->gun2->instances[0].x -= 4;
+		map->gun3->instances[0].x -= 4;
+		map->gun4->instances[0].x -= 4;
+		map->gunpos--;
 	}
 }
 

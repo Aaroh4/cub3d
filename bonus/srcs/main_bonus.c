@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 17:01:42 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/21 13:26:48 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	process_wait(t_map *map)
 	{
 		map->gun2->instances[0].enabled = true;
 		map->elapsed_time += map->mlx->delta_time;
-		
 		if (map->elapsed_time > 0.1)
 		{
 			map->gun2->instances[0].enabled = false;
@@ -51,7 +50,7 @@ void	process_wait(t_map *map)
 void	ft_loop_hook(void *param)
 {
 	t_map	*map;
-
+	
 	map = param;
 	mlx_get_mouse_pos(map->mlx, &map->mx, &map->my);
 	mouse_movement(map);
@@ -66,10 +65,10 @@ void	ft_loop_hook(void *param)
 	if (mlx_is_key_down(map->mlx, MLX_KEY_A)
 		|| mlx_is_key_down(map->mlx, MLX_KEY_D))
 		playerstrafe(map);
-	makethelines(map);
 	if (map->mouse_enabled == 1)
 		mlx_set_mouse_pos(map->mlx, (SCREENWIDTH / 2), (SCREENLENGTH / 2));
 	process_wait(map);
+	makethelines(map);
 }
 
 void	ft_key_hook(mlx_key_data_t keydata, void *param)
@@ -170,15 +169,14 @@ void	start_window(t_map *map)
 
 
 	mlx_image_to_window(map->mlx, map->background, 0, 0);
-	mlx_image_to_window(map->mlx, map->gun1, SCREENWIDTH / 2, SCREENLENGTH / 1.5);
-	mlx_image_to_window(map->mlx, map->gun2, SCREENWIDTH / 2, SCREENLENGTH / 1.5);
-	mlx_image_to_window(map->mlx, map->gun3, SCREENWIDTH / 2, SCREENLENGTH / 1.5);
-	mlx_image_to_window(map->mlx, map->gun4, SCREENWIDTH / 2, SCREENLENGTH / 1.5);
+	mlx_image_to_window(map->mlx, map->gun1, SCREENWIDTH / 2, SCREENLENGTH / 2);
+	mlx_image_to_window(map->mlx, map->gun2, SCREENWIDTH / 2, SCREENLENGTH / 2);
+	mlx_image_to_window(map->mlx, map->gun3, SCREENWIDTH / 2, SCREENLENGTH / 2);
+	mlx_image_to_window(map->mlx, map->gun4, SCREENWIDTH / 2, SCREENLENGTH / 2);
 
 	map->gun2->instances[0].enabled = false;
 	map->gun3->instances[0].enabled = false;
 	map->gun4->instances[0].enabled = false;
-	mlx_put_pixel(map->background, 440, 100, 535353);
 	if (map->playerstartpos == 'N')
 		map->pa = 4.71;
 	else if (map->playerstartpos == 'S')
@@ -202,8 +200,9 @@ int	main(int argc, char **argv)
 	int		count;
 	t_map	map;
 
-	if (argc != 2 || SCREENWIDTH > 3000 || SCREENLENGTH > 1500)
+	if (argc != 2 || SCREENWIDTH > 1600 || SCREENLENGTH > 800)
 		exit(1);
+	ft_memset(&map, 0, sizeof(map));
 	argument_check(argv[1]);
 	count = 0;
 	map_name = argv[1];

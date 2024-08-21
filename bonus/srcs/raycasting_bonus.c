@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:26:19 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 16:18:02 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/21 12:57:38 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static int	ray_loop(t_map *map)
 			map->mapy += map->stepy;
 			map->side = 1;
 		}
-		if (map->size <= map->mapy || map->mapy < 0 || map->mapx < 0
-			|| (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
-			return (1);
+		//if (map->size <= map->mapy || map->mapy < 0 || map->mapx < 0
+		//	|| (int)ft_strlen(map->mapsave[map->mapy]) < map->mapx)
+		//	return (1);
 		if (map->mapsave[map->mapy][map->mapx] == '1')
 			return (0);
 		if (map->mapsave[map->mapy][map->mapx] == '2')
@@ -75,13 +75,7 @@ static void	shoot_ray(t_map *map)
 			/ (map->raydiry * map->raydiry));
 	rayposition(map);
 	map->is_door = 0;
-	if (ray_loop(map))
-	{
-		map->rayposx = 5;
-		map->rayposy = 5;
-		map->deltadisty = 1;
-		map->deltadistx = 1;
-	}
+	ray_loop(map);
 }
 
 void	makethelines(t_map *map)
