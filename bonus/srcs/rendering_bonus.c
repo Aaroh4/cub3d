@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:25:31 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/21 14:21:37 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:08:55 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ static void	getting_index(t_map *map, double length)
 		map->wallx = map->cameraposx + length * map->raydirx;
 }
 
+mlx_texture_t	*is_door(t_map *map)
+{
+	if (!map->is_door)
+		return (map->wall.txt[map->wall.side]);
+	else
+		return (map->wall.door);
+}
+
 static int	calculate_wall(t_map *map)
 {
 	double	length;
@@ -54,7 +62,7 @@ static int	calculate_wall(t_map *map)
 	length *= cos(correct);
 	height = (STEPSIZE * SCREENLENGTH) / length;
 	map->wall.ty_off = 0;
-	map->wall.ty_step = map->wall.txt[map->wall.side]->height / height;
+	map->wall.ty_step = is_door(map)->height / height;
 	if (height > SCREENLENGTH)
 	{
 		map->wall.ty_off = (height - SCREENLENGTH) / 2;
@@ -72,10 +80,7 @@ static void	draw_line(int x, int y, t_map *map)
 
 	offset = 0;
 	pixel = 0;
-	if (!map->is_door)
-		wall = map->wall.txt[map->wall.side];
-	else
-		wall = map->wall.door;
+	wall = is_door(map);
 	if (map->wall.side == 0 || map->wall.side == 3)
 	{
 		if (map->wallx < 0.015)

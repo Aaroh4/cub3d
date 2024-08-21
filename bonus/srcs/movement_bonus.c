@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:24:42 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/20 17:37:39 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 15:36:43 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,7 @@ void	playermovement(t_map *map)
 			map->cameraposx -= map->dirx / 2;
 		}
 	}
-	if (map->gunpos == 20)
-		map->gunway = 1;
-	else if (map->gunpos == 0)
-		map->gunway = 0;
-	if (map->gunway == 0)
-	{
-		map->gun1->instances[0].x += 4;
-		map->gun2->instances[0].x += 4;
-		map->gun3->instances[0].x += 4;
-		map->gun4->instances[0].x += 4;
-		map->gunpos++;
-	}
-	else
-	{
-		map->gun1->instances[0].x -= 4;
-		map->gun2->instances[0].x -= 4;
-		map->gun3->instances[0].x -= 4;
-		map->gun4->instances[0].x -= 4;
-		map->gunpos--;
-	}
+	wayofthegun(map);
 }
 
 void	playerrotation(t_map *map)
@@ -103,17 +84,17 @@ void	playerrotation(t_map *map)
 
 void	mouse_movement(t_map *map)
 {
-	double centerX;
-	
-	centerX = SCREENWIDTH / 2.0;
-	if (map->mx < centerX && map->mx >= 0 && map->my < SCREENLENGTH \
+	double	center_x;
+
+	center_x = SCREENWIDTH / 2.0;
+	if (map->mx < center_x && map->mx >= 0 && map->my < SCREENLENGTH \
 		&& map->my >= 0)
 	{
 		map->pa -= 0.05;
 		if (map->pa < 0)
 			map->pa += 2 * PI;
 	}
-	else if (map->mx > centerX && map->mx < SCREENWIDTH \
+	else if (map->mx > center_x && map->mx < SCREENWIDTH \
 		&& map->my < SCREENLENGTH && map->my >= 0)
 	{
 		map->pa += 0.05;
