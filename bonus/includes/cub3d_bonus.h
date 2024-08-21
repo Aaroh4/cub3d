@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 16:52:10 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:27:28 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define MALLOCFAIL "Error\nMalloc failed\n"
 # define MLXLPFAIL "Error\nMLX load png failed\n"
 # define MLXTXTFAIL "Error\nMLX texture to img failed\n"
+# define MLXIMGFAIL "Error\nMLX image to window failed\n"
 
 # define PI 3.14159265358979323846
 # define FOV 60
@@ -32,8 +33,8 @@
 # define STEPSIZE 1
 # define DOORTXT "./textures/DOOR_1A.PNG"
 
-# define SCREENWIDTH  1500 // HIGHER VALUES WILL CAUSE LAG
-# define SCREENLENGTH 1000 // HIGHER VALUES WILL CAUSE LAG
+# define SCREENWIDTH  1200 // HIGHER VALUES WILL CAUSE LAG
+# define SCREENLENGTH 800 // HIGHER VALUES WILL CAUSE LAG
 
 # include "../libft/libft.h"
 # include "../MLX42/include/MLX42/MLX42.h"
@@ -225,6 +226,7 @@ void		clean_input_strings(t_fcheck *check);
 /* ************************************************************************** */
 void		ft_loadpng_fail(t_fcheck *check, t_map *map, int index);
 void		ft_loadpng_fail2(t_map *map, int index, int imagef);
+void		ft_loadimage_fail(t_map *map, int gun_index);
 void		invalid_input(char *str);
 void		error_inside_file(t_fcheck *check, char *str);
 
