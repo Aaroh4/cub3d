@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
 /*   Updated: 2024/08/21 13:22:51 by ahamalai         ###   ########.fr       */
@@ -82,10 +82,11 @@ int	main(int argc, char **argv)
 	t_map	map;
 
 	if (argc != 2 || SCREENWIDTH > 1600 || SCREENLENGTH > 800)
-		exit(1);
+		invalid_input(INVCUB);
 	argument_check(argv[1]);
 	count = 0;
 	map_name = argv[1];
+	ft_memset(&map, 0, sizeof(map));
 	count = count_file_lines(map_name, count);
 	read_file(map_name, count, &map);
 	map.size = checkarraysize(map.mapsave);

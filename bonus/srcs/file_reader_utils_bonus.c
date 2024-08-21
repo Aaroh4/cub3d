@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:33:49 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 16:10:05 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/20 17:15:37 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	data_transfer(t_map *map, t_fcheck *check)
 	if (map->wall.txt[3] == NULL)
 		ft_loadpng_fail(check, map, 2);
 	map->wall.door = mlx_load_png(DOORTXT);
-	if (map->wall.txt[3] == NULL)
+	if (map->wall.door == NULL)
 		ft_loadpng_fail(check, map, 3);
 }
 

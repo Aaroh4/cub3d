@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:29 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 14:03:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/21 14:03:38 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,28 @@ void	ft_loadpng_fail2(t_map *map, int index, int imagef)
 		mlx_delete_texture(map->wall.txt[index]);
 		index--;
 	}
+	mlx_delete_texture(map->wall.door);
 	if (imagef == 0)
 		ft_putstr_fd(MLXLPFAIL, 2);
-	else if (imagef == 1)
+	else if (imagef == 1 || imagef == 3)
 		ft_putstr_fd(MLXTXTFAIL, 2);
+	else if (imagef == 2)
+		ft_putstr_fd(MLXIMGFAIL, 2);
 	mlx_terminate(map->mlx);
 	exit (1);
+}
+
+void	ft_loadimage_fail(t_map *map, int gun_index)
+{
+	if (gun_index == 1)
+		mlx_delete_texture(map->gun1_txt);
+	if (gun_index == 2)
+		mlx_delete_texture(map->gun2_txt);
+	if (gun_index == 3)
+		mlx_delete_texture(map->gun3_txt);
+	if (gun_index == 4)
+		mlx_delete_texture(map->gun4_txt);
+	ft_loadpng_fail2(map, 3, 3);
 }
 
 void	invalid_input(char *str)

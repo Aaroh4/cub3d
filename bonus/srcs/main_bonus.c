@@ -150,7 +150,7 @@ void	start_window(t_map *map)
 		ft_loadpng_fail2(map, 3, 0);
 	map->gun1 = mlx_texture_to_image(map->mlx, map->gun1_txt);
 	if (map->gun1 == NULL)
-		ft_loadpng_fail2(map, 3, 1);
+		ft_loadimage_fail(map, 1);
 	mlx_delete_texture(map->gun1_txt);
 	
 	map->gun2_txt = mlx_load_png("textures/sprites/correct2.png");
@@ -158,7 +158,7 @@ void	start_window(t_map *map)
 		ft_loadpng_fail2(map, 3, 0);
 	map->gun2 = mlx_texture_to_image(map->mlx, map->gun2_txt);
 	if (map->gun2 == NULL)
-		ft_loadpng_fail2(map, 3, 1);
+		ft_loadimage_fail(map, 2);
 	mlx_delete_texture(map->gun2_txt);
 
 	map->gun3_txt = mlx_load_png("textures/sprites/correct3.png");
@@ -166,7 +166,7 @@ void	start_window(t_map *map)
 		ft_loadpng_fail2(map, 3, 0);
 	map->gun3 = mlx_texture_to_image(map->mlx, map->gun3_txt);
 	if (map->gun3 == NULL)
-		ft_loadpng_fail2(map, 3, 1);
+		ft_loadimage_fail(map, 3);
 	mlx_delete_texture(map->gun3_txt);
 	
 		map->gun4_txt = mlx_load_png("textures/sprites/correct4.png");
@@ -174,16 +174,20 @@ void	start_window(t_map *map)
 		ft_loadpng_fail2(map, 3, 0);
 	map->gun4 = mlx_texture_to_image(map->mlx, map->gun4_txt);
 	if (map->gun4 == NULL)
-		ft_loadpng_fail2(map, 3, 1);
+		ft_loadimage_fail(map, 4);
 	mlx_delete_texture(map->gun4_txt);
 
 
-	mlx_image_to_window(map->mlx, map->background, 0, 0);
-	mlx_image_to_window(map->mlx, map->gun1, SCREENWIDTH / 2, SCREENLENGTH / 2);
-	mlx_image_to_window(map->mlx, map->gun2, SCREENWIDTH / 2, SCREENLENGTH / 2);
-	mlx_image_to_window(map->mlx, map->gun3, SCREENWIDTH / 2, SCREENLENGTH / 2);
-	mlx_image_to_window(map->mlx, map->gun4, SCREENWIDTH / 2, SCREENLENGTH / 2);
-
+	if (mlx_image_to_window(map->mlx, map->background, 0, 0) == -1)
+		ft_loadpng_fail2(map, 3, 2);
+	if (mlx_image_to_window(map->mlx, map->gun1, SCREENWIDTH / 2, SCREENLENGTH / 1.5) == -1)
+		ft_loadpng_fail2(map, 3, 2);
+	if (mlx_image_to_window(map->mlx, map->gun2, SCREENWIDTH / 2, SCREENLENGTH / 1.5) == -1)
+		ft_loadpng_fail2(map, 3, 2);
+	if (mlx_image_to_window(map->mlx, map->gun3, SCREENWIDTH / 2, SCREENLENGTH / 1.5) == -1)
+		ft_loadpng_fail2(map, 3, 2);
+	if (mlx_image_to_window(map->mlx, map->gun4, SCREENWIDTH / 2, SCREENLENGTH / 1.5) == -1)
+		ft_loadpng_fail2(map, 3, 2);
 	map->gun2->instances[0].enabled = false;
 	map->gun3->instances[0].enabled = false;
 	map->gun4->instances[0].enabled = false;
@@ -211,11 +215,11 @@ int	main(int argc, char **argv)
 	t_map	map;
 
 	if (argc != 2 || SCREENWIDTH > 1600 || SCREENLENGTH > 800)
-		exit(1);
-	ft_memset(&map, 0, sizeof(map));
+		invalid_input(INVCUB);
 	argument_check(argv[1]);
 	count = 0;
 	map_name = argv[1];
+	ft_memset(&map, 0, sizeof(map));
 	count = count_file_lines(map_name, count);
 	read_file(map_name, count, &map);
 	map.size = checkarraysize(map.mapsave);

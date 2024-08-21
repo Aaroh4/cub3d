@@ -96,6 +96,8 @@ void	map_boarder_check(t_fcheck *check)
 				direction_check(check, &invalid, &i, &j);
 			if (check->mapcpy[i][j] == check->playerstartpos)
 				direction_check(check, &invalid, &i, &j);
+			if (check->mapcpy[i][j] == '2')
+				direction_check(check, &invalid, &i, &j);
 			if (check_char(check->mapcpy[i][j]) == 0)
 				invalid = 1;
 			j++;
