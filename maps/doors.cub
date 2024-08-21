@@ -5,7 +5,7 @@
 
 
 
-WE ./textures/cool.png
+WE    ./textures/cool.png
 
 EA ./textures/cool.png
 
