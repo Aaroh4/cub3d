@@ -6,12 +6,12 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/21 13:52:37 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:16:32 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # define WALL "textures/wall.png"
 # define GROUND "textures/ground.png"
@@ -26,6 +26,7 @@
 # define MLXLPFAIL "Error\nMLX load png failed\n"
 # define MLXTXTFAIL "Error\nMLX texture to img failed\n"
 # define MLXIMGFAIL "Error\nMLX image to window failed\n"
+# define ENDGAME "Thank you for playing Aaros and Patriks game!\n"
 
 # define PI 3.14159265358979323846
 # define FOV 60
@@ -81,10 +82,10 @@ typedef struct s_wall
 
 typedef struct s_map
 {
-    bool waiting;
-    double elapsed_time;
-	int wait_stage;
-	
+	bool			waiting;
+	double			elapsed_time;
+	int				wait_stage;
+
 	int				fd;
 	int				linecount;
 	int				wallcount;
@@ -92,7 +93,6 @@ typedef struct s_map
 	int				info_set;
 	int				map_start;
 	int				map_size;
-	int				size;
 
 	uint32_t		floor;
 	uint32_t		ceiling;
@@ -121,7 +121,7 @@ typedef struct s_map
 	int				stepx;
 
 	t_wall			wall;
-	
+
 	int				is_door;
 
 	double			deltadisty;
@@ -133,13 +133,13 @@ typedef struct s_map
 	int				lastx;
 	int				lasty;
 
-	int				mouse_enabled;
+	int				m;
 	int32_t			mx;
 	int32_t			my;
 
 	int				rayamount;
 
-	double			firstray[2]; // 0 for x // 1 for y
+	double			firstray[2];
 
 	char			playerstartpos;
 	char			**mapsave;
@@ -157,13 +157,13 @@ typedef struct s_map
 
 	mlx_image_t		*gun1;
 	mlx_texture_t	*gun1_txt;
-	
+
 	mlx_image_t		*gun2;
 	mlx_texture_t	*gun2_txt;
-	
+
 	mlx_image_t		*gun3;
 	mlx_texture_t	*gun3_txt;
-	
+
 	mlx_image_t		*gun4;
 	mlx_texture_t	*gun4_txt;
 
@@ -171,10 +171,8 @@ typedef struct s_map
 	int				gunway;
 }	t_map;
 
-//parsing files
-
 /* ************************************************************************** */
-/*                              file_reader.c                                 */
+/*                        file_reader_bonus.c                                 */
 /* ************************************************************************** */
 int			count_file_lines(char *map_name, int count);
 void		read_file(char *map_name, int count, t_map *map);
@@ -183,13 +181,13 @@ int			check_rest(t_fcheck *check, int i);
 void		argument_check(char *argv);
 
 /* ************************************************************************** */
-/*                           file_reader_utils.c                              */
+/*                      file_reader_utils_bonus.c                             */
 /* ************************************************************************** */
 void		data_transfer(t_map *map, t_fcheck *check);
 void		data_reading(t_fcheck *check);
 
 /* ************************************************************************** */
-/*                             map_validation.c                               */
+/*                        map_validation_bonus.c                              */
 /* ************************************************************************** */
 void		looptrough(t_fcheck *check, char *str, int count);
 void		direction_check(t_fcheck *check, int *invalid, int *i, int *j);
@@ -198,7 +196,7 @@ void		map_boarder_check(t_fcheck *check);
 void		check_player_and_boarder(t_fcheck *check);
 
 /* ************************************************************************** */
-/*                             rgb_validation.c                               */
+/*                        rgb_validation_bonus.c                              */
 /* ************************************************************************** */
 void		rgb_free(char **strings);
 uint32_t	bitshift_rgba(int r, int g, int b, int a);
@@ -207,7 +205,7 @@ void		check_rgb_floor(t_fcheck *check);
 void		check_rgb_ceiling(t_fcheck *check);
 
 /* ************************************************************************** */
-/*                            input_extractor.c                               */
+/*                        input_extractor_bonus.c                             */
 /* ************************************************************************** */
 int			extract_and_set_info1(char *str, int info_set, t_fcheck *check);
 int			extract_and_set_info2(char *str, int info_set, t_fcheck *check);
@@ -216,7 +214,7 @@ void		check_info_flag(t_fcheck *check, int i);
 void		check_failed_info_flag(t_fcheck *check);
 
 /* ************************************************************************** */
-/*                             input_cleaner.c                                */
+/*                        input_cleaner_bonus.c                               */
 /* ************************************************************************** */
 void		clean_from_space_nl(char **str);
 void		clean_from_nl(char **str);
@@ -224,7 +222,7 @@ void		clean_cardinal_directions(char **str);
 void		clean_input_strings(t_fcheck *check);
 
 /* ************************************************************************** */
-/*                              input_error.c                                 */
+/*                         input_error_bonus.c                                */
 /* ************************************************************************** */
 void		ft_loadpng_fail(t_fcheck *check, t_map *map, int index);
 void		ft_loadpng_fail2(t_map *map, int index, int imagef);
@@ -233,7 +231,7 @@ void		invalid_input(char *str);
 void		error_inside_file(t_fcheck *check, char *str);
 
 /* ************************************************************************** */
-/*                              free_memory.c                                 */
+/*                        free_memory_bonus.c                                 */
 /* ************************************************************************** */
 void		free_check_struct(t_fcheck *check);
 void		ft_strfree(char *str);
@@ -241,7 +239,7 @@ void		ft_arrfree(char **arr);
 void		successful_exit(t_map *map, int index);
 
 /* ************************************************************************** */
-/*                              movement.c                                    */
+/*                         movement_bonus.c                                   */
 /* ************************************************************************** */
 void		playermovement(t_map *map);
 void		playerrotation(t_map *map);
@@ -249,12 +247,25 @@ void		playerstrafe(t_map *map);
 void		mouse_movement(t_map *map);
 
 /* ************************************************************************** */
-/*                              raycasting.c                                  */
+/*                        texture_utils_bonus.c                               */
+/* ************************************************************************** */
+void		gun_texture1(t_map *map);
+void		gun_texture2(t_map *map);
+void		gun_image(t_map *map);
+
+/* ************************************************************************** */
+/*                       movement_utils_bonus.c                               */
+/* ************************************************************************** */
+void		wayofthegun(t_map *map);
+void		door_mechanics(t_map *map);
+
+/* ************************************************************************** */
+/*                         raycasting_bonus.c                                 */
 /* ************************************************************************** */
 void		makethelines(t_map *map);
 
 /* ************************************************************************** */
-/*                              rendering.c                                   */
+/*                          rendering_bonus.c                                 */
 /* ************************************************************************** */
 void		makethewalls(t_map *map);
 
