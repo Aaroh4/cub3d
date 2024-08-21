@@ -6,7 +6,7 @@
 /*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 11:55:36 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/21 14:17:06 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/21 14:45:04 by ahamalai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,13 +180,13 @@ void	start_window(t_map *map)
 
 	if (mlx_image_to_window(map->mlx, map->background, 0, 0) == -1)
 		ft_loadpng_fail2(map, 3, 2);
-	if (mlx_image_to_window(map->mlx, map->gun1, SCREENWIDTH / 2, SCREENLENGTH / 1.5) == -1)
+	if (mlx_image_to_window(map->mlx, map->gun1, SCREENWIDTH / 2, SCREENLENGTH / 2) == -1)
 		ft_loadpng_fail2(map, 3, 2);
-	if (mlx_image_to_window(map->mlx, map->gun2, SCREENWIDTH / 2, SCREENLENGTH / 1.5) == -1)
+	if (mlx_image_to_window(map->mlx, map->gun2, SCREENWIDTH / 2, SCREENLENGTH / 2) == -1)
 		ft_loadpng_fail2(map, 3, 2);
-	if (mlx_image_to_window(map->mlx, map->gun3, SCREENWIDTH / 2, SCREENLENGTH / 1.5) == -1)
+	if (mlx_image_to_window(map->mlx, map->gun3, SCREENWIDTH / 2, SCREENLENGTH / 2) == -1)
 		ft_loadpng_fail2(map, 3, 2);
-	if (mlx_image_to_window(map->mlx, map->gun4, SCREENWIDTH / 2, SCREENLENGTH / 1.5) == -1)
+	if (mlx_image_to_window(map->mlx, map->gun4, SCREENWIDTH / 2, SCREENLENGTH / 2) == -1)
 		ft_loadpng_fail2(map, 3, 2);
 	map->gun2->instances[0].enabled = false;
 	map->gun3->instances[0].enabled = false;
