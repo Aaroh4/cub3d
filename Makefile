@@ -6,7 +6,7 @@
 #    By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 13:58:06 by plang             #+#    #+#              #
-#    Updated: 2024/08/19 14:01:34 by ahamalai         ###   ########.fr        #
+#    Updated: 2024/08/20 16:54:33 by ahamalai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,18 +30,18 @@ SRCS = srcs/main.c \
 			srcs/raycasting.c \
 			srcs/movement.c
 
-SRCS_B = srcsbonus/main.c \
-			srcsbonus/input_extractor.c \
-			srcsbonus/file_reader.c \
-			srcsbonus/file_reader_utils.c \
-			srcsbonus/map_validation.c \
-			srcsbonus/rgb_validation.c \
-			srcsbonus/input_cleaner.c \
-			srcsbonus/input_error.c \
-			srcsbonus/free_memory.c \
-			srcsbonus/rendering.c \
-			srcsbonus/raycasting.c \
-			srcsbonus/movement.c
+SRCS_B = bonus/srcs/main_bonus.c \
+			bonus/srcs/input_extractor_bonus.c \
+			bonus/srcs/file_reader_bonus.c \
+			bonus/srcs/file_reader_utils_bonus.c \
+			bonus/srcs/map_validation_bonus.c \
+			bonus/srcs/rgb_validation_bonus.c \
+			bonus/srcs/input_cleaner_bonus.c \
+			bonus/srcs/input_error_bonus.c \
+			bonus/srcs/free_memory_bonus.c \
+			bonus/srcs/rendering_bonus.c \
+			bonus/srcs/raycasting_bonus.c \
+			bonus/srcs/movement_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 
