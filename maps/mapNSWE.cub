@@ -1,10 +1,14 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./textures/SUPPORT_4A.PNG
 
-F 220,100,0
-C 225,30,0
+SO ./textures/WOOD_1C.PNG
+
+WE ./textures/BRICK_6D.PNG
+
+EA ./textures/LIGHT_1B.PNG
+
+
+F 128,128,128
+C 10,150,220
 
 1111111111111111111111111111111
 1000000000000000000000000000001

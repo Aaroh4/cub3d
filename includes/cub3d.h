@@ -6,15 +6,12 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/21 15:44:38 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/22 12:40:55 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
-# define WALL "textures/wall.png"
-# define GROUND "textures/ground.png"
 
 # define INVTXTMAP "Error\nTextures or map invalid\n"
 # define INVRGB "Error\nRGB not valid\n"
@@ -25,6 +22,7 @@
 # define MALLOCFAIL "Error\nMalloc failed\n"
 # define MLXLPFAIL "Error\nMLX load png failed\n"
 # define MLXTXTFAIL "Error\nMLX texture to img failed\n"
+# define ENDGAME "Thank you for playing Aaros and Patriks game!\n"
 
 # define PI 3.14159265358979323846
 # define FOV 60
@@ -40,7 +38,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <stdio.h>
 
 typedef struct s_fcheck
 {
@@ -79,11 +76,6 @@ typedef struct s_wall
 typedef struct s_map
 {
 	int				fd;
-	int				linecount;
-	int				wallcount;
-	int				lenght;
-	int				info_set;
-	int				map_start;
 	int				map_size;
 
 	uint32_t		floor;
@@ -124,11 +116,8 @@ typedef struct s_map
 
 	int				rayamount;
 
-	double			firstray[2];
-
 	char			playerstartpos;
 	char			**mapsave;
-	char			**mapcopy;
 	char			*north;
 	char			*south;
 	char			*west;

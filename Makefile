@@ -6,7 +6,7 @@
 #    By: plang <plang@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/16 13:58:06 by plang             #+#    #+#              #
-#    Updated: 2024/08/21 17:23:59 by plang            ###   ########.fr        #
+#    Updated: 2024/08/22 13:24:14 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ BONUS = .bonus
 LIBFTDIR = ./libft
 MAKE = make
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 LIBMLX = ./MLX42
 SRCS = srcs/main.c \
 			srcs/input_extractor.c \

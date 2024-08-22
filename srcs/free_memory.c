@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:29:01 by plang             #+#    #+#             */
-/*   Updated: 2024/08/16 16:36:04 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/22 11:41:28 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	successful_exit(t_map *map, int index)
 		index--;
 	}
 	mlx_delete_image(map->mlx, map->background);
+	ft_putstr_fd(ENDGAME, 1);
 }
