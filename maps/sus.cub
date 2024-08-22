@@ -1,7 +1,7 @@
-NO ./textures/sus.png
-SO ./textures/sus.png
-WE ./textures/sus.png
-EA ./textures/sus.png
+NO ./textures/DOOR_1A.PNG
+SO ./textures/DOOR_1A.PNG
+WE ./textures/DOOR_1A.PNG
+EA ./textures/DOOR_1A.PNG
 
 F 255,0,0
 C 0,0,0

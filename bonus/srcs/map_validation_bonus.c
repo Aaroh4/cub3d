@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/21 12:17:09 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/22 14:23:54 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 	if (*i == 0 && (check->mapcpy[0][*j] == '0' || check->mapcpy[0][*j] == ' ' \
 		|| check->mapcpy[0][*j] == check->playerstartpos))
 		*invalid = 1;
+	else if (*i == (check->map_size -1) && \
+		(check->mapcpy[check->map_size - 1][*j] \
+		== '0' || check->mapcpy[check->map_size -1][*j] == ' ' \
+		|| check->mapcpy[check->map_size][*j] == check->playerstartpos))
+		*invalid = 1;
 	else if (check->mapcpy[*i][*j + 1] == ' ' || \
 		check->mapcpy[*i][*j + 1] == '\0')
 		*invalid = 1;
@@ -58,10 +63,6 @@ void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 	else if (((check->mapcpy[*i - 1] && ((int)ft_strlen(check->mapcpy[*i - 1]) \
 		< *j)) || (check->mapcpy[*i - 1] && check->mapcpy[*i - 1][*j] == '\0') \
 		|| (check->mapcpy[*i - 1][*j] && check->mapcpy[*i - 1][*j] == ' ')))
-		*invalid = 1;
-	else if (*i == check->map_size && (check->mapcpy[check->map_size][*j] \
-		== '0' || check->mapcpy[check->map_size][*j] == ' ' \
-		|| check->mapcpy[check->map_size][*j] == check->playerstartpos))
 		*invalid = 1;
 }
 
