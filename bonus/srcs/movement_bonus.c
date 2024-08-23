@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:24:42 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/21 15:36:43 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/22 14:23:17 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 static int	is_colliding(int y, int x, t_map *map)
 {
 	if (map->mapsave[y][x] == '1' || map->mapsave[y][x] == '2')
+		return (1);
+	if (((int)map->cameraposx != x && (int)map->cameraposy != y) \
+		&& (map->mapsave[y][(int)map->cameraposx] == '1' \
+		|| map->mapsave[(int)map->cameraposy][x] == '1'))
 		return (1);
 	return (0);
 }

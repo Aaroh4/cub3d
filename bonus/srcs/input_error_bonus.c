@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:29 by plang             #+#    #+#             */
-/*   Updated: 2024/08/21 14:03:38 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/23 10:59:48 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	error_inside_file(t_fcheck *check, char *str)
 
 	i = 0;
 	ft_putstr_fd(str, 2);
-	while (i < check->linecount)
+	while (i < check->count)
 	{
 		ft_strfree(check->file[i]);
 		i++;

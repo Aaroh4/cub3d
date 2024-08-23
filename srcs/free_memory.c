@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:29:01 by plang             #+#    #+#             */
-/*   Updated: 2024/08/16 16:36:04 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/23 12:16:29 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_check_struct(t_fcheck *check)
 	int	i;
 
 	i = 0;
-	while (i < check->linecount)
+	while (i < check->count)
 	{
 		ft_strfree(check->file[i]);
 		i++;
@@ -70,4 +70,5 @@ void	successful_exit(t_map *map, int index)
 		index--;
 	}
 	mlx_delete_image(map->mlx, map->background);
+	ft_putstr_fd(ENDGAME, 1);
 }

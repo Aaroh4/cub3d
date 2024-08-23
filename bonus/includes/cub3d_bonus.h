@@ -6,15 +6,14 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/21 17:16:32 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/23 15:39:32 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_BONUS_H
 # define CUB3D_BONUS_H
 
-# define WALL "textures/wall.png"
-# define GROUND "textures/ground.png"
+# define DOORTXT "./textures/DOOR_1A.PNG"
 
 # define INVTXTMAP "Error\nTextures or map invalid\n"
 # define INVRGB "Error\nRGB not valid\n"
@@ -32,7 +31,6 @@
 # define FOV 60
 # define DEGREE 0.01745329
 # define STEPSIZE 1
-# define DOORTXT "./textures/DOOR_1A.PNG"
 
 # define SCREENWIDTH  1200 // HIGHER VALUES WILL CAUSE LAG
 # define SCREENLENGTH 800 // HIGHER VALUES WILL CAUSE LAG
@@ -43,7 +41,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <stdio.h>
 
 typedef struct s_fcheck
 {
@@ -87,11 +84,6 @@ typedef struct s_map
 	int				wait_stage;
 
 	int				fd;
-	int				linecount;
-	int				wallcount;
-	int				lenght;
-	int				info_set;
-	int				map_start;
 	int				map_size;
 
 	uint32_t		floor;
@@ -139,8 +131,6 @@ typedef struct s_map
 
 	int				rayamount;
 
-	double			firstray[2];
-
 	char			playerstartpos;
 	char			**mapsave;
 	char			**mapcopy;
@@ -185,6 +175,7 @@ void		argument_check(char *argv);
 /* ************************************************************************** */
 void		data_transfer(t_map *map, t_fcheck *check);
 void		data_reading(t_fcheck *check);
+void		direc_check_rest(t_fcheck *check, int *invalid, int *i, int *j);
 
 /* ************************************************************************** */
 /*                        map_validation_bonus.c                              */
