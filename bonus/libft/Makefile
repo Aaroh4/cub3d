@@ -6,7 +6,7 @@
 #    By: plang <plang@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/04 14:40:11 by plang             #+#    #+#              #
-#    Updated: 2024/08/05 14:37:27 by plang            ###   ########.fr        #
+#    Updated: 2024/08/23 14:38:20 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	= src/ft_isalpha.c \
 		src/ft_isascii.c \
 		src/ft_isprint.c \
 		src/ft_strlen.c \
+		src/ft_arraylen.c \
 		src/ft_memset.c \
 		src/ft_bzero.c \
 		src/ft_memcpy.c \

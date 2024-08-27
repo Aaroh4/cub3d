@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 17:33:49 by plang             #+#    #+#             */
-/*   Updated: 2024/08/20 17:15:37 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/23 15:38:54 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,12 @@ void	data_reading(t_fcheck *check)
 		error_inside_file(check, INVRGB);
 	check_player_and_boarder(check);
 	clean_input_strings(check);
+}
+
+void	direc_check_rest(t_fcheck *check, int *invalid, int *i, int *j)
+{
+	if (((check->mapcpy[*i - 1] && ((int)ft_strlen(check->mapcpy[*i - 1]) \
+		< *j)) || (check->mapcpy[*i - 1] && check->mapcpy[*i - 1][*j] == '\0') \
+		|| (check->mapcpy[*i - 1][*j] && check->mapcpy[*i - 1][*j] == ' ')))
+		*invalid = 1;
 }

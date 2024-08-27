@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:46 by plang             #+#    #+#             */
-/*   Updated: 2024/08/22 14:23:54 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/23 15:50:10 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,14 @@ void	looptrough(t_fcheck *check, char *str, int count)
 void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 {
 	if (*i == 0 && (check->mapcpy[0][*j] == '0' || check->mapcpy[0][*j] == ' ' \
-		|| check->mapcpy[0][*j] == check->playerstartpos))
+		|| check->mapcpy[0][*j] == check->playerstartpos \
+		|| check->mapcpy[0][*j] == '2'))
+		*invalid = 1;
+	else if (*i == (check->map_size -1) && \
+		(check->mapcpy[check->map_size - 1][*j] \
+		== '0' || check->mapcpy[check->map_size -1][*j] == ' ' \
+		|| check->mapcpy[check->map_size -1][*j] == check->playerstartpos \
+		|| check->mapcpy[check->map_size -1][*j] == '2'))
 		*invalid = 1;
 	else if (*i == (check->map_size -1) && \
 		(check->mapcpy[check->map_size - 1][*j] \
@@ -52,7 +59,8 @@ void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 		check->mapcpy[*i][*j + 1] == '\0')
 		*invalid = 1;
 	else if (check->mapcpy[*i][0] == '0' \
-		|| check->mapcpy[*i][0] == check->playerstartpos)
+		|| check->mapcpy[*i][0] == check->playerstartpos \
+		|| check->mapcpy[*i][0] == '2')
 		*invalid = 1;
 	else if (check->mapcpy[*i][*j - 1] && check->mapcpy[*i][*j - 1] == ' ')
 		*invalid = 1;
@@ -60,10 +68,7 @@ void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 		< *j)) || (check->mapcpy[*i + 1] && check->mapcpy[*i + 1][*j] == '\0') \
 		|| (check->mapcpy[*i + 1][*j] && check->mapcpy[*i + 1][*j] == ' ')))
 		*invalid = 1;
-	else if (((check->mapcpy[*i - 1] && ((int)ft_strlen(check->mapcpy[*i - 1]) \
-		< *j)) || (check->mapcpy[*i - 1] && check->mapcpy[*i - 1][*j] == '\0') \
-		|| (check->mapcpy[*i - 1][*j] && check->mapcpy[*i - 1][*j] == ' ')))
-		*invalid = 1;
+	direc_check_rest(check, invalid, i, j);
 }
 
 int	check_char(char c)

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 11:29:01 by plang             #+#    #+#             */
-/*   Updated: 2024/08/21 17:23:39 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/23 10:59:35 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	free_check_struct(t_fcheck *check)
 	int	i;
 
 	i = 0;
-	while (i < check->linecount)
+	while (i < check->count)
 	{
 		ft_strfree(check->file[i]);
 		i++;

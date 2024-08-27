@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 09:26:52 by plang             #+#    #+#             */
-/*   Updated: 2024/08/15 17:59:15 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/23 14:41:10 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	check_rgb_floor(t_fcheck *check)
 	floor = ft_split(temp, ',');
 	if (!floor)
 		error_inside_file(check, MALLOCFAIL);
-	tempnum = check_int_of_rgb(check, floor);
+	if (ft_arraylen(floor) == 3)
+		tempnum = check_int_of_rgb(check, floor);
+	else
+		tempnum = -1;
 	if (tempnum == 0)
 	{
 		check->bottom = bitshift_rgba(ft_atoi(floor[0]), ft_atoi(floor[1]), \
@@ -93,7 +96,10 @@ void	check_rgb_ceiling(t_fcheck *check)
 	ceiling = ft_split(temp, ',');
 	if (!ceiling)
 		error_inside_file(check, MALLOCFAIL);
-	tempnum = check_int_of_rgb(check, ceiling);
+	if (ft_arraylen(ceiling) == 3)
+		tempnum = check_int_of_rgb(check, ceiling);
+	else
+		tempnum = -1;
 	if (tempnum == 0)
 	{
 		check->top = bitshift_rgba(ft_atoi(ceiling[0]), ft_atoi(ceiling[1]), \

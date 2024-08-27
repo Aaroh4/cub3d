@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 14:03:33 by plang             #+#    #+#             */
-/*   Updated: 2024/08/22 14:08:47 by plang            ###   ########.fr       */
+/*   Updated: 2024/08/23 15:39:32 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ void		argument_check(char *argv);
 /* ************************************************************************** */
 void		data_transfer(t_map *map, t_fcheck *check);
 void		data_reading(t_fcheck *check);
+void		direc_check_rest(t_fcheck *check, int *invalid, int *i, int *j);
 
 /* ************************************************************************** */
 /*                        map_validation_bonus.c                              */
