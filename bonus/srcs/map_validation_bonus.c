@@ -50,6 +50,11 @@ void	direction_check(t_fcheck *check, int *invalid, int *i, int *j)
 		|| check->mapcpy[check->map_size -1][*j] == check->playerstartpos \
 		|| check->mapcpy[check->map_size -1][*j] == '2'))
 		*invalid = 1;
+	else if (*i == (check->map_size -1) && \
+		(check->mapcpy[check->map_size - 1][*j] \
+		== '0' || check->mapcpy[check->map_size -1][*j] == ' ' \
+		|| check->mapcpy[check->map_size][*j] == check->playerstartpos))
+		*invalid = 1;
 	else if (check->mapcpy[*i][*j + 1] == ' ' || \
 		check->mapcpy[*i][*j + 1] == '\0')
 		*invalid = 1;
