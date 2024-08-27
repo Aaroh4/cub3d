@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rendering.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahamalai <ahamalai@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 12:25:31 by ahamalai          #+#    #+#             */
-/*   Updated: 2024/08/19 12:41:30 by ahamalai         ###   ########.fr       */
+/*   Updated: 2024/08/27 11:39:48 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ void	makethewalls(t_map *map)
 {
 	int	wall_height;
 	int	i;
-	int	untily;
 	int	drawstart;
 	int	drawend;
 
@@ -102,7 +101,6 @@ void	makethewalls(t_map *map)
 	if (drawstart < 0)
 		drawstart = 0;
 	drawend = wall_height / 2 + SCREENLENGTH / 2;
-	untily = 0;
 	while (i < SCREENLENGTH)
 	{
 		if (i < drawstart)
